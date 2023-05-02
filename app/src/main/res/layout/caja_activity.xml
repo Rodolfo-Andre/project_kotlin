@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/tvTitulo"
+            android:id="@+id/tvManUsu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Caja Registradora"
@@ -150,7 +150,7 @@
                 android:textColorHint="@color/placeholder_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPrecioInicio"
+                    android:id="@+id/edtUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
