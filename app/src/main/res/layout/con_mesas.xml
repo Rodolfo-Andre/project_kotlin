@@ -20,45 +20,68 @@
             android:layout_margin="4dp"
             android:text="Configuracion de Mesas" />
 
-        <Spinner
-            android:id="@+id/spnMesas"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Buscar..."
-            android:textColorHint="@color/placeholder_text">
+            android:layout_height="557dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtBuscarMesas"
+
+            <Spinner
+                android:id="@+id/spnMesas"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:hint="Buscar..."
+                android:textColorHint="@color/placeholder_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtBuscarMesas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAplicarMesa"
-            android:layout_width="379dp"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/teal_700"
-            android:src="@drawable/ic_delete"
-            android:text="APLICAR BUSQUEDA" />
+            android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAgregarMesa"
-            android:layout_width="379dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/teal_700"
-            android:src="@drawable/ic_delete"
-            android:text="AGREGAR USUARIO" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAplicarMesa"
+                android:layout_width="379dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/teal_700"
+                android:src="@drawable/ic_delete"
+                android:text="APLICAR BUSQUEDA" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAgregarMesa"
+                android:layout_width="379dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/teal_700"
+                android:src="@drawable/ic_delete"
+                android:text="AGREGAR USUARIO" />
+
+        </LinearLayout>
+
+
+
+
+
+
 
 
     </LinearLayout>
