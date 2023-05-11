@@ -15,12 +15,26 @@
         android:gravity="center_horizontal|center_vertical">
 
         <TextView
-            android:id="@+id/tvManUsu"
+            android:id="@+id/tvTitulo"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="Actualizar comandas" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?attr/dividerColor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstComandas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
 
 
