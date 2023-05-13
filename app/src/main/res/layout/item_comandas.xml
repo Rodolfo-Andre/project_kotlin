@@ -32,12 +32,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvNumComandaG"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Título del elemento"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tvEstadoComanda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Descripción del elemento"
@@ -47,25 +49,28 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/btnEditarComanda"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_edit"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="4dp"
-                    android:layout_gravity="center_vertical" />
+                    android:src="@drawable/icon_edit" />
 
                 <ImageView
+                    android:id="@+id/btnEliminarComanda"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_delete"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="4dp"
-                    android:layout_gravity="center_vertical" />
+                    android:src="@drawable/icon_delete" />
 
                 <ImageView
+                    android:id="@+id/btnVerComanda"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_view_c"
+                    android:layout_gravity="center_vertical"
                     android:layout_margin="4dp"
-                    android:layout_gravity="center_vertical" />
+                    android:src="@drawable/icon_view_c" />
 
             </LinearLayout>
             <View

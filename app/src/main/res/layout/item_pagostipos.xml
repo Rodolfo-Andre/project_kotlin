@@ -31,13 +31,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recibo N° 1001"
+                        android:text="Pago por:"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tvTipoPago"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DNI: 88888888"
+                        android:text="Yape"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -52,32 +53,25 @@
                     android:gravity="end">
 
                     <TextView
+                        android:id="@+id/tvRecaudadoTipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Comanda: C02-101"
-                        android:gravity="end" />
+                        android:gravity="end"
+                        android:text="Recaudado: S/. 0.00" />
 
                     <TextView
+                        android:id="@+id/tvCantidadPTipos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Obtenido: S/. 0.0"
-                        android:gravity="end" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ver"
-                        android:textStyle="bold"
-                        android:textColorLink="@color/button_blue" />
-
-
+                        android:gravity="end"
+                        android:text="Total pagos: 0" />
 
                 </LinearLayout>
 
 
 
             </LinearLayout>
+
         </LinearLayout>
 
 
@@ -90,8 +84,5 @@
 
 
     </androidx.cardview.widget.CardView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

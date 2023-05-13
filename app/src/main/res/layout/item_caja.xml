@@ -29,15 +29,17 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvNumRecibo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pago por:"
+                        android:text="Recibo N° 1001"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tvDNI"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Yape"
+                        android:text="DNI: 88888888"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -52,16 +54,28 @@
                     android:gravity="end">
 
                     <TextView
+                        android:id="@+id/tvNumComanda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recaudado: S/. 0.00"
-                        android:gravity="end" />
+                        android:gravity="end"
+                        android:text="Comanda: C02-101" />
 
                     <TextView
+                        android:id="@+id/tvObtenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total pagos: 0"
-                        android:gravity="end" />
+                        android:gravity="end"
+                        android:text="Obtenido: S/. 0.0" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ver"
+                        android:textStyle="bold"
+                        android:textColorLink="@color/button_blue" />
+
+
 
                 </LinearLayout>
 
