@@ -52,7 +52,7 @@
             android:layout_marginEnd="16dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/teal_700"
-            android:src="@drawable/ic_delete"
+            android:src="@drawable/icon_delete"
             android:text="APLICAR BUSQUEDA" />
 
         <com.google.android.material.button.MaterialButton
@@ -62,7 +62,7 @@
             android:layout_marginEnd="16dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/teal_700"
-            android:src="@drawable/ic_delete"
+            android:src="@drawable/icon_delete"
             android:text="AGREGAR METODO DE PAGO" />
 
 
