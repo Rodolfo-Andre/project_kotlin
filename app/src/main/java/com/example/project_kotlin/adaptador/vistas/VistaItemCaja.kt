@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 
-class vistaItemCaja (itemView: View): RecyclerView.ViewHolder(itemView) {
+class VistaItemCaja (itemView: View): RecyclerView.ViewHolder(itemView) {
     //Atributos
     var tvNumRecibo:TextView
     var tvDNI:TextView

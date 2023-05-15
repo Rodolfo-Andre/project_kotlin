@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 
-class vistaItemComanda (itemView: View): RecyclerView.ViewHolder(itemView) {
+class VistaItemComanda (itemView: View): RecyclerView.ViewHolder(itemView) {
     //Atributos
     var tvNumComandaG:TextView
     var tvEstadoComanda:TextView

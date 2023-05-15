@@ -1,7 +1,6 @@
 package com.example.project_kotlin
 
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**
