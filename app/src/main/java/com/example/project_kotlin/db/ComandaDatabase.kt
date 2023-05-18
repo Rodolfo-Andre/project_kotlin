@@ -24,6 +24,9 @@ abstract class ComandaDatabase : RoomDatabase() {
     abstract fun categoriaPlatoDao() : CategoriaPlatoDao
     abstract fun mesaDao() : MesaDao
 
+    //Entidades de Gary Morales
+    abstract fun metodoPagoDao() : MetodoPagoDao
+
     companion object {
         @Volatile
         private var INSTANCIA: ComandaDatabase? = null
