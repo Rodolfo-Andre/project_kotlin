@@ -6,7 +6,7 @@ import com.example.project_kotlin.entidades.Mesa
 @Dao
 interface MesaDao {
     @Query("SELECT * FROM mesa")
-     fun obtenerTodo() : List<Mesa>
+     fun obtenerTodo() : ArrayList<Mesa>
 
     @Query("SELECT * FROM mesa WHERE id = :id")
      fun obtenerPorId(id: Long) : Mesa

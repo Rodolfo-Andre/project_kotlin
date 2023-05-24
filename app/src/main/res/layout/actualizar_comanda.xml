@@ -30,12 +30,11 @@
             android:layout_marginBottom="8dp"
             android:background="?attr/dividerColor" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lstComandas"
+        <Button
+            android:id="@+id/btnPruebaMesas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
+            android:layout_height="wrap_content"
+            android:text="Mesas" />
 
 
     </LinearLayout>

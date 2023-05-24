@@ -22,6 +22,11 @@
             android:layout_margin="4dp"
             android:text="Actualizar comandas" />
 
+        <Button
+            android:id="@+id/btnPruebaMesa2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
 
     </LinearLayout>
