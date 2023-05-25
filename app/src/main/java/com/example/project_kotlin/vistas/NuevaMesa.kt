@@ -12,7 +12,7 @@ class NuevaMesa  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_mesa)
-        btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
+        btnVolverListadoMesa = findViewById(R.id.btnCancelarMesa)
         btnVolverListadoMesa.setOnClickListener({volver()})
     }
     fun volver(){

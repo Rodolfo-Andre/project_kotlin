@@ -7,25 +7,25 @@
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="729dp"
-        android:orientation="vertical"
         android:padding="16dp"
+        android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
         <TextView
-            android:id="@+id/tvManUsu"
+            android:id="@+id/tvMantMesa"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="Nueva Mesa" />
-
+            android:text="Modificar Mesa" />
 
         <View
-            android:id="@+id/divider17"
+            android:id="@+id/divider16"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:textColorHint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtCanMesa"
+                    android:id="@+id/edtCanModMesa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -55,6 +55,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/divider18"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:layout_width="377dp"
@@ -68,20 +74,20 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnAgregarMesa"
+                android:id="@+id/btnEditarMesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/teal_700"
-                android:text="AGREGAR" />
+                android:text="EDITAR" />
 
             <Button
-                android:id="@+id/btnCancelarMesa"
+                android:id="@+id/btnEliminarMesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/md_theme_dark_errorContainer"
-                android:text="CANCELAR" />
+                android:text="ELIMINAR" />
 
         </LinearLayout>
 
