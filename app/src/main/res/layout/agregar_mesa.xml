@@ -47,7 +47,7 @@
                 android:textColorHint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtCanMesa"
+                    android:id="@+id/edtCanAsientosMesaA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -68,7 +68,11 @@
             android:orientation="horizontal">
 
             <Button
+<<<<<<< HEAD
                 android:id="@+id/btnAgregarMesa"
+=======
+                android:id="@+id/btnNuevaMesaA"
+>>>>>>> 69454642504752a937eeb405126735d52e15b51c
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
