@@ -29,16 +29,16 @@ class NuevaMesa  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_mesa)
-<<<<<<< HEAD
-        btnVolverListadoMesa = findViewById(R.id.btnCancelarMesa)
-=======
+
+        btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
+
         db = Room.databaseBuilder(
             this, ComandaDatabase::class.java, "comanda_database").build()
 
         btnAgregar = findViewById(R.id.btnNuevaMesaA)
         edCantidadAsientos = findViewById(R.id.edtCanAsientosMesaA)
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
->>>>>>> 69454642504752a937eeb405126735d52e15b51c
+
         btnVolverListadoMesa.setOnClickListener({volver()})
         btnAgregar.setOnClickListener({agregarMesa(db)})
     }
