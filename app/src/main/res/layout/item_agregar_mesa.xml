@@ -12,12 +12,7 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <TextView
-            style="@style/subTituloPagina"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="  Mesas:" />
+
 
         <View
             android:id="@+id/divider10"
@@ -29,6 +24,18 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código de mesa:" />
+
+        <TextView
+            android:id="@+id/tvCodMesaListado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="---" />
 
         <TextView
             android:id="@+id/textView20"
