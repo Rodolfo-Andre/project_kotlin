@@ -99,24 +99,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="279dp">
 
-        <TextView
-            android:id="@+id/textView15"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListadoMesasCon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="188dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAgregarUsu"
-            android:layout_width="379dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/button_blue"
-            android:src="@drawable/icon_delete"
-            android:text="AGREGAR MESA" />
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNuevaMesaCon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/button_blue"
+                android:src="@drawable/icon_delete"
+                android:text="AGREGAR MESA" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditarMesaCon"
+                android:layout_width="363dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/button_blue"
+                android:src="@drawable/icon_delete"
+                android:text="EDITAR MESA" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

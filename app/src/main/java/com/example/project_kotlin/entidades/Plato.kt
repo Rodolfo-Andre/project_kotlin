@@ -21,4 +21,16 @@ class Plato (
     @NonNull @ColumnInfo(name="nom_imagen") var nombreImagen : String,
     @NonNull @ColumnInfo(name="id_cat_plato") var idCatPlato : String){
 
+    companion object {
+        fun generarCodigo(listaPlatos: List<Plato>): String {
+            if (listaPlatos.isEmpty()) return "P-01"
+
+            val ultimoCodigo = listaPlatos.last().id
+            val numero = ultimoCodigo.split('-')[1].toInt() + 1
+
+            return "P-${String.format("%03d", numero)}"
+        }
+    }
+
+
 }

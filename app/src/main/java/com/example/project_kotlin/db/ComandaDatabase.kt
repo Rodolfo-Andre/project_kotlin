@@ -10,7 +10,10 @@ import java.util.*
     entities = [Apertura::class, Caja::class,
         Cargo::class, Comanda::class,
         Comprobante::class, Usuario::class,
-        CategoriaPlato::class, Mesa::class,Plato::class],
+        CategoriaPlato::class, Mesa::class,
+        DetalleComprobante::class, DetalleComanda::class,
+        Empleado::class, Plato::class, Establecimiento::class,
+        EstadoComanda::class, MetodoPago::class, TipoComprobante::class],
     version = 1,
     exportSchema = false)
 @TypeConverters(DateConverter::class)
@@ -30,6 +33,13 @@ abstract class ComandaDatabase : RoomDatabase() {
 
     //Entidades de Gary Morales
     abstract fun metodoPagoDao() : MetodoPagoDao
+    abstract fun tipoComprobanteDao() : TipoComprobanteDao
+    abstract fun estadoComandaDao(): EstadoComandaDao
+    abstract fun establecimientoDao() : EstablecimientoDao
+    abstract fun platoDao() : PlatoDao
+    abstract fun empleadoDao() : EmpleadoDao
+    abstract fun detalleComandaDao() : DetalleComandaDao
+    abstract fun detalleComprobanteDao() : DetalleComprobanteDao
 
     companion object {
         @Volatile

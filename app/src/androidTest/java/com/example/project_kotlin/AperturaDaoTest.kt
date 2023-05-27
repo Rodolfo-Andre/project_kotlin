@@ -7,11 +7,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.project_kotlin.dao.AperturaDao
 import com.example.project_kotlin.dao.CajaDao
 import com.example.project_kotlin.dao.CategoriaPlatoDao
+import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.Apertura
-import com.example.project_kotlin.entidades.Caja
-import com.example.project_kotlin.entidades.CategoriaPlato
-import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.entidades.*
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.Assert.*
@@ -28,6 +26,7 @@ class AperturaDaoTest {
     private lateinit var cajaDao: CajaDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
     private lateinit var db: ComandaDatabase
+    private lateinit var platoDao: PlatoDao
 
     @Before
     fun crearDb() {
@@ -37,6 +36,7 @@ class AperturaDaoTest {
         aperturaDao = db.aperturaDao()
         categoriaPlatoDao = db.categoriaPlatoDao()
         cajaDao = db.cajaDao()
+        platoDao = db.platoDao()
     }
 
     @After
@@ -48,7 +48,7 @@ class AperturaDaoTest {
     @Test
     @Throws(Exception::class)
     fun registrarCajaAperturaLeerCajaConApertura() {
-        var caja = Caja()
+        /*var caja = Caja()
         var cajaId = cajaDao.guardar(caja)
 
         var apertura = Apertura(cajaId = cajaId.toInt())
@@ -56,6 +56,15 @@ class AperturaDaoTest {
 
         var aperturaBD = aperturaDao.obtenerPorId(id)
 
-        System.out.println(cajaDao.obtenerCajaConAperturas())
+        System.out.println(cajaDao.obtenerCajaConAperturas())*/
+
+        var categoria = CategoriaPlato("C-001", "Chafuas")
+        var plato = Plato("P-001", "Pollo", 22.5, "SADAS", "C-001")
+
+        var categoriaID = categoriaPlatoDao.guardar(categoria)
+        System.out.println(categoriaPlatoDao.obtenerTodo())
+        var platoID = platoDao.guardar(plato)
+        System.out.println(platoDao.obtenerTodo())
+
     }
 }

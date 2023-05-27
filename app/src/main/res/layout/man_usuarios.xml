@@ -161,7 +161,7 @@
                 android:layout_weight="0.5" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAgregarUsu"
+                android:id="@+id/btnNuevaMesaCon"
                 android:layout_width="379dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
