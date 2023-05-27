@@ -130,14 +130,14 @@
                 android:text="AGREGAR MESA" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEditarMesaCon"
+                android:id="@+id/btnRegresarIndexMesas"
                 android:layout_width="363dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="0.5"
                 android:backgroundTint="@color/button_blue"
                 android:src="@drawable/icon_delete"
-                android:text="EDITAR MESA" />
+                android:text="Regresar" />
 
         </LinearLayout>
 

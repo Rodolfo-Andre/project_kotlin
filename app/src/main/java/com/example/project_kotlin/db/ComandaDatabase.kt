@@ -27,8 +27,6 @@ abstract class ComandaDatabase : RoomDatabase() {
     abstract fun categoriaPlatoDao() : CategoriaPlatoDao
     abstract fun mesaDao() : MesaDao
 
-    //Entidades de Jorge Chavez
-    abstract  fun platoDao() : PlatoDao
 
 
     //Entidades de Gary Morales

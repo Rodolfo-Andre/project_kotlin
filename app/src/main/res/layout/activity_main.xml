@@ -24,12 +24,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnPruebaMesa2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"

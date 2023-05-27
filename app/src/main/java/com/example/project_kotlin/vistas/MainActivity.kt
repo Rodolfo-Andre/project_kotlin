@@ -16,22 +16,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), OnClickListener {
-    lateinit var btnAperturar: Button
-    lateinit var mesaControlador: MesaControlador
+    lateinit var btnIngresar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        btnMesa = findViewById(R.id.btnPruebaMesa2)
-        btnMesa.setOnClickListener({vincular()})
+        btnIngresar = findViewById(R.id.btnIngresar)
+        btnIngresar.setOnClickListener({vincular()})
 
+    }
+    fun vincular(){
+        var intent = Intent(this, DatosMesas::class.java)
+        startActivity(intent)
     }
 
     override fun onClick(v: View?) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                System.out.println("Tamaño ${mesaControlador.listado().size}")
-            }
-        }
+
     }
 }
