@@ -37,7 +37,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tvCodPlato"
+                        android:id="@+id/tvCodPlatos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="coddish"
@@ -46,7 +46,12 @@
 
                 </LinearLayout>
             </LinearLayout>
-
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,11 +69,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre Plato:"
+                        android:text="Categoria Plato:"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tvNombrePlato"
+                        android:id="@+id/tvCatNomPlatos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="dish"
@@ -76,9 +81,35 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre Plato:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvNombrePlatos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="dish"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </LinearLayout>
-
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,10 +132,10 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tvPrecioPlato"
+                        android:id="@+id/tvPrecioPlatos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="dish"
+                        android:text="$ "
                         android:textSize="14sp" />
 
 

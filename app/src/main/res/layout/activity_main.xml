@@ -7,24 +7,187 @@
     android:layout_height="match_parent"
     tools:context=".vistas.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal|center_vertical">
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="127dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/tvManUsu"
-            style="@style/TituloPagina"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="Actualizar comandas" />
+            android:orientation="vertical">
 
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="SISTEMA DE COMANDAS"
 
-    </LinearLayout>
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="344dp"
+                android:layout_height="189dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/computadora_removebg_preview" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="EMAIL">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="PASSWORD"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIngresar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Ingresar"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="¿Olvidaste Tu Contraseña?"
+
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRecuperar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Recuperar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </ScrollView>
+
 
 
 

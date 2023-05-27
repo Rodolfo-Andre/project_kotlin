@@ -6,91 +6,156 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="350dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/icon_edit" />
-
-        <TextView
-            android:id="@+id/tvCodCategoriaPlatos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="a"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="6dp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="350dp"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/icon_edit" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="188dp"
+                android:id="@+id/tvCodCategoriaPlatos"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Nombre Categoria Plato" />
+                android:text="a"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="213dp"
-                android:layout_height="wrap_content">
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtCategoriaNombres"
-                    android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="188dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:gravity="center"
+                    android:text="Nombre Categoria Plato" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="213dp"
+                    android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="6dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtCategoriaNombres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="6dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:id="@+id/divider25"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEditar"
-                android:layout_width="200dp"
+                android:id="@+id/btnEditarCategoria"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:backgroundTint="@color/teal_200"
                 android:text="Editar"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancelar"
+                android:id="@+id/btnEliminarCat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Eliminar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelarCat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
                 android:text="Cancelar"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp" />
 
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

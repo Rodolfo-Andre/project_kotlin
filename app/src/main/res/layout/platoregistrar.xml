@@ -6,16 +6,26 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
+        android:layout_width="415dp"
+        android:layout_height="615dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -23,21 +33,37 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/ic_menu_add" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nuevo Plato"
                 android:gravity="center"
+                android:text="Nuevo Plato"
                 android:textSize="26sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView2"
+            <View
+                android:id="@+id/divider8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -75,6 +101,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -99,6 +129,11 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
@@ -123,9 +158,15 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,39 +185,61 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
-            <LinearLayout
+
+            <View
+                android:id="@+id/divider20"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAgregar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:backgroundTint="@color/teal_200"
+                android:gravity="center"
+                android:text="Agregar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAgregar"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
-                    android:text="Agregar"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCancelar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Cancelar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
 
-                    android:text="Cancelar"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

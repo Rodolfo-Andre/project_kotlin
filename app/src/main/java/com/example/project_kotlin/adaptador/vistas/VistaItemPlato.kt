@@ -10,10 +10,12 @@ class VistaItemPlato(itemView: View):RecyclerView.ViewHolder(itemView) {
     var tvCodPlato:TextView
     var tvNombrePlato:TextView
     var tvPrecioPlato:TextView
+    var tvCatNomPlato:TextView
 
     init {
-        tvCodPlato = itemView.findViewById(R.id.tvCodPlato)
-        tvNombrePlato = itemView.findViewById(R.id.tvNombrePlato)
-        tvPrecioPlato = itemView.findViewById(R.id.tvPrecioPlato)
+        tvCodPlato = itemView.findViewById(R.id.tvCodPlatos)
+        tvNombrePlato = itemView.findViewById(R.id.tvNombrePlatos)
+        tvPrecioPlato = itemView.findViewById(R.id.tvPrecioPlatos)
+        tvCatNomPlato = itemView.findViewById(R.id.tvCatNomPlatos)
     }
 }

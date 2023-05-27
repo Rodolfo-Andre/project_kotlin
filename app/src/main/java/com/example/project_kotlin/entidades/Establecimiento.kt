@@ -5,7 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Establecimiento")
-class Establecimiento(
+class
+Establecimiento(
     @PrimaryKey var id: Long = 0,
     @ColumnInfo(name="nom_Establecimiento") var nombreEstablecimiento: String,
     @ColumnInfo(name="telefono_establecimiento") var telefonoEstablecimiento: String,

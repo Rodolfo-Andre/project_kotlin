@@ -10,7 +10,7 @@ import java.util.*
     entities = [Apertura::class, Caja::class,
         Cargo::class, Comanda::class,
         Comprobante::class, Usuario::class,
-        CategoriaPlato::class, Mesa::class],
+        CategoriaPlato::class, Mesa::class,Plato::class],
     version = 1,
     exportSchema = false)
 @TypeConverters(DateConverter::class)
@@ -23,6 +23,10 @@ abstract class ComandaDatabase : RoomDatabase() {
     abstract fun usuarioDao() : UsuarioDao
     abstract fun categoriaPlatoDao() : CategoriaPlatoDao
     abstract fun mesaDao() : MesaDao
+
+    //Entidades de Jorge Chavez
+    abstract  fun platoDao() : PlatoDao
+
 
     //Entidades de Gary Morales
     abstract fun metodoPagoDao() : MetodoPagoDao

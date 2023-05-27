@@ -9,14 +9,16 @@
     <ScrollView
         android:layout_width="409dp"
         android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -25,21 +27,19 @@
                 app:srcCompat="@drawable/icon_edit" />
 
             <TextView
-                android:id="@+id/tvCodPlato"
+                android:id="@+id/tvCodPlatos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="a" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
 
             <View
+                android:id="@+id/divider5"
                 android:layout_width="match_parent"
-                android:layout_height="6dp" />
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtNombrePlato"
+                        android:id="@+id/edtNamePlato"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -90,13 +90,14 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPrecioPlato"
+                        android:id="@+id/edtPrePlato"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
@@ -114,16 +115,18 @@
                     android:text="Imagen del plato" />
 
                 <ImageButton
-                    android:id="@+id/imagenPlato"
+                    android:id="@+id/imgPlato"
                     android:layout_width="214dp"
                     android:layout_height="69dp"
                     android:layout_weight="1"
                     tools:srcCompat="@tools:sample/avatars" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -132,43 +135,106 @@
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="188dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:gravity="center"
                     android:text="Categoria" />
 
+
                 <Spinner
-                    android:id="@+id/spCategoria"
+                    android:id="@+id/spCatplato"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_weight="1" />
+
+
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
-            <LinearLayout
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="6dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEditar"
-                    android:layout_width="197dp"
-                    android:layout_height="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
-                    android:text="Editar"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCancelar"
-                    android:layout_width="197dp"
-                    android:layout_height="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
-                    android:text="Cancelar"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
 
-            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Editar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Eliminar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:text="Cancelar"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
