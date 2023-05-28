@@ -13,6 +13,7 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.MesaDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.utils.appConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,6 @@ class NuevaMesa : AppCompatActivity() {
     private lateinit var edCantidadAsientos: EditText
     private lateinit var db: ComandaDatabase
     private lateinit var mesaDao: MesaDao
-    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +66,8 @@ class NuevaMesa : AppCompatActivity() {
     }
 
     private fun mostrarToast(mensaje: String) {
-        handler.post {
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
 }

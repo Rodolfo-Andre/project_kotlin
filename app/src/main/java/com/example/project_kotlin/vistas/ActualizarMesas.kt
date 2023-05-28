@@ -31,7 +31,6 @@ class ActualizarMesas : AppCompatActivity() {
     private lateinit var db: ComandaDatabase
     private lateinit var mesaDao: MesaDao
     private lateinit var comandaDao: ComandaDao
-    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +113,8 @@ class ActualizarMesas : AppCompatActivity() {
     }
 
     private fun mostrarToast(mensaje: String) {
-        handler.post {
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
 }
