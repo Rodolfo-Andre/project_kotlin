@@ -2,6 +2,7 @@ package com.example.project_kotlin.utils
 
 import android.app.Application
 import android.content.Context
+
 //QUIERO EL CONTEXTO DE LA APLICACIÓN, LO TRABAJARÉ COMO EN CLASE CON ROOM
 class appConfig: Application() {
     //Variables globales
@@ -10,6 +11,8 @@ class appConfig: Application() {
         lateinit var CONTEXT: Context
 
     }
+
+
 
     override fun onCreate() {
         super.onCreate()

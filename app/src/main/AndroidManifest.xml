@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".utils.appConfig"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -10,8 +11,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_kotlin"
-        tools:targetApi="31"
-        android:name=".ComandaApplication">
+        tools:targetApi="31">
+        <!--Activity Main - Login-->>
+
         <activity
             android:name=".vistas.MainActivity"
             android:exported="true">
@@ -24,6 +26,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <!--Configuración de mesas-->>
 
         <activity
             android:name=".vistas.DatosMesas"
@@ -43,6 +46,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".vistas.ActualizarMesas"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--Configuración de categoría platos-->>
+
+
         <activity
             android:name=".vistas.EditCatPlatoActivity"
             android:exported="true">

@@ -6,5 +6,5 @@ import androidx.room.*
 data class Mesa (
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     @ColumnInfo(name = "cantidad_asientos") var cantidadAsientos: Int,
-    @ColumnInfo(name = "estado_mesa", defaultValue = "Libre") var estadoMesa: String? = null) {
+    @ColumnInfo(name = "estado_mesa", defaultValue = "Libre") var estadoMesa: String? = null):java.io.Serializable {
 }

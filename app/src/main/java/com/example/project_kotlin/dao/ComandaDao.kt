@@ -11,6 +11,9 @@ interface ComandaDao {
     @Query("SELECT * FROM comanda WHERE id = :id")
      fun obtenerPorId(id: Long) : Comanda
 
+     @Query("SELECT * FROM comanda WHERE mesa_id = :mesa_id")
+     fun obtenerComandasPorMesa(mesa_id: Int) : List<Comanda>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun guardar(comanda: Comanda) : Long
 

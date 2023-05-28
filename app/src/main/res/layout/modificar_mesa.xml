@@ -34,6 +34,37 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/textViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Número de mesa:" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNumMesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +95,7 @@
 
         <LinearLayout
             android:layout_width="377dp"
-            android:layout_height="454dp"
+            android:layout_height="325dp"
             android:orientation="horizontal"
             android:padding="16dp" />
 
@@ -88,6 +119,13 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/md_theme_dark_errorContainer"
                 android:text="ELIMINAR" />
+
+            <Button
+                android:id="@+id/btnVolverListadoEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Volver" />
 
         </LinearLayout>
 

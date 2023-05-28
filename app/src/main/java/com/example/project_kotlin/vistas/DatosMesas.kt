@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.project_kotlin.ComandaApplication
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.MesaDao
@@ -16,7 +15,6 @@ import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DatosMesas : AppCompatActivity(){
     private lateinit var rvMesas : RecyclerView
@@ -40,16 +38,12 @@ class DatosMesas : AppCompatActivity(){
         btnNuevaMesa.setOnClickListener({adicionar()})
     }
     fun obtenerMesas(room: ComandaDatabase){
-        lifecycleScope.launch{
-            withContext(Dispatchers.IO) {
-                var datos = mesaDao.obtenerTodo()
-                val datosConvertidos: ArrayList<Mesa> = ArrayList(datos)
-                val adaptador = ConfiguracionMesasAdapter(datosConvertidos)
-                rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
-                rvMesas.adapter = adaptador
-
-            }
-
+        lifecycleScope.launch(Dispatchers.IO){
+            var datos = mesaDao.obtenerTodo()
+            val datosConvertidos: ArrayList<Mesa> = ArrayList(datos)
+            val adaptador = ConfiguracionMesasAdapter(datosConvertidos)
+            rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
+            rvMesas.adapter = adaptador
 
         }
     }
