@@ -1,29 +1,25 @@
-package com.example.project_kotlin.adaptador.adaptadores
+package com.example.project_kotlin.adaptador.adaptadores.mesas
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
-import com.example.project_kotlin.adaptador.vistas.VistaItemAgregarMesa
+import com.example.project_kotlin.adaptador.vistas.mesas.VistaItemAgregarMesa
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.ActualizarMesas
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.project_kotlin.vistas.mesas.ActualizarMesas
 
-class ConfiguracionMesasAdapter(val info:ArrayList<Mesa>):RecyclerView.Adapter<VistaItemAgregarMesa>() {
+class ConfiguracionMesasAdapter(var info:List<Mesa>):RecyclerView.Adapter<VistaItemAgregarMesa>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemAgregarMesa {
         val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_agregar_mesa, parent, false)
         return VistaItemAgregarMesa(vista)
     }
 
-    override fun getItemCount(): Int {
-        return info.size
-    }
+    override fun getItemCount(): Int = info.size
+
 
     override fun onBindViewHolder(holder: VistaItemAgregarMesa, position: Int) {
         holder.tvID.text = "" + info.get(position).id
@@ -38,5 +34,9 @@ class ConfiguracionMesasAdapter(val info:ArrayList<Mesa>):RecyclerView.Adapter<V
             ContextCompat.startActivity(context, intent, null)
         }
 
+    }
+    fun actualizarListaMesas(info:List<Mesa>){
+        this.info = info
+        notifyDataSetChanged()
     }
 }

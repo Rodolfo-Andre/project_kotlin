@@ -29,7 +29,7 @@
         <!--Configuración de mesas-->>
 
         <activity
-            android:name=".vistas.DatosMesas"
+            android:name=".vistas.mesas.DatosMesas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".vistas.NuevaMesa"
+            android:name=".vistas.mesas.NuevaMesa"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".vistas.ActualizarMesas"
+            android:name=".vistas.mesas.ActualizarMesas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
