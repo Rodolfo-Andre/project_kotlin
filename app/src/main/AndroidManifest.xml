@@ -26,7 +26,29 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <!--Configuración de mesas-->>
+        <!--iNDEX COMANDAS-->
+        <activity
+            android:name=".vistas.IndexComandasActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--CONFIGURACION VISTA-->
+        <activity
+            android:name=".vistas.ConfiguracionVista"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--Configuración de mesas-->
 
         <activity
             android:name=".vistas.mesas.DatosMesas"
@@ -77,6 +99,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--CAJA ACTIVITY-->
+
+        <activity
+            android:name=".vistas.CajaVista"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
+
 
 </manifest>

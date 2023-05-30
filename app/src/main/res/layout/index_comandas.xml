@@ -34,7 +34,7 @@
             tools:layout_editor_absoluteY="1dp" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv"
+            android:id="@+id/cvConfiguracion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -78,6 +78,15 @@
                         android:layout_marginTop="2dp"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Configuración"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -86,7 +95,7 @@
         //
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv1"
+            android:id="@+id/cvCajaRegistradora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -148,7 +157,7 @@
         //
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv2"
+            android:id="@+id/cvPedidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -206,21 +215,12 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:text="Configuración"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="25sp"
-                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         //
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv3"
+            android:id="@+id/cvReportes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

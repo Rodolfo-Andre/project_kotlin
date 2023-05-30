@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     }
     fun vincular(){
-        var intent = Intent(this, DatosMesas::class.java)
+        var intent = Intent(this, IndexComandasActivity::class.java)
         startActivity(intent)
     }
 
