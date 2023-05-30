@@ -43,6 +43,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="250dp"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/black">
 

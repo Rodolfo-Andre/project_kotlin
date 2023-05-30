@@ -18,6 +18,12 @@
         <item>Opción 3</item>
     </string-array>
 
+    <string-array name="estadosMesa">
+        <item>Seleccionar estado</item>
+        <item>Libre</item>
+        <item>Ocupado</item>
+    </string-array>
+
 
     <string name="element_text">Elemento</string>
 

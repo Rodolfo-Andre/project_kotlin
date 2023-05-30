@@ -1,8 +1,7 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.mesas
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
