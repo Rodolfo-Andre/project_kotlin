@@ -21,7 +21,6 @@ class NuevaMesa : AppCompatActivity() {
     private lateinit var btnVolverListadoMesa: Button
     private lateinit var btnAgregar: Button
     private lateinit var edCantidadAsientos: EditText
-    private lateinit var db: ComandaDatabase
     private lateinit var mesaDao: MesaDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,16 +28,15 @@ class NuevaMesa : AppCompatActivity() {
         setContentView(R.layout.agregar_mesa)
 
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
-        db = Room.databaseBuilder(this, ComandaDatabase::class.java, "comanda_database").build()
-        mesaDao = db.mesaDao()
+        mesaDao = appConfig.db.mesaDao()
         btnAgregar = findViewById(R.id.btnNuevaMesaA)
         edCantidadAsientos = findViewById(R.id.edtCanAsientosMesaA)
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
         btnVolverListadoMesa.setOnClickListener { volver() }
-        btnAgregar.setOnClickListener { agregarMesa(db) }
+        btnAgregar.setOnClickListener { agregarMesa() }
     }
 
-    fun agregarMesa(room: ComandaDatabase) {
+    fun agregarMesa() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (validarCampos()) {
                 val cantidad = edCantidadAsientos.text.toString().toInt()

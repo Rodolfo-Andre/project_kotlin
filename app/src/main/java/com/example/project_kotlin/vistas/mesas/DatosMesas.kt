@@ -18,6 +18,7 @@ import com.example.project_kotlin.dao.MesaDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,6 +28,8 @@ class DatosMesas : AppCompatActivity(){
     private lateinit var edBuscarNumAsientos : EditText
     private lateinit var rvMesas : RecyclerView
     private lateinit var btnNuevaMesa : Button
+    private lateinit var btnVolverIndexMesa : Button
+
     private lateinit var mesaDao : MesaDao
     private lateinit var adaptador : ConfiguracionMesasAdapter
     private  var cantMesasFiltro : Int = 0
@@ -36,12 +39,15 @@ class DatosMesas : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.con_mesas)
         btnNuevaMesa = findViewById(R.id.btnNuevaMesaCon)
+        btnVolverIndexMesa = findViewById(R.id.btnRegresarIndexMesas)
         rvMesas = findViewById(R.id.rvListadoMesasCon)
         spEstadoMesa = findViewById(R.id.spnFiltrarEstadoMesas)
         edBuscarNumAsientos = findViewById(R.id.edtBuscarMesas)
         btnNuevaMesa.setOnClickListener({adicionar()})
+        btnVolverIndexMesa.setOnClickListener({volverIndex()})
         mesaDao = appConfig.db.mesaDao()
         obtenerMesas()
+
         //Estados a los campos para filtrado
         edBuscarNumAsientos.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -79,7 +85,10 @@ class DatosMesas : AppCompatActivity(){
         })
 
     }
-
+    fun volverIndex(){
+        var intent = Intent(this, ConfiguracionVista::class.java)
+        startActivity(intent)
+    }
     fun filtrar(estadoMesa : String, cantAsientos : Int){
         lifecycleScope.launch(Dispatchers.IO){
             var datos = mesaDao.obtenerTodo()
@@ -90,7 +99,6 @@ class DatosMesas : AppCompatActivity(){
             if(cantAsientos != 0){
                 datosFiltrados = datosFiltrados.filter { mesa -> mesa.cantidadAsientos == cantAsientos }
             }
-            System.out.println("Prueba")
             withContext(Dispatchers.Main){
                 adaptador.actualizarListaMesas(datosFiltrados)
 
@@ -104,9 +112,7 @@ class DatosMesas : AppCompatActivity(){
         lifecycleScope.launch(Dispatchers.IO){
             var datos = mesaDao.obtenerTodo()
 
-
             adaptador = ConfiguracionMesasAdapter(datos)
-
             rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
             rvMesas.adapter = adaptador
 

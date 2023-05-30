@@ -6,8 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.project_kotlin.R
+import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.mesas.DatosMesas
 
-class ConfiguracionVista:AppCompatActivity(), View.OnClickListener {
+class ConfiguracionVista:AppCompatActivity() {
 
     private lateinit var cvEmpleados:CardView
     private lateinit var cvPlatos:CardView
@@ -54,7 +56,7 @@ class ConfiguracionVista:AppCompatActivity(), View.OnClickListener {
     //VISTA MESA --PARTE DE FABIAN
     fun vincularMesas() {
 
-        var intent = Intent(this, MesasVista::class.java)
+        var intent = Intent(appConfig.CONTEXT, DatosMesas::class.java)
         startActivity(intent)
 
     }
@@ -83,8 +85,6 @@ class ConfiguracionVista:AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
-    }
+
 
 }

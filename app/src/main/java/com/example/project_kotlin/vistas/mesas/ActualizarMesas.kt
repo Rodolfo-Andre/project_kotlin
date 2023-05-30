@@ -25,16 +25,14 @@ class ActualizarMesas : AppCompatActivity() {
     private lateinit var btnEditar: Button
     private lateinit var btnEliminar: Button
     private lateinit var btnVolver: Button
-    private lateinit var db: ComandaDatabase
     private lateinit var mesaDao: MesaDao
     private lateinit var comandaDao: ComandaDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modificar_mesa)
-        db = Room.databaseBuilder(this, ComandaDatabase::class.java, "comanda_database").build()
-        mesaDao = db.mesaDao()
-        comandaDao = db.comandaDao()
+        mesaDao = appConfig.db.mesaDao()
+        comandaDao = appConfig.db.comandaDao()
 
         edCantAsientos = findViewById(R.id.edtCanModMesa)
         edNumMesa = findViewById(R.id.edtNumMesa)

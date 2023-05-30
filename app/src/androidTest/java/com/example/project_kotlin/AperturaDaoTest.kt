@@ -4,12 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.project_kotlin.dao.AperturaDao
-import com.example.project_kotlin.dao.CajaDao
-import com.example.project_kotlin.dao.CategoriaPlatoDao
-import com.example.project_kotlin.dao.PlatoDao
+import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.*
+import com.example.project_kotlin.utils.appConfig
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.Assert.*
@@ -23,6 +21,7 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class AperturaDaoTest {
     private lateinit var aperturaDao: AperturaDao
+    private lateinit var estableci : EstablecimientoDao
     private lateinit var cajaDao: CajaDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
     private lateinit var db: ComandaDatabase
@@ -37,6 +36,8 @@ class AperturaDaoTest {
         categoriaPlatoDao = db.categoriaPlatoDao()
         cajaDao = db.cajaDao()
         platoDao = db.platoDao()
+        estableci = appConfig.db.establecimientoDao()
+
     }
 
     @After
@@ -48,15 +49,8 @@ class AperturaDaoTest {
     @Test
     @Throws(Exception::class)
     fun registrarCajaAperturaLeerCajaConApertura() {
-        /*var caja = Caja()
-        var cajaId = cajaDao.guardar(caja)
 
-        var apertura = Apertura(cajaId = cajaId.toInt())
-        var id = aperturaDao.guardar(apertura)
 
-        var aperturaBD = aperturaDao.obtenerPorId(id)
-
-        System.out.println(cajaDao.obtenerCajaConAperturas())*/
 
         var categoria = CategoriaPlato("C-001", "Chafuas")
         var plato = Plato("P-001", "Pollo", 22.5, "SADAS", "C-001")
