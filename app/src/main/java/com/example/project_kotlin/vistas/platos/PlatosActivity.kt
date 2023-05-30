@@ -1,4 +1,4 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.platos
 
 import android.content.Intent
 import android.os.Bundle
@@ -33,7 +33,7 @@ class PlatosActivity: AppCompatActivity() {
     }
 
     fun nuevoPlatos(){
-        var intent= Intent(this,NewPlatoActivity::class.java)
+        var intent= Intent(this, NewPlatoActivity::class.java)
         startActivity(intent)
     }
 

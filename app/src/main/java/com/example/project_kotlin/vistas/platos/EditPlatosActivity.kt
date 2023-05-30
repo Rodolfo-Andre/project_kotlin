@@ -1,8 +1,7 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.platos
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -10,7 +9,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.project_kotlin.R
-import org.w3c.dom.Text
 
 class EditPlatosActivity:AppCompatActivity() {
     private lateinit var tvCodPlato:TextView
@@ -37,7 +35,7 @@ class EditPlatosActivity:AppCompatActivity() {
         btnCancelar.setOnClickListener{volver()}
     }
     fun volver(){
-        var intent= Intent(this,PlatosActivity::class.java)
+        var intent= Intent(this, PlatosActivity::class.java)
         startActivity(intent)
     }
 }

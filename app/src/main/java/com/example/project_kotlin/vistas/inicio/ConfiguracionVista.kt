@@ -1,12 +1,17 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.inicio
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.caja_registradora.ConfiguracionCajaVista
+import com.example.project_kotlin.vistas.establecimiento.EstablecimientoVista
+import com.example.project_kotlin.vistas.metodo_pago.MetodoPagoVista
+import com.example.project_kotlin.vistas.platos.PlatosActivity
+import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
+import com.example.project_kotlin.vistas.empleados.EmpleadoVista
 import com.example.project_kotlin.vistas.mesas.DatosMesas
 
 class ConfiguracionVista:AppCompatActivity() {
@@ -14,9 +19,11 @@ class ConfiguracionVista:AppCompatActivity() {
     private lateinit var cvEmpleados:CardView
     private lateinit var cvPlatos:CardView
     private lateinit var cvMesas:CardView
-    private lateinit var cvClientes:CardView
+    private lateinit var cvCategoriaPlatos:CardView
     private lateinit var cvEstablecimiento:CardView
-    private lateinit var cvComandas:CardView
+    private lateinit var cvRegresarINdex:CardView
+    private lateinit var cvMetodoPago:CardView
+    private lateinit var cvCajas:CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,16 +32,20 @@ class ConfiguracionVista:AppCompatActivity() {
         cvEmpleados = findViewById(R.id.cvEmpleados)
         cvPlatos = findViewById(R.id.cvPlatos)
         cvMesas = findViewById(R.id.cvMesas)
-        cvClientes = findViewById(R.id.cvClientes)
+        cvCategoriaPlatos = findViewById(R.id.cvCategoriaPlatos)
         cvEstablecimiento = findViewById(R.id.cvEstablecimiento)
-        cvComandas = findViewById(R.id.cvComandas)
+        cvMetodoPago = findViewById(R.id.cvMetodoPago)
+        cvCajas = findViewById(R.id.cvCajas)
+        cvRegresarINdex = findViewById(R.id.cvRegresarIndex)
 
         cvEmpleados.setOnClickListener({vincularEmpleados()})
         cvPlatos.setOnClickListener({vincularPlatos()})
         cvMesas.setOnClickListener({vincularMesas()})
-        cvClientes.setOnClickListener({vincularClientes()})
+        cvCategoriaPlatos.setOnClickListener({vincularCategoriaPlatos()})
         cvEstablecimiento.setOnClickListener({vincularEstablecimiento()})
-        cvComandas.setOnClickListener({vincularComandas()})
+        cvCajas.setOnClickListener({vincularCajaVista()})
+        cvMetodoPago.setOnClickListener({vincularMetodoPago()})
+        cvRegresarINdex.setOnClickListener({vincularREgresoIndex()})
 
 
     }
@@ -62,9 +73,9 @@ class ConfiguracionVista:AppCompatActivity() {
     }
 
     //falta
-    fun vincularClientes() {
+    fun vincularCategoriaPlatos() {
 
-        var intent = Intent(this, ClientesVista::class.java)
+        var intent = Intent(this, CategoriaPlatosActivity::class.java)
         startActivity(intent)
 
     }
@@ -78,9 +89,23 @@ class ConfiguracionVista:AppCompatActivity() {
     }
 
     //falta
-    fun vincularComandas(){
+    fun vincularMetodoPago(){
 
-        var intent = Intent(this, ComandasVista::class.java)
+        var intent = Intent(this, MetodoPagoVista::class.java)
+        startActivity(intent)
+
+    }
+
+    fun vincularCajaVista(){
+
+        var intent = Intent(this, ConfiguracionCajaVista::class.java)
+        startActivity(intent)
+
+    }
+
+    fun vincularREgresoIndex() {
+
+        var intent = Intent(this, IndexComandasActivity::class.java)
         startActivity(intent)
 
     }

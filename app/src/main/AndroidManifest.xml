@@ -28,7 +28,7 @@
             android:resource="@array/preloaded_fonts" />
         <!--iNDEX COMANDAS-->
         <activity
-            android:name=".vistas.IndexComandasActivity"
+            android:name=".vistas.inicio.IndexComandasActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,48 @@
 
         <!--CONFIGURACION VISTA-->
         <activity
-            android:name=".vistas.ConfiguracionVista"
+            android:name=".vistas.inicio.ConfiguracionVista"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--CONFIGURACION categoria platos-->
+        <activity
+            android:name=".vistas.categoria_platos.CategoriaPlatosActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vistas.categoria_platos.NewCatPlatoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vistas.categoria_platos.EditCatPlatoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vistas.categoria_platos.DeletCatPlatoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +91,7 @@
 
         <!--CONFIGURACION Empleados-->
         <activity
-            android:name=".vistas.EmpleadoVista"
+            android:name=".vistas.empleados.EmpleadoVista"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +102,7 @@
 
         <!--CONFIGURACION PLATOS-->
         <activity
-            android:name=".vistas.PlatosActivity"
+            android:name=".vistas.platos.PlatosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -113,7 +154,7 @@
 
 
         <activity
-            android:name=".vistas.EditCatPlatoActivity"
+            android:name=".vistas.categoria_platos.EditCatPlatoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -122,7 +163,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".vistas.DeletCatPlatoActivity"
+            android:name=".vistas.categoria_platos.DeletCatPlatoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -134,7 +175,7 @@
         <!--CAJA ACTIVITY-->
 
         <activity
-            android:name=".vistas.CajaVista"
+            android:name=".vistas.caja_registradora.CajaVista"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

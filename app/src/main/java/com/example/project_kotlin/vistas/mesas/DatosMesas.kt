@@ -11,14 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.MesaDao
-import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.ConfiguracionVista
+import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

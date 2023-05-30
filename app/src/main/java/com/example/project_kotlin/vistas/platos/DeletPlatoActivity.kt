@@ -1,4 +1,4 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.platos
 
 import android.os.Bundle
 import android.webkit.WebView.FindListener

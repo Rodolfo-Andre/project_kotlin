@@ -1,4 +1,4 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.inicio
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.project_kotlin.R
-import com.example.project_kotlin.vistas.mesas.DatosMesas
+import com.example.project_kotlin.vistas.caja_registradora.CajaVista
+import com.example.project_kotlin.vistas.comandas.ComandasVista
+import com.example.project_kotlin.vistas.ReporteVista
 
 class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -25,7 +27,7 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
 
         cvConfig.setOnClickListener({vincularConfig()})
         cvCajaRegis.setOnClickListener({vincularCaja()})
-        cvPedidos.setOnClickListener({vincularPedidos()})
+        cvPedidos.setOnClickListener({vincularComandas()})
         cvReportes.setOnClickListener({vincularReportes()})
 
     }
@@ -40,8 +42,8 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //PEDIDOS FALTA
-    fun vincularPedidos(){
-        var intent = Intent(this, PedidosVista::class.java)
+    fun vincularComandas(){
+        var intent = Intent(this, ComandasVista::class.java)
         startActivity(intent)
     }
 

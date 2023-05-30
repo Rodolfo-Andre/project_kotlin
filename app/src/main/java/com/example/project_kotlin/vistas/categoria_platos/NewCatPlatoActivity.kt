@@ -1,4 +1,4 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.categoria_platos
 
 import android.content.Intent
 import android.os.Bundle
@@ -25,7 +25,7 @@ class NewCatPlatoActivity: AppCompatActivity() {
     }
 
     fun Cancelar(){
-        var intent= Intent(this,CategoriaPlatosActivity::class.java)
+        var intent= Intent(this, CategoriaPlatosActivity::class.java)
         startActivity(intent)
     }
     }

@@ -206,7 +206,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"
-                            android:text="Pedidos"
+                            android:text="Comandas"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="25sp"

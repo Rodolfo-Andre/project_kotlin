@@ -7,7 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import com.example.project_kotlin.R
-import com.example.project_kotlin.vistas.mesas.DatosMesas
+import com.example.project_kotlin.vistas.inicio.IndexComandasActivity
 
 class MainActivity : AppCompatActivity(), OnClickListener {
     lateinit var btnIngresar: Button

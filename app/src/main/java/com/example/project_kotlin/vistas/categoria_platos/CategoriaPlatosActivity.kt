@@ -1,8 +1,7 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.categoria_platos
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +27,7 @@ class CategoriaPlatosActivity: AppCompatActivity() {
     }
 
 fun agregar(){
-    var intent= Intent(this,NewCatPlatoActivity::class.java)
+    var intent= Intent(this, NewCatPlatoActivity::class.java)
     startActivity(intent)
 }
 

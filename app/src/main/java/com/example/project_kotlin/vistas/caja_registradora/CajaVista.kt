@@ -1,4 +1,4 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.caja_registradora
 
 import android.os.Bundle
 import android.widget.Button

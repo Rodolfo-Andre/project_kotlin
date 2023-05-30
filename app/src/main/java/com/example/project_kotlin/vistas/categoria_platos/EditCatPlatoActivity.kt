@@ -1,8 +1,7 @@
-package com.example.project_kotlin.vistas
+package com.example.project_kotlin.vistas.categoria_platos
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -30,7 +29,7 @@ class EditCatPlatoActivity:AppCompatActivity() {
 
     }
     fun Cancelar(){
-        var intent= Intent(this,CategoriaPlatosActivity::class.java)
+        var intent= Intent(this, CategoriaPlatosActivity::class.java)
         startActivity(intent)
     }
 }
