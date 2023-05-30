@@ -48,6 +48,17 @@
             </intent-filter>
         </activity>
 
+        <!--CONFIGURACION Empleados-->
+        <activity
+            android:name=".vistas.EmpleadoVista"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!--Configuración de mesas-->
 
         <activity
@@ -70,6 +81,15 @@
         </activity>
         <activity
             android:name=".vistas.mesas.ActualizarMesas"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".vistas.MesasVista"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
