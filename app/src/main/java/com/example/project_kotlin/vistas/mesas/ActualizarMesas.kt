@@ -31,8 +31,8 @@ class ActualizarMesas : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modificar_mesa)
-        mesaDao = appConfig.db.mesaDao()
-        comandaDao = appConfig.db.comandaDao()
+        mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
+        comandaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comandaDao()
 
         edCantAsientos = findViewById(R.id.edtCanModMesa)
         edNumMesa = findViewById(R.id.edtNumMesa)
