@@ -40,7 +40,7 @@ import java.util.Date
     ])
 data class Comprobante (
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
-    @ColumnInfo(name = "nombre_cliente") var nombreCliente: String,
+    @ColumnInfo(name = "nombre_cliente", defaultValue = "Cliente") var nombreCliente: String = "Cliente",
     @ColumnInfo(name = "fecha_emision", defaultValue = "CURRENT_TIMESTAMP") var fechaEmision: Date = Date(),
     @ColumnInfo(name = "precio_total_pedido") var precioTotalPedido: Double = 0.0,
     @ColumnInfo(name = "establecimiento_id") var establecimientoId: Int,

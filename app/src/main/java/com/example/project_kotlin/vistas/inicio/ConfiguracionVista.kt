@@ -11,7 +11,8 @@ import com.example.project_kotlin.vistas.establecimiento.EstablecimientoVista
 import com.example.project_kotlin.vistas.metodo_pago.MetodoPagoVista
 import com.example.project_kotlin.vistas.platos.PlatosActivity
 import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
-import com.example.project_kotlin.vistas.empleados.EmpleadoVista
+import com.example.project_kotlin.vistas.empleados.DatosEmpleados
+import com.example.project_kotlin.vistas.empleados.NuevoEmpleado
 import com.example.project_kotlin.vistas.mesas.DatosMesas
 
 class ConfiguracionVista:AppCompatActivity() {
@@ -52,7 +53,7 @@ class ConfiguracionVista:AppCompatActivity() {
 
      fun vincularEmpleados() {
 
-         var intent = Intent(this, EmpleadoVista::class.java)
+         var intent = Intent(this, DatosEmpleados::class.java)
          startActivity(intent)
 
     }

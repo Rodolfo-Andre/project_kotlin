@@ -91,7 +91,7 @@
 
         <!--CONFIGURACION Empleados-->
         <activity
-            android:name=".vistas.empleados.EmpleadoVista"
+            android:name=".vistas.empleados.NuevoEmpleado"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

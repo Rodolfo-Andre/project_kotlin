@@ -7,7 +7,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.example.project_kotlin.R
 
-class EmpleadoVista:AppCompatActivity() {
+class NuevoEmpleado:AppCompatActivity() {
 
     private lateinit var edtNomUsu:EditText
     private lateinit var edtApeUsu:EditText

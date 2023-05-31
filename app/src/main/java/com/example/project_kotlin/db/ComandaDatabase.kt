@@ -76,7 +76,7 @@ abstract class ComandaDatabase : RoomDatabase() {
                             cargoDao.guardar(Cargo(cargo="Cocinero"))
                             //Agregando estados
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda ="Generada"))
-                            estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Atendida"))
+                            estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Preparado"))
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Pagada"))
                             //Métodos de pago
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "Yape"))
