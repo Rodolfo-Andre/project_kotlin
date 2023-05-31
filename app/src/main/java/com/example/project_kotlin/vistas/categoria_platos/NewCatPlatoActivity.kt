@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NewCatPlatoActivity: AppCompatActivity() {
 
@@ -28,4 +31,20 @@ class NewCatPlatoActivity: AppCompatActivity() {
         var intent= Intent(this, CategoriaPlatosActivity::class.java)
         startActivity(intent)
     }
+
+    fun AgregarMesa(){
+        lifecycleScope.launch(Dispatchers.IO){
+            if(validarCampos())
+        }
     }
+
+    fun validarCampos(): Boolean {
+        val cantidad = edCantidadAsientos.text.toString().toIntOrNull()
+        if (cantidad == null || cantidad !in 1..9) {
+            mostrarToast("La cantidad de asientos debe ser un número de 1 al 9")
+            return false
+        }
+        return true
+    }
+
+}
