@@ -28,7 +28,7 @@ class NuevaMesa : AppCompatActivity() {
         setContentView(R.layout.agregar_mesa)
 
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
-        mesaDao = appConfig.db.mesaDao()
+        mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
         btnAgregar = findViewById(R.id.btnNuevaMesaA)
         edCantidadAsientos = findViewById(R.id.edtCanAsientosMesaA)
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)

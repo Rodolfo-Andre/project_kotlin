@@ -9,27 +9,27 @@ import androidx.room.*
         parentColumns = ["id"],
         childColumns = ["mesa_id"],
         onDelete = ForeignKey.CASCADE
-    )/*, ForeignKey(
+    ), ForeignKey(
         entity = EstadoComanda::class,
         parentColumns = ["id"],
         childColumns = ["estado_comanda_id"],
-        onDelete = ForeignKey.CASCADE)*/
-        /*, ForeignKey(
+        onDelete = ForeignKey.CASCADE)
+        , ForeignKey(
         entity = Empleado::class,
         parentColumns = ["id"],
         childColumns = ["empleado_id"],
-        onDelete = ForeignKey.CASCADE)*/],
+        onDelete = ForeignKey.CASCADE)],
     indices = [
         Index("mesa_id"),
-        /*Index("estado_comanda_id"),
-        Index("empleado_id"),*/
+        Index("estado_comanda_id"),
+        Index("empleado_id"),
     ])
 data class Comanda (
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     @ColumnInfo(name = "cantidad_asientos") var cantidadAsientos: Int,
     @ColumnInfo(name = "precio_total") var precioTotal: Double = 0.0,
     @ColumnInfo(name = "mesa_id") var mesaId: Int,
-    //@ColumnInfo(name = "estado_comanda_id") estadoComandaId: Int,
-    //@ColumnInfo(name = "empleado_id") empleadoId: Int,
+    @ColumnInfo(name = "estado_comanda_id") var estadoComandaId: Int,
+    @ColumnInfo(name = "empleado_id") var empleadoId: Int
 ) {
 }

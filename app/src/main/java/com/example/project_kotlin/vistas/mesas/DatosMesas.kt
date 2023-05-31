@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.MesaDao
+import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
@@ -43,7 +44,7 @@ class DatosMesas : AppCompatActivity(){
         edBuscarNumAsientos = findViewById(R.id.edtBuscarMesas)
         btnNuevaMesa.setOnClickListener({adicionar()})
         btnVolverIndexMesa.setOnClickListener({volverIndex()})
-        mesaDao = appConfig.db.mesaDao()
+        mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
         obtenerMesas()
 
         //Estados a los campos para filtrado
