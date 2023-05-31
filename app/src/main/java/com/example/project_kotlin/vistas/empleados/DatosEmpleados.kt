@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.empleado.EmpleadoAdapter
-import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.CargoDao
 import com.example.project_kotlin.dao.EmpleadoDao
 import com.example.project_kotlin.db.ComandaDatabase
@@ -35,7 +34,7 @@ class DatosEmpleados: AppCompatActivity() {
         setContentView(R.layout.man_usuarios)
         btnAgregar = findViewById(R.id.btnNuevoEmpleadoCon)
         btnVolver = findViewById(R.id.btnRegresarIndexEmpleado)
-        spCargos = findViewById(R.id.spnEmpleadoFiltro)
+        spCargos = findViewById(R.id.spnCargoEmpleadoN)
         rvEmpleados = findViewById(R.id.rvEmpleadosConfiguracion)
         btnVolver.setOnClickListener({volver()})
         btnAgregar.setOnClickListener({agregar()})
@@ -44,23 +43,7 @@ class DatosEmpleados: AppCompatActivity() {
         cargarCargos()
         obtenerEmpleados()
     }
-    /*private fun cargarCategoria() {
-        lifecycleScope.launch(Dispatchers.IO) {
 
-            // Obtén la lista de categorías de platos desde la base de datos
-            val data = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao().obtenerTodo()
-
-            // Crea un ArrayAdapter con los nombres de las categorías de platos
-            val adapter = ArrayAdapter(
-                this@NuevoPlato,
-                android.R.layout.simple_spinner_item,
-                data.map { it.categoria }
-            )
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Asigna el adaptador al Spinner
-            spCategoria.adapter = adapter
-        }
-    }*/
     fun cargarCargos(){
         lifecycleScope.launch(Dispatchers.IO){
             val cargos = cargoDao.obtenerTodo()

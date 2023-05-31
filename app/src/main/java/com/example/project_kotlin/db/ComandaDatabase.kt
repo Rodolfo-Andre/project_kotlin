@@ -15,7 +15,7 @@ import java.util.*
         Cargo::class, Comanda::class,
         Comprobante::class, Usuario::class,
         CategoriaPlato::class, Mesa::class,
-        DetalleComprobante::class, DetalleComanda::class,
+        DetalleComanda::class,
         Empleado::class, Plato::class, Establecimiento::class,
         EstadoComanda::class, MetodoPago::class, TipoComprobante::class],
     version = 1,
@@ -38,7 +38,6 @@ abstract class ComandaDatabase : RoomDatabase() {
     abstract fun platoDao() : PlatoDao
     abstract fun empleadoDao() : EmpleadoDao
     abstract fun detalleComandaDao() : DetalleComandaDao
-    abstract fun detalleComprobanteDao() : DetalleComprobanteDao
 
     companion object {
         @Volatile
@@ -93,12 +92,17 @@ abstract class ComandaDatabase : RoomDatabase() {
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Factura"))
                             //Crear un empleado
-                            usuarioDao?.guardar(Usuario(correo = "admin@admin.com", contrasena = "admin"))
+                            val usuario = Usuario(correo= "admin@admin.com", contrasena = "admin")
+                            val idUsuarioGenerado = usuarioDao?.guardar(usuario)
+                            usuario.id = idUsuarioGenerado
                             val empleado = Empleado(nombreEmpleado = "Admin", apellidoEmpleado = "Admin", telefonoEmpleado = "999999999",
-                                dniEmpleado = "77777777", idCargo = 1, idUsuario = 1)
+                                    dniEmpleado = "77777777")
                             empleado.cargo = Cargo(1, "Administrador")
-                            empleado.usuario = Usuario(1, "admin@admin.com", "admin", 0)
+                            empleado.usuario = usuario
                             empleadoDao?.guardar(empleado)
+
+
+
                         }
                     }
                 })

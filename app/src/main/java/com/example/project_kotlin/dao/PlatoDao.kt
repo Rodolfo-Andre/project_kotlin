@@ -16,7 +16,7 @@ interface PlatoDao {
     fun obtenerPorId(id: Long) : Plato
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun guardar(plato: Plato) : Long
+    fun guardar(plato: Plato)
 
     @Update
     fun actualizar(plato: Plato)

@@ -6,14 +6,14 @@ import java.util.*
 
 @Entity(tableName = "usuario")
 data class Usuario (
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey(autoGenerate = true) var id: Long? = null,
     @ColumnInfo(name="correo") var correo: String,
-    @ColumnInfo(name="contraseña") var contrasena: String,
+    @ColumnInfo(name="contraseña") var contrasena: String? = null,
     @ColumnInfo(name = "codigo_recuperacion", defaultValue = "0") var codigoRecuperacion: Int = 0) {
 
 
     //Generar Contraseña
-    fun generarContrasenia(apellido: String): String? {
+    fun generarContrasenia(apellido: String): String {
         val utils : Utilidades = Utilidades()
         val nroCaracterExtraer = 2
         val nroRamdom: Int = utils.generarNumeroRandom(1, apellido.length - nroCaracterExtraer)

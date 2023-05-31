@@ -1,11 +1,22 @@
 package com.example.project_kotlin.vistas.empleados
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
+import com.example.project_kotlin.dao.CargoDao
+import com.example.project_kotlin.dao.EmpleadoDao
+import com.example.project_kotlin.dao.UsuarioDao
+import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.Cargo
+import com.example.project_kotlin.entidades.Empleado
+import com.example.project_kotlin.entidades.Usuario
+import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NuevoEmpleado:AppCompatActivity() {
 
@@ -14,10 +25,13 @@ class NuevoEmpleado:AppCompatActivity() {
     private lateinit var edtDniUsu:EditText
     private lateinit var edtCorreoUsu:EditText
     private lateinit var edtTelfUsu:EditText
-    private lateinit var spnUsu:Spinner
+    private lateinit var spnCargo:Spinner
     private lateinit var btnNuevoUsu:Button
     private lateinit var btnCancelarUsu:Button
-
+    //BASE DE DATOS
+    private lateinit var cargoDao : CargoDao
+    private lateinit var empleadoDao : EmpleadoDao
+    private lateinit var usuarioDao : UsuarioDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_usu)
@@ -27,11 +41,103 @@ class NuevoEmpleado:AppCompatActivity() {
         edtDniUsu = findViewById(R.id.edtDniUsu)
         edtCorreoUsu = findViewById(R.id.edtCorreoUsu)
         edtTelfUsu = findViewById(R.id.edtTelfUsu)
-        spnUsu = findViewById(R.id.spnEmpleadoFiltro)
+        spnCargo = findViewById(R.id.spnCargoEmpleadoN)
         btnNuevoUsu = findViewById(R.id.btnNuevoUsu)
         btnCancelarUsu = findViewById(R.id.btnCancelarUsu)
+        //Base de datos
+        cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
+        empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
+        usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
+        cargarCargos()
+        btnNuevoUsu.setOnClickListener({nuevoUsuario()})
+        btnCancelarUsu.setOnClickListener({volver()})
 
 
+
+    }
+    fun nuevoUsuario(){
+        lifecycleScope.launch(Dispatchers.IO) {
+            if(validarCampos()){
+                val nombre = edtNomUsu.text.toString()
+                val apellido = edtApeUsu.text.toString()
+                val dni = edtDniUsu.text.toString()
+                val correo = edtCorreoUsu.text.toString()
+                val tel = edtTelfUsu.text.toString()
+                val cargo = spnCargo.selectedItemPosition +1
+                val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
+                telefonoEmpleado = tel)
+                //Crear objeto usuario
+                val usuario = Usuario(correo = correo)
+                usuario.contrasena = usuario.generarContrasenia(apellido)
+                usuarioDao.guardar(usuario)
+
+                empleado.usuario = usuario
+                empleado.cargo = Cargo(cargo = spnCargo.selectedItem.toString())
+                empleadoDao.guardar(empleado)
+                mostrarToast("Empleado guardado correctamente")
+                volver()
+
+            }
+        }
+    }
+    fun validarCampos() : Boolean{
+        val nombre = edtNomUsu.text.toString()
+        val apellido = edtApeUsu.text.toString()
+        val dni = edtDniUsu.text.toString()
+        val correo = edtCorreoUsu.text.toString()
+        val tel = edtTelfUsu.text.toString()
+        val REGEX_NOMBRE = "^(?=.{3,40}\$)[A-ZÑÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÑÁÉÍÓÚ][a-zñáéíóú]+)*\$"
+        val REGEX_APELLIDO = "^(?=.{3,40}\$)[A-ZÑÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÑÁÉÍÓÚ][a-zñáéíóú]+)*\$"
+        val REGEX_CORREO = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\$"
+        val REGEX_TELEFONO = "^9[0-9]{8}\$"
+        val REGEX_DNI = "^[0-9]{8}\$"
+
+        if (!REGEX_NOMBRE.toRegex().matches(nombre)) {
+            // El campo nombre no cumple con el formato esperado
+            mostrarToast("El campo nombre no cumple con el formato requerido. Debe comenzar con mayúscula y contener solo letras y espacios")
+            return false
+        }
+        if (!REGEX_APELLIDO.toRegex().matches(apellido)) {
+            // El campo nombre no cumple con el formato esperado
+            mostrarToast("El campo apellido no cumple con el formato requerido. Debe comenzar con mayúscula y contener solo letras y espacios")
+            return false
+        }
+        if (!REGEX_DNI.toRegex().matches(dni)) {
+            // El campo nombre no cumple con el formato esperado
+            mostrarToast("Ingresa un DNI valido")
+            return false
+        }
+        if (!REGEX_CORREO.toRegex().matches(correo)) {
+            // El campo nombre no cumple con el formato esperado
+            mostrarToast("Ingresa un correo valido")
+            return false
+        }
+        if (!REGEX_TELEFONO.toRegex().matches(tel)) {
+            // El campo nombre no cumple con el formato esperado
+            mostrarToast("Ingresa un teléfono válido, debe empezar con 9 y contar con 9 dígitos")
+            return false
+        }
+
+        return true
+    }
+    fun volver(){
+        var intent = Intent(this, ConfiguracionVista::class.java)
+        startActivity(intent)
+    }
+    private fun mostrarToast(mensaje: String) {
+        runOnUiThread {
+            Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun cargarCargos(){
+        lifecycleScope.launch(Dispatchers.IO){
+            val cargos = cargoDao.obtenerTodo()
+            val nombresCargos = cargos.map { it.cargo }
+            val adapter = ArrayAdapter(this@NuevoEmpleado, android.R.layout.simple_spinner_item, nombresCargos)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spnCargo.adapter = adapter
+
+        }
     }
 
 

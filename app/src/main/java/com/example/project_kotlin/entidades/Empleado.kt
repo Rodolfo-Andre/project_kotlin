@@ -9,12 +9,12 @@ import java.util.*
         ForeignKey(
             entity = Cargo::class,
             parentColumns = ["id"],
-            childColumns = ["id_cargo"]
+            childColumns = ["cargo_id"]
         ),
         ForeignKey(
             entity = Usuario::class,
             parentColumns = ["id"],
-            childColumns = ["id_usuario"]
+            childColumns = ["usuario_id"]
         )
     ])
 class Empleado(
@@ -24,11 +24,9 @@ class Empleado(
     @NonNull @ColumnInfo(name="telefono") var telefonoEmpleado : String,
     @NonNull @ColumnInfo(name="dni") var dniEmpleado : String,
     @ColumnInfo(name = "fecha_registro", defaultValue = "CURRENT_TIMESTAMP") var fechaRegistro: Date = Date(),
-    @NonNull @ColumnInfo(name="id_cargo") var idCargo : Int,
-    @ColumnInfo(name="id_usuario") var idUsuario : Int
     ):java.io.Serializable {
     @Embedded(prefix = "cargo_")
     lateinit var cargo: Cargo
-    @Embedded(prefix = "_usuario")
+    @Embedded(prefix = "usuario_")
     lateinit var usuario: Usuario
 }
