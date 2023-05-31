@@ -2,7 +2,7 @@ package com.example.project_kotlin.entidades
 
 import androidx.room.*
 
-@Entity(tableName = "caja"/*,
+@Entity(tableName = "caja",
     foreignKeys = [ForeignKey(
         entity = Establecimiento::class,
         parentColumns = ["id"],
@@ -11,18 +11,18 @@ import androidx.room.*
     )],
     indices = [
         Index("establecimiento_id")
-    ]*/)
+    ])
 data class Caja (
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    //@ColumnInfo(name = "establecimiento_id") val establecimientoId
+    @ColumnInfo(name = "establecimiento_id") val establecimientoId : Int
 ) {
 }
 
-data class CajaConAperturas(
+data class CajaConComprobantes(
     @Embedded val caja: Caja,
     @Relation(
         parentColumn = "id",
         entityColumn = "caja_id"
     )
-    val aperturas: List<Apertura>
+    val comprobantes: List<Comprobante>
 )

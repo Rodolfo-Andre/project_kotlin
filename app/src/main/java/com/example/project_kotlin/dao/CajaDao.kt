@@ -22,5 +22,5 @@ interface CajaDao {
 
     @Transaction
     @Query("SELECT * FROM caja")
-    fun obtenerCajaConAperturas(): List<CajaConAperturas>
+    fun obtenerCajaConComprobantes(): List<CajaConComprobantes>
 }

@@ -20,9 +20,9 @@ import java.io.IOException
  */
 @RunWith(AndroidJUnit4::class)
 class AperturaDaoTest {
-    private lateinit var aperturaDao: AperturaDao
     private lateinit var estableci : EstablecimientoDao
     private lateinit var cajaDao: CajaDao
+    private lateinit var cargoDao : CargoDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
     private lateinit var db: ComandaDatabase
     private lateinit var platoDao: PlatoDao
@@ -32,11 +32,10 @@ class AperturaDaoTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context, ComandaDatabase::class.java).build()
-        aperturaDao = db.aperturaDao()
         categoriaPlatoDao = db.categoriaPlatoDao()
         cajaDao = db.cajaDao()
         platoDao = db.platoDao()
-        estableci = appConfig.db.establecimientoDao()
+        cargoDao = appConfig.db.cargoDao()
 
     }
 
@@ -51,14 +50,8 @@ class AperturaDaoTest {
     fun registrarCajaAperturaLeerCajaConApertura() {
 
 
+        System.out.println(cargoDao.obtenerTodo())
 
-        var categoria = CategoriaPlato("C-001", "Chafuas")
-        var plato = Plato("P-001", "Pollo", 22.5, "SADAS", "C-001")
-
-        var categoriaID = categoriaPlatoDao.guardar(categoria)
-        System.out.println(categoriaPlatoDao.obtenerTodo())
-        var platoID = platoDao.guardar(plato)
-        System.out.println(platoDao.obtenerTodo())
 
     }
 }

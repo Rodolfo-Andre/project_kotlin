@@ -1,11 +1,27 @@
 package com.example.project_kotlin.entidades
 
 import androidx.room.*
+import com.example.project_kotlin.utils.Utilidades
+import java.util.*
 
 @Entity(tableName = "usuario")
 data class Usuario (
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    var correo: String,
-    var contrasena: String,
+    @ColumnInfo(name="correo") var correo: String,
+    @ColumnInfo(name="contraseña") var contrasena: String,
     @ColumnInfo(name = "codigo_recuperacion", defaultValue = "0") var codigoRecuperacion: Int = 0) {
+
+
+    //Generar Contraseña
+    fun generarContrasenia(apellido: String): String? {
+        val utils : Utilidades = Utilidades()
+        val nroCaracterExtraer = 2
+        val nroRamdom: Int = utils.generarNumeroRandom(1, apellido.length - nroCaracterExtraer)
+        val caracterApe = apellido.substring(nroRamdom, nroRamdom + nroCaracterExtraer)
+        val mayusculaCaracterApe =
+            caracterApe.substring(0, 1).uppercase(Locale.getDefault()) + caracterApe.substring(1)
+        return mayusculaCaracterApe + "$" + utils.generarNumeroRandom(1000, 5000)
+    }
 }
+
+

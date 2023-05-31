@@ -13,6 +13,11 @@ import java.util.*
             entity = Cargo::class,
             parentColumns = ["id"],
             childColumns = ["id_cargo"]
+        ),
+        ForeignKey(
+            entity = Usuario::class,
+            parentColumns = ["id"],
+            childColumns = ["id_usuario"]
         )
     ])
 class Empleado(
@@ -22,6 +27,7 @@ class Empleado(
     @NonNull @ColumnInfo(name="telefono") var telefonoEmpleado : String,
     @NonNull @ColumnInfo(name="dni") var dniEmpleado : String,
     @NonNull @ColumnInfo(name = "fecha_registro", defaultValue = "CURRENT_TIMESTAMP") var fechaRegistro: Date = Date(),
-    @NonNull @ColumnInfo(name="id_cargo") var idCargo : Int
+    @NonNull @ColumnInfo(name="id_cargo") var idCargo : Int,
+    @ColumnInfo(name="id_usuario") var idUsuario : Int
     ) {
 }
