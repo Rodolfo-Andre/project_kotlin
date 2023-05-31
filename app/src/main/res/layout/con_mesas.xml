@@ -99,7 +99,7 @@
                 android:layout_height="match_parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNuevaMesaCon"
+                android:id="@+id/btnNuevoEmpleadoCon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
@@ -109,7 +109,7 @@
                 android:text="AGREGAR MESA" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegresarIndexMesas"
+                android:id="@+id/btnRegresarIndexEmpleado"
                 android:layout_width="363dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"

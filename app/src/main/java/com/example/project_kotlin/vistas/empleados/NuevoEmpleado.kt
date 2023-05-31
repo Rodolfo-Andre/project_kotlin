@@ -27,7 +27,7 @@ class NuevoEmpleado:AppCompatActivity() {
         edtDniUsu = findViewById(R.id.edtDniUsu)
         edtCorreoUsu = findViewById(R.id.edtCorreoUsu)
         edtTelfUsu = findViewById(R.id.edtTelfUsu)
-        spnUsu = findViewById(R.id.spnUsu)
+        spnUsu = findViewById(R.id.spnEmpleadoFiltro)
         btnNuevoUsu = findViewById(R.id.btnNuevoUsu)
         btnCancelarUsu = findViewById(R.id.btnCancelarUsu)
 

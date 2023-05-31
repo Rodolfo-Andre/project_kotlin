@@ -94,9 +94,11 @@ abstract class ComandaDatabase : RoomDatabase() {
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Factura"))
                             //Crear un empleado
                             usuarioDao?.guardar(Usuario(correo = "admin@admin.com", contrasena = "admin"))
-                            empleadoDao?.guardar(Empleado(nombreEmpleado = "Admin", apellidoEmpleado = "Admin", telefonoEmpleado = "999999999",
-                                dniEmpleado = "77777777",
-                                idCargo = 1, idUsuario = 1))
+                            val empleado = Empleado(nombreEmpleado = "Admin", apellidoEmpleado = "Admin", telefonoEmpleado = "999999999",
+                                dniEmpleado = "77777777", idCargo = 1, idUsuario = 1)
+                            empleado.cargo = Cargo(1, "Administrador")
+                            empleado.usuario = Usuario(1, "admin@admin.com", "admin", 0)
+                            empleadoDao?.guardar(empleado)
                         }
                     }
                 })

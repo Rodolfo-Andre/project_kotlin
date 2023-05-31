@@ -182,7 +182,7 @@
                     android:text="Cargo :" />
 
                 <Spinner
-                    android:id="@+id/spnUsu"
+                    android:id="@+id/spnEmpleadoFiltro"
                     android:layout_width="260dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.1" />
