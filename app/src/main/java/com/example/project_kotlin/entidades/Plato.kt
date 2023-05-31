@@ -18,7 +18,7 @@ class Plato (
     @PrimaryKey var id: String,
     @NonNull @ColumnInfo(name = "nom_plato") var nombrePlato : String,
     @NonNull @ColumnInfo(name="precio_plato") var precioPlato : Double,
-    @NonNull @ColumnInfo(name="nom_imagen") var nombreImagen : String,
+    @NonNull @ColumnInfo(name="nom_imagen") var nombreImagen : ByteArray,
     @NonNull @ColumnInfo(name="id_cat_plato") var idCatPlato : String){
 
     companion object {
