@@ -32,19 +32,21 @@ class NewCatPlatoActivity: AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun AgregarMesa(){
+
+
+    /*fun AgregarMesa(){
         lifecycleScope.launch(Dispatchers.IO){
             if(validarCampos())
         }
-    }
+    }*/
 
-    fun validarCampos(): Boolean {
+    /*fun validarCampos(): Boolean {
         val cantidad = edCantidadAsientos.text.toString().toIntOrNull()
         if (cantidad == null || cantidad !in 1..9) {
             mostrarToast("La cantidad de asientos debe ser un número de 1 al 9")
             return false
         }
         return true
-    }
+    }*/
 
 }

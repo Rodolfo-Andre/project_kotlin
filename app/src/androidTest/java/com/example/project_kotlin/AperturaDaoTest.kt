@@ -35,7 +35,7 @@ class AperturaDaoTest {
         categoriaPlatoDao = db.categoriaPlatoDao()
         cajaDao = db.cajaDao()
         platoDao = db.platoDao()
-        cargoDao = appConfig.db.cargoDao()
+        cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
 
     }
 

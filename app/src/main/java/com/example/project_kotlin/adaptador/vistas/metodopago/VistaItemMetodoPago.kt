@@ -1,4 +1,4 @@
-package com.example.project_kotlin.adaptador.vistas
+package com.example.project_kotlin.adaptador.vistas.metodopago
 
 import android.view.View
 import android.widget.TextView

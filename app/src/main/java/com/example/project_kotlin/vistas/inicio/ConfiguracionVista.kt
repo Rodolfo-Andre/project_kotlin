@@ -8,7 +8,7 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.caja_registradora.ConfiguracionCajaVista
 import com.example.project_kotlin.vistas.establecimiento.EstablecimientoVista
-import com.example.project_kotlin.vistas.metodo_pago.MetodoPagoVista
+import com.example.project_kotlin.vistas.metodo_pago.DatosMetodoPago
 import com.example.project_kotlin.vistas.platos.PlatosActivity
 import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
 import com.example.project_kotlin.vistas.empleados.EmpleadoVista
@@ -91,7 +91,7 @@ class ConfiguracionVista:AppCompatActivity() {
     //falta
     fun vincularMetodoPago(){
 
-        var intent = Intent(this, MetodoPagoVista::class.java)
+        var intent = Intent(this, DatosMetodoPago::class.java)
         startActivity(intent)
 
     }
