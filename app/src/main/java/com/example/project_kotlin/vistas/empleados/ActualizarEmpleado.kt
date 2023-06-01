@@ -3,6 +3,7 @@ package com.example.project_kotlin.vistas.empleados
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
@@ -16,47 +17,77 @@ import com.example.project_kotlin.entidades.Usuario
 import com.example.project_kotlin.utils.appConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
-class NuevoEmpleado:AppCompatActivity() {
-
-    private lateinit var edtNomUsu:EditText
-    private lateinit var edtApeUsu:EditText
-    private lateinit var edtDniUsu:EditText
-    private lateinit var edtCorreoUsu:EditText
-    private lateinit var edtTelfUsu:EditText
-    private lateinit var spnCargo:Spinner
-    private lateinit var btnNuevoUsu:Button
-    private lateinit var btnCancelarUsu:Button
+class ActualizarEmpleado : AppCompatActivity() {
+    private lateinit var edtNomUsu: EditText
+    private lateinit var edtApeUsu: EditText
+    private lateinit var edtDniUsu: EditText
+    private lateinit var edtCorreoUsu: EditText
+    private lateinit var edtTelfUsu: EditText
+    private lateinit var spnCargo: Spinner
+    private lateinit var btnActualizarUsu: Button
+    private lateinit var btnCancelarUsu: Button
+    private lateinit var btnEliminarUsu: Button
     //BASE DE DATOS
     private lateinit var cargoDao : CargoDao
     private lateinit var empleadoDao : EmpleadoDao
     private lateinit var usuarioDao : UsuarioDao
+    private lateinit var empleadoBean : Empleado
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.agregar_usu)
+        setContentView(R.layout.actualizar_usu)
 
-        edtNomUsu = findViewById(R.id.edtNomUsuE)
-        edtApeUsu = findViewById(R.id.edtApeUsuE)
-        edtDniUsu = findViewById(R.id.edtDniUsuE)
-        edtCorreoUsu = findViewById(R.id.edtCorreoUsuE)
-        edtTelfUsu = findViewById(R.id.edtTelfUsuE)
-        spnCargo = findViewById(R.id.spnCargoEmpleadoE)
-        btnNuevoUsu = findViewById(R.id.btnNuevoUsu)
-        btnCancelarUsu = findViewById(R.id.btnEliminarUsu)
+        edtNomUsu = findViewById(R.id.edtNomUsuA)
+        edtApeUsu = findViewById(R.id.edtApeUsuA)
+        edtDniUsu = findViewById(R.id.edtDniUsuA)
+        edtCorreoUsu = findViewById(R.id.edtCorreoUsuA)
+        edtTelfUsu = findViewById(R.id.edtTelfUsuA)
+        spnCargo = findViewById(R.id.spnCargoEmpleadoA)
+        btnActualizarUsu = findViewById(R.id.btnActualizarUsu)
+        btnCancelarUsu = findViewById(R.id.btnVolverEditarUsu)
+        btnEliminarUsu = findViewById(R.id.btnEliminarUsu)
         //Base de datos
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
+        empleadoBean = intent.getSerializableExtra("empleado") as Empleado
         cargarCargos()
-        btnNuevoUsu.setOnClickListener({nuevoUsuario()})
+        cargarDatos()
+        btnActualizarUsu.setOnClickListener({actualizarUsu()})
         btnCancelarUsu.setOnClickListener({volver()})
+        btnEliminarUsu.setOnClickListener({eliminar()})
 
 
 
     }
-    fun nuevoUsuario(){
+    fun cargarDatos(){
+        edtNomUsu.setText(empleadoBean.nombreEmpleado)
+        edtApeUsu.setText(empleadoBean.apellidoEmpleado)
+        edtDniUsu.setText(empleadoBean.dniEmpleado)
+        edtCorreoUsu.setText(empleadoBean.usuario.correo)
+        edtTelfUsu.setText(empleadoBean.telefonoEmpleado)
+        spnCargo.setSelection(empleadoBean.cargo.id.toInt()-1)
+
+    }
+    fun eliminar(){
+        //VALIDACIÓ NDE NO PODER ELIMINAR EL USUARIO EN SESIÓN FALTA
+        val mensaje: AlertDialog.Builder = AlertDialog.Builder(this)
+        mensaje.setTitle("Sistema comandas")
+        mensaje.setMessage("¿Seguro de eliminar?")
+        mensaje.setCancelable(false)
+        mensaje.setPositiveButton("Aceptar") { _, _ ->
+            lifecycleScope.launch(Dispatchers.IO) {
+                empleadoDao.eliminar(empleadoBean)
+                usuarioDao.eliminar(empleadoBean.usuario)
+                volver()
+
+            }
+        }
+        mensaje.setNegativeButton("Cancelar") { _, _ -> }
+        mensaje.setIcon(android.R.drawable.ic_delete)
+        mensaje.show()
+    }
+    fun actualizarUsu(){
         lifecycleScope.launch(Dispatchers.IO) {
             if(validarCampos()){
                 val nombre = edtNomUsu.text.toString()
@@ -65,21 +96,28 @@ class NuevoEmpleado:AppCompatActivity() {
                 val correo = edtCorreoUsu.text.toString()
                 val tel = edtTelfUsu.text.toString()
                 val cargo = spnCargo.selectedItemPosition +1
-
-                //Crear objeto usuario
-                val usuario = Usuario(correo = correo)
-                usuario.contrasena = usuario.generarContrasenia(apellido)
-                val idUsuario = usuarioDao.guardar(usuario)
-                usuario.id = idUsuario
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-                val fechaActual = Date()
-                val fechaFormateada = dateFormat.format(fechaActual)
-                val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
-                    telefonoEmpleado = tel, fechaRegistro = fechaFormateada)
-                empleado.usuario = usuario
-                empleado.cargo = Cargo(id = cargo.toLong(), cargo = spnCargo.selectedItem.toString())
-                empleadoDao.guardar(empleado)
-                mostrarToast("Empleado guardado correctamente")
+                //AQUÍ TENDRÍA QUE VALIDAR QUE EL USUARIO NO PUEDA MODIFICAR SU CARGO
+                val empleados = empleadoDao.obtenerTodo()
+                val dniRepetido = empleados.any{it.dniEmpleado == dni && it.id != empleadoBean.id}
+                val correoRepetido = empleados.any{it.usuario.correo == correo && it.id != empleadoBean.id}
+                if(dniRepetido){
+                    mostrarToast("El DNI ya existe en otro empleado")
+                    return@launch
+                }
+                if(correoRepetido){
+                    mostrarToast("El correo ya existe en otro empleado")
+                    return@launch
+                }
+                empleadoBean.nombreEmpleado = nombre
+                empleadoBean.apellidoEmpleado = apellido
+                empleadoBean.dniEmpleado = dni
+                empleadoBean.usuario.correo = correo
+                empleadoBean.telefonoEmpleado = tel
+                empleadoBean.cargo.id = cargo.toLong()
+                empleadoBean.cargo.cargo = spnCargo.selectedItem.toString()
+                usuarioDao.actualizar(empleadoBean.usuario)
+                empleadoDao.actualizar(empleadoBean)
+                mostrarToast("Empleado actualizado correctamente")
                 volver()
 
             }
@@ -138,12 +176,10 @@ class NuevoEmpleado:AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO){
             val cargos = cargoDao.obtenerTodo()
             val nombresCargos = cargos.map { it.cargo }
-            val adapter = ArrayAdapter(this@NuevoEmpleado, android.R.layout.simple_spinner_item, nombresCargos)
+            val adapter = ArrayAdapter(this@ActualizarEmpleado, android.R.layout.simple_spinner_item, nombresCargos)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spnCargo.adapter = adapter
 
         }
     }
-
-
 }

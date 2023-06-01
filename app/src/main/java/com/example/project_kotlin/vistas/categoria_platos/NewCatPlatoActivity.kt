@@ -4,9 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
+import com.example.project_kotlin.dao.CategoriaPlatoDao
+import com.example.project_kotlin.dao.MesaDao
+import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.CategoriaPlato
+import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.mesas.DatosMesas
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,16 +22,19 @@ class NewCatPlatoActivity: AppCompatActivity() {
     private lateinit var edtCategoriaNombre:EditText
     private lateinit var btnAgregar:Button
     private lateinit var btnCancelar:Button
+    private lateinit var cateDao: CategoriaPlatoDao
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categoriaplatoregistrar)
 
+        cateDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
         edtCategoriaNombre= findViewById(R.id.edtCategoriaNombre)
         btnAgregar = findViewById(R.id.btnAgregarCategoria)
         btnCancelar = findViewById(R.id.btnCancelarCategoria)
-
-        btnCancelar.setOnClickListener({Cancelar()})
+        btnAgregar.setOnClickListener({AgregarMesa()})
+        btnCancelar.setOnClickListener({volverIndex()})
     }
 
     fun Cancelar(){
@@ -34,17 +44,36 @@ class NewCatPlatoActivity: AppCompatActivity() {
 
     fun AgregarMesa(){
         lifecycleScope.launch(Dispatchers.IO){
-            if(validarCampos()){}
+            if(validarCampos()){
+                val codigo = CategoriaPlato.generarCodigo(cateDao.obtenerTodo())
+                val nombre = edtCategoriaNombre.text.toString()
+                val bean = CategoriaPlato(id = codigo, categoria = nombre)
+                cateDao.guardar(bean)
+                mostrarToast("Categoría agregada correctamente")
+                volverIndex()
+            }
         }
     }
 
     fun validarCampos(): Boolean {
-        //val cantidad = edCantidadAsientos.text.toString().toIntOrNull()
-        /*if (cantidad == null || cantidad !in 1..9) {
-            mostrarToast("La cantidad de asientos debe ser un número de 1 al 9")
+        val cateNombre = findViewById<EditText>(R.id.edtCategoriaNombre)
+
+        if (cateNombre.text.toString().isEmpty()) {
+            mostrarToast("Debe Ingresar el nombre de la categoría")
             return false
-        }*/
+        }
         return true
+    }
+
+    private fun mostrarToast(mensaje: String) {
+        runOnUiThread {
+            Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun volverIndex() {
+        val intent = Intent(this, CategoriaPlatosActivity::class.java)
+        startActivity(intent)
     }
 
 }
