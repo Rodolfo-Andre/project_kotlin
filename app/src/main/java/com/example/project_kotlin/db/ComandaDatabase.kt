@@ -67,6 +67,7 @@ abstract class ComandaDatabase : RoomDatabase() {
                             val empleadoDao = instancia?.empleadoDao()
                             val usuarioDao = instancia?.usuarioDao()
                             val cargoDao = obtenerBaseDatos(context).cargoDao()
+                            val cajaDao=instancia?.cajaDao()
 
                             //Agregando cargos
                             cargoDao.guardar(Cargo(cargo= "Administrador"))
@@ -89,6 +90,8 @@ abstract class ComandaDatabase : RoomDatabase() {
                                 Establecimiento(1, "Nombre",
                                     "966250432", "Dirección pruebas", "12345678910")
                             )
+                            //Agregando Caja
+                            cajaDao?.guardar(Caja(1,1))
                             //Tipo comprobante
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Nota de Venta"))
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))

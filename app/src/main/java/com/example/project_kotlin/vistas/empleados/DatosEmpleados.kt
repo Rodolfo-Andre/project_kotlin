@@ -130,6 +130,7 @@ class DatosEmpleados: AppCompatActivity() {
             val datos = empleadoDao.obtenerTodoLiveData()
             withContext(Dispatchers.Main) {
                 datos.observe(this@DatosEmpleados) { empleados ->
+
                     adaptador = EmpleadoAdapter(empleados)
                     rvEmpleados.layoutManager = LinearLayoutManager(this@DatosEmpleados)
                     rvEmpleados.adapter = adaptador

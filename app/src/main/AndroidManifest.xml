@@ -143,6 +143,41 @@
         </activity>
 
 
+        <!--*******************Configuración de Establecimiento*******************-->>
+        <activity
+            android:name=".vistas.establecimiento.NuevoEstablecimiento"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vistas.establecimiento.DatosEstablecimiento"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".vistas.establecimiento.ActualizarEstablecimiento"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--*********************************************************-->>
+
+
+        <!--Configuración de categoría platos-->>
+
+
         <!--Configuración de  platos-->
 
         <activity
@@ -166,11 +201,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".vistas.platos.ActualizarPlato"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
