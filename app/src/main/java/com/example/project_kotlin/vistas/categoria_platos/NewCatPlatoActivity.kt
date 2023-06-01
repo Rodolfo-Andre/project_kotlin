@@ -33,7 +33,7 @@ class NewCatPlatoActivity: AppCompatActivity() {
         edtCategoriaNombre= findViewById(R.id.edtCategoriaNombre)
         btnAgregar = findViewById(R.id.btnAgregarCategoria)
         btnCancelar = findViewById(R.id.btnCancelarCategoria)
-        btnAgregar.setOnClickListener({AgregarMesa()})
+        btnAgregar.setOnClickListener({AgregarCategoria()})
         btnCancelar.setOnClickListener({volverIndex()})
     }
 
@@ -44,7 +44,7 @@ class NewCatPlatoActivity: AppCompatActivity() {
 
 
 
-    /*fun AgregarMesa(){
+    fun AgregarCategoria(){
         lifecycleScope.launch(Dispatchers.IO){
             if(validarCampos()){
                 val codigo = CategoriaPlato.generarCodigo(cateDao.obtenerTodo())
@@ -55,7 +55,7 @@ class NewCatPlatoActivity: AppCompatActivity() {
                 volverIndex()
             }
         }
-    }*/
+    }
 
     fun validarCampos(): Boolean {
         val cateNombre = findViewById<EditText>(R.id.edtCategoriaNombre)
@@ -65,7 +65,7 @@ class NewCatPlatoActivity: AppCompatActivity() {
             return false
         }
         return true
-    }*/
+    }
 
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
