@@ -2,6 +2,7 @@ package com.example.project_kotlin.entidades
 
 import androidx.annotation.NonNull
 import androidx.room.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(tableName = "Empleado",
@@ -23,10 +24,12 @@ class Empleado(
     @NonNull @ColumnInfo(name="apellido") var apellidoEmpleado : String,
     @NonNull @ColumnInfo(name="telefono") var telefonoEmpleado : String,
     @NonNull @ColumnInfo(name="dni") var dniEmpleado : String,
-    @ColumnInfo(name = "fecha_registro", defaultValue = "CURRENT_TIMESTAMP") var fechaRegistro: Date = Date(),
+    @ColumnInfo(name = "fecha_registro", defaultValue = "CURRENT_TIMESTAMP") var fechaRegistro: String = "",
     ):java.io.Serializable {
     @Embedded(prefix = "cargo_")
     lateinit var cargo: Cargo
     @Embedded(prefix = "usuario_")
     lateinit var usuario: Usuario
+
+
 }

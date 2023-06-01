@@ -8,6 +8,7 @@ import com.example.project_kotlin.entidades.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Database(
@@ -95,8 +96,11 @@ abstract class ComandaDatabase : RoomDatabase() {
                             val usuario = Usuario(correo= "admin@admin.com", contrasena = "admin")
                             val idUsuarioGenerado = usuarioDao?.guardar(usuario)
                             usuario.id = idUsuarioGenerado
+                            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                            val fechaActual = Date()
+                            val fechaFormateada = dateFormat.format(fechaActual)
                             val empleado = Empleado(nombreEmpleado = "Admin", apellidoEmpleado = "Admin", telefonoEmpleado = "999999999",
-                                    dniEmpleado = "77777777")
+                                    dniEmpleado = "77777777", fechaRegistro = fechaFormateada)
                             empleado.cargo = Cargo(1, "Administrador")
                             empleado.usuario = usuario
                             empleadoDao?.guardar(empleado)

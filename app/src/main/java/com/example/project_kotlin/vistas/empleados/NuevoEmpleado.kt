@@ -16,6 +16,8 @@ import com.example.project_kotlin.entidades.Usuario
 import com.example.project_kotlin.utils.appConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NuevoEmpleado:AppCompatActivity() {
 
@@ -69,8 +71,11 @@ class NuevoEmpleado:AppCompatActivity() {
                 usuario.contrasena = usuario.generarContrasenia(apellido)
                 val idUsuario = usuarioDao.guardar(usuario)
                 usuario.id = idUsuario
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                val fechaActual = Date()
+                val fechaFormateada = dateFormat.format(fechaActual)
                 val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
-                    telefonoEmpleado = tel)
+                    telefonoEmpleado = tel, fechaRegistro = fechaFormateada)
                 empleado.usuario = usuario
                 empleado.cargo = Cargo(id = cargo.toLong(), cargo = spnCargo.selectedItem.toString())
                 empleadoDao.guardar(empleado)

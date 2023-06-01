@@ -49,11 +49,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Buscar..."
+                android:hint="Nombre..."
                 android:textColorHint="@color/placeholder_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtBuscarUsu"
+                    android:id="@+id/edtBuscarNombreUsu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -61,33 +61,37 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dd/mm/aaaa"
-                android:textColorHint="@color/placeholder_text">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtFecha1"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date|datetime" />
+                    android:hint="dd/mm/aaaa"
+                    android:textColorHint="@color/placeholder_text">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtFechaFiltro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date|datetime" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dd/mm/aaaa"
-                android:textColorHint="@color/placeholder_text">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtFecha2"
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:id="@+id/btnBorrarFecha"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="date|datetime" />
+                    android:src="@android:drawable/ic_delete"
+                    android:background="@android:color/transparent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="8dp"
+                    />
+            </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textView10"
@@ -148,7 +152,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="269dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEmpleadosConfiguracion"
