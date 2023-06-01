@@ -9,10 +9,9 @@ import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.caja_registradora.ConfiguracionCajaVista
 import com.example.project_kotlin.vistas.establecimiento.EstablecimientoVista
 import com.example.project_kotlin.vistas.metodo_pago.MetodoPagoVista
-import com.example.project_kotlin.vistas.platos.PlatosActivity
+import com.example.project_kotlin.vistas.platos.DatosPlatos
 import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
 import com.example.project_kotlin.vistas.empleados.DatosEmpleados
-import com.example.project_kotlin.vistas.empleados.NuevoEmpleado
 import com.example.project_kotlin.vistas.mesas.DatosMesas
 
 class ConfiguracionVista:AppCompatActivity() {
@@ -60,7 +59,7 @@ class ConfiguracionVista:AppCompatActivity() {
 
     fun vincularPlatos() {
 
-        var intent = Intent(this, PlatosActivity::class.java)
+        var intent = Intent(this, DatosPlatos::class.java)
         startActivity(intent)
 
     }

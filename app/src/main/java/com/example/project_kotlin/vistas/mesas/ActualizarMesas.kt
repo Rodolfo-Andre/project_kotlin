@@ -98,6 +98,7 @@ class ActualizarMesas : AppCompatActivity() {
         }
     }
 
+
     fun validarCampos(): Boolean {
         val cantidad = edCantAsientos.text.toString().toIntOrNull()
         if (cantidad == null || cantidad !in 1..9) {
