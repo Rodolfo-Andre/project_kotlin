@@ -14,12 +14,12 @@
         tools:layout_editor_absoluteX="1dp">
 
         <TextView
-            android:id="@+id/tvManUsu"
+            android:id="@+id/tvManEditUsu"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="Mantenimiento Usuario" />
+            android:text="Mantenimiento Empleado" />
 
         <View
             android:id="@+id/divider5"
@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <Spinner
-                android:id="@+id/spnUsu"
+                android:id="@+id/spnCargoEmpleadoE"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="0" />
@@ -49,11 +49,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Buscar..."
+                android:hint="Nombre..."
                 android:textColorHint="@color/placeholder_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtBuscarUsu"
+                    android:id="@+id/edtBuscarNombreUsu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -61,33 +61,37 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dd/mm/aaaa"
-                android:textColorHint="@color/placeholder_text">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtFecha1"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date|datetime" />
+                    android:hint="dd/mm/aaaa"
+                    android:textColorHint="@color/placeholder_text">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtFechaFiltro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date|datetime" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dd/mm/aaaa"
-                android:textColorHint="@color/placeholder_text">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtFecha2"
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:id="@+id/btnBorrarFecha"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="date|datetime" />
+                    android:src="@android:drawable/ic_delete"
+                    android:background="@android:color/transparent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="8dp"
+                    />
+            </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textView10"
@@ -143,36 +147,52 @@
                 android:layout_weight="0.5"
                 android:background="?android:attr/listDivider" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="269dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEmpleadosConfiguracion"
                 android:layout_width="match_parent"
-                android:layout_height="205dp"
-                android:layout_weight="0.5" />
+                android:layout_height="wrap_content" />
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:layout_weight="0.5" />
+                android:id="@+id/textView43"
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNuevaMesaCon"
-                android:layout_width="379dp"
+                android:id="@+id/btnNuevoEmpleadoCon"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="0.5"
                 android:backgroundTint="@color/button_blue"
                 android:src="@drawable/icon_delete"
-                android:text="AGREGAR USUARIO" />
+                android:text="AGREGAR EMPLEADO"
+                android:textSize="10sp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegresarIndexEmpleado"
+                android:layout_width="363dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/button_blue"
+                android:src="@drawable/icon_delete"
+                android:text="Regresar" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

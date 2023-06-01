@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
@@ -13,12 +13,13 @@
         tools:layout_editor_absoluteY="1dp">
 
         <TextView
-            android:id="@+id/tvManEditUsu"
+            android:id="@+id/tvConfiEsta"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_margin="4dp"
-            android:text="Configuracion de Mesas" />
+            android:text="Configuracion de Establecimiento"
+            android:textSize="22sp" />
 
 
         <LinearLayout
@@ -26,61 +27,45 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <Spinner
-                android:id="@+id/spnFiltrarEstadoMesas"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:entries="@array/estadosMesa"
-                android:outlineProvider="bounds" />
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Nombre...."
+                android:textColorHint="@color/placeholder_text" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Cantidad de asientos..."
-                android:textColorHint="@color/placeholder_text">
+                android:hint="Direccion..."
+                android:textColorHint="@color/placeholder_text" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtBuscarMesas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:inputType="text" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/textView19"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Telefono..."
+                android:textColorHint="@color/placeholder_text" />
 
-
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ruc..."
+                android:textColorHint="@color/placeholder_text" />
         </LinearLayout>
 
         <View
-            android:id="@+id/divider9"
+            android:id="@+id/divider19"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="279dp">
+            android:layout_width="395dp"
+            android:layout_height="409dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListadoMesasCon"
@@ -89,7 +74,7 @@
         </ScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="389dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -99,17 +84,17 @@
                 android:layout_height="match_parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNuevoEmpleadoCon"
+                android:id="@+id/btnNuevoEstablecimiento"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="0.5"
                 android:backgroundTint="@color/button_blue"
                 android:src="@drawable/icon_delete"
-                android:text="AGREGAR MESA" />
+                android:text="AGREGAR ESTABLECIMIENTO" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegresarIndexEmpleado"
+                android:id="@+id/btnRegresarIndexEstablecimiento"
                 android:layout_width="363dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
@@ -119,7 +104,6 @@
                 android:text="Regresar" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

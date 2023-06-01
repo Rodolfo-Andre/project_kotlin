@@ -6,17 +6,8 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="415dp"
-        android:layout_height="615dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="63dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,12 +17,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="6dp" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_add" />
 
             <View
                 android:layout_width="match_parent"
@@ -49,6 +34,25 @@
                 android:text="Nuevo Plato"
                 android:textSize="26sp"
                 android:textStyle="bold" />
+            <View
+                android:id="@+id/divider20"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
+
+            <ImageView
+                android:id="@+id/imagenCrear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp" />
 
             <View
                 android:id="@+id/divider8"
@@ -79,6 +83,7 @@
                     android:layout_width="188dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="18sp"
                     android:text="Nombre del Plato" />
 
 
@@ -115,6 +120,7 @@
                     android:layout_width="188dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="18sp"
                     android:text="Precio Plato" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -148,14 +154,17 @@
                     android:layout_width="189dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="18sp"
                     android:text="Imagen del plato" />
 
-                <ImageButton
-                    android:id="@+id/imagenPlato"
-                    android:layout_width="214dp"
-                    android:layout_height="69dp"
+                <Button
+                    android:id="@+id/btnSubirImagen"
+                    android:layout_width="215dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:backgroundTint="@color/teal_200"
+                    android:text="Subir Imagen" />
+
 
             </LinearLayout>
 
@@ -177,6 +186,7 @@
                     android:layout_width="188dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="18sp"
                     android:text="Categoria" />
 
                 <Spinner
@@ -199,7 +209,7 @@
                 android:layout_height="6dp" />
 
             <View
-                android:id="@+id/divider20"
+                android:id="@+id/divider35"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_weight="0"
@@ -214,7 +224,7 @@
                 android:layout_height="6dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAgregar"
+                android:id="@+id/btnAgregarPlato"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/teal_200"

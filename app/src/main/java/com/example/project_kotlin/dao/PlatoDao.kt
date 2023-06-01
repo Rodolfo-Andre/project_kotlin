@@ -9,14 +9,14 @@ interface PlatoDao {
     @Query("select * from Plato")
     fun obtenerTodo(): List<Plato>
 
-    @Query("select * from Plato where id_cat_plato = :id_cat_plato")
-    fun obtenerPlatosPorCategoria(id_cat_plato: String): List<Plato>
+    @Query("select * from Plato where catplato_id = :catplato_id")
+    fun obtenerPlatosPorCategoria(catplato_id: String): List<Plato>
 
     @Query("SELECT * FROM Plato WHERE id = :id")
-    fun obtenerPorId(id: Long) : Plato
+    fun obtenerPorId(id: String) : Plato
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun guardar(plato: Plato) : Long
+    @Insert
+    fun guardar(plato: Plato)
 
     @Update
     fun actualizar(plato: Plato)

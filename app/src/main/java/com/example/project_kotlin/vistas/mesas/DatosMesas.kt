@@ -37,8 +37,8 @@ class DatosMesas : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.con_mesas)
-        btnNuevaMesa = findViewById(R.id.btnNuevaMesaCon)
-        btnVolverIndexMesa = findViewById(R.id.btnRegresarIndexMesas)
+        btnNuevaMesa = findViewById(R.id.btnNuevoEmpleadoCon)
+        btnVolverIndexMesa = findViewById(R.id.btnRegresarIndexEmpleado)
         rvMesas = findViewById(R.id.rvListadoMesasCon)
         spEstadoMesa = findViewById(R.id.spnFiltrarEstadoMesas)
         edBuscarNumAsientos = findViewById(R.id.edtBuscarMesas)

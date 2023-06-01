@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".utils.appConfig"
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_kotlin"
         tools:targetApi="31">
-        <!--Activity Main - Login-->>
+        <!--Activity Main - Login-->
 
         <activity
             android:name=".vistas.MainActivity"
@@ -79,19 +79,11 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".vistas.categoria_platos.DeletCatPlatoActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!--CONFIGURACION Empleados-->
         <activity
-            android:name=".vistas.empleados.EmpleadoVista"
+            android:name=".vistas.empleados.NuevoEmpleado"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -99,10 +91,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--CONFIGURACION PLATOS-->
         <activity
-            android:name=".vistas.platos.PlatosActivity"
+            android:name=".vistas.empleados.ActualizarEmpleado"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -110,6 +100,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".vistas.empleados.DatosEmpleados"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
         <!--Configuración de mesas-->
 
@@ -131,6 +131,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".vistas.mesas.ActualizarMesas"
             android:exported="true">
@@ -141,9 +142,10 @@
             </intent-filter>
         </activity>
 
-        <!--
+
+        <!--*******************Configuración de Establecimiento*******************-->>
         <activity
-            android:name=".vistas.MesasVista"
+            android:name=".vistas.establecimiento.NuevoEstablecimiento"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -151,7 +153,56 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        -->
+
+        <activity
+            android:name=".vistas.establecimiento.DatosEstablecimiento"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".vistas.establecimiento.ActualizarEstablecimiento"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--*********************************************************-->
+
+
+        <!--Configuración de categoría platos-->
+
+
+        <!--Configuración de  platos-->
+
+        <activity
+            android:name=".vistas.platos.DatosPlatos"
+            android:exported="true"
+            tools:ignore="DuplicateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".vistas.platos.NuevoPlato"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
 
         <!--CAJA ACTIVITY-->
 

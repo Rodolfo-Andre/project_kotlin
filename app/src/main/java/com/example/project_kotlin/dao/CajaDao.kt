@@ -10,6 +10,8 @@ interface CajaDao {
 
     @Query("SELECT * FROM caja WHERE id = :id")
      fun obtenerPorId(id: Long) : Caja
+    @Query("SELECT * FROM Caja WHERE establecimiento_id = :establecimiento_id")
+    fun obtenerCajaPorEstablecimiento(establecimiento_id: Int) : List<Caja>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun guardar(caja: Caja) : Long
