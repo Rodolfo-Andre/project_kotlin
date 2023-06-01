@@ -14,6 +14,10 @@ interface EstablecimientoDao {
     @Query("select *from Establecimiento")
     fun listar():Establecimiento
 
+    //No modifique el listar en caso lo este usando
+    @Query("select * from Establecimiento")
+    fun obtener(): List<Establecimiento>
+
 
     @Query("SELECT * FROM Establecimiento WHERE id = :id")
     fun obtenerPorId(id: Long) : Establecimiento

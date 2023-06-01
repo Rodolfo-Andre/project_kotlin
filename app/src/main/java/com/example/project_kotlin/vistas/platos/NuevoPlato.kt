@@ -145,17 +145,17 @@ class NuevoPlato : AppCompatActivity() {
         val nombre = edtNombrePlato.text.toString()
         val precio = edtPrecioPlato.text.toString()
 
-        val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\\\s]+\$"
-        val REGEX_PRECIO = "^[0-9]+\$"
+        val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\s]*\$"
+        val REGEX_PRECIO = "^[\\d]{1,3}(?:,[\\d]{3})*(?:\\.[\\d]{1,2})?\$"
 
         if (!REGEX_NOMBRE.toRegex().matches(nombre)) {
             // El campo nombre no cumple con el formato esperado
-            mostrarToast("El campo nombre no cumple con el formato requerido. Debe comenzar con mayúscula y contener solo letras y espacios")
+            mostrarToast("Ingrese un nombre iniciado por Mayuscula la primera letra")
             return false
         }
         if (!REGEX_PRECIO.toRegex().matches(precio)) {
             // El campo nombre no cumple con el formato esperado
-            mostrarToast("Ingrese un precio correcto")
+            mostrarToast("Ingrese un precio no maximo de 999.99")
             return false
         }
 

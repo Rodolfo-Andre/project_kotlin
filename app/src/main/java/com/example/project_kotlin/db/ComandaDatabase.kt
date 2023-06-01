@@ -87,11 +87,15 @@ abstract class ComandaDatabase : RoomDatabase() {
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-001", "Entradas"))
                             //Establecimiento
                             establecimientoDao?.guardar(
-                                Establecimiento(1, "Nombre",
+                                Establecimiento(1, "Establecimiento1",
+                                    "966250432", "Dirección pruebas", "12345678910")
+                            )
+                            establecimientoDao?.guardar(
+                                Establecimiento(2, "Establecimiento2",
                                     "966250432", "Dirección pruebas", "12345678910")
                             )
                             //Agregando Caja
-                            cajaDao?.guardar(Caja(1,1))
+                            //cajaDao?.guardar(Caja(1,1))
                             //Tipo comprobante
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Nota de Venta"))
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))

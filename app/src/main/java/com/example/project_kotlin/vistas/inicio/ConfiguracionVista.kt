@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.caja_registradora.ConfiguracionCajaVista
+import com.example.project_kotlin.vistas.caja_registradora.DatosCajas
 import com.example.project_kotlin.vistas.platos.DatosPlatos
 import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
 import com.example.project_kotlin.vistas.empleados.DatosEmpleados
@@ -100,7 +100,7 @@ class ConfiguracionVista:AppCompatActivity() {
 
     fun vincularCajaVista(){
 
-        var intent = Intent(this, ConfiguracionCajaVista::class.java)
+        var intent = Intent(this, DatosCajas::class.java)
         startActivity(intent)
 
     }
