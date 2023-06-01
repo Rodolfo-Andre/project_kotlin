@@ -150,9 +150,16 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvDatosEmpleadosSinDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No hay datos registrados"
+            android:textSize="18dp" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="269dp">
+            android:layout_height="232dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEmpleadosConfiguracion"

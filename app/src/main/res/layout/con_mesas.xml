@@ -78,6 +78,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/tvDatosMesasSinDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No hay datos registrados"
+            android:textSize="18dp" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="279dp">

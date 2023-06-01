@@ -4,11 +4,13 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +42,7 @@ class DatosEmpleados: AppCompatActivity() {
     private lateinit var edNombreFiltro : EditText
     private lateinit var edFechaFiltro : EditText
     private lateinit var imgBorrarFecha : ImageButton
+    private lateinit var tvEtiqueta : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,7 @@ class DatosEmpleados: AppCompatActivity() {
         btnFiltrar = findViewById(R.id.btnAplicarUsu)
         rvEmpleados = findViewById(R.id.rvEmpleadosConfiguracion)
         btnVolver.setOnClickListener({volver()})
+        tvEtiqueta = findViewById(R.id.tvDatosEmpleadosSinDatos)
         btnAgregar.setOnClickListener({agregar()})
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
@@ -130,7 +134,11 @@ class DatosEmpleados: AppCompatActivity() {
             val datos = empleadoDao.obtenerTodoLiveData()
             withContext(Dispatchers.Main) {
                 datos.observe(this@DatosEmpleados) { empleados ->
-
+                    if(empleados.size == 0){
+                        tvEtiqueta.visibility = View.VISIBLE
+                    }else{
+                        tvEtiqueta.visibility = View.GONE
+                    }
                     adaptador = EmpleadoAdapter(empleados)
                     rvEmpleados.layoutManager = LinearLayoutManager(this@DatosEmpleados)
                     rvEmpleados.adapter = adaptador

@@ -28,7 +28,7 @@ class DatosMesas : AppCompatActivity(){
     private lateinit var rvMesas : RecyclerView
     private lateinit var btnNuevaMesa : Button
     private lateinit var btnVolverIndexMesa : Button
-
+    private lateinit var tvEtiqueta : TextView
     private lateinit var mesaDao : MesaDao
     private lateinit var adaptador : ConfiguracionMesasAdapter
     private  var cantMesasFiltro : Int = 0
@@ -43,6 +43,7 @@ class DatosMesas : AppCompatActivity(){
         spEstadoMesa = findViewById(R.id.spnFiltrarEstadoMesas)
         edBuscarNumAsientos = findViewById(R.id.edtBuscarMesas)
         btnNuevaMesa.setOnClickListener({adicionar()})
+        tvEtiqueta = findViewById(R.id.tvDatosMesasSinDatos)
         btnVolverIndexMesa.setOnClickListener({volverIndex()})
         mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
         obtenerMesas()
@@ -110,7 +111,12 @@ class DatosMesas : AppCompatActivity(){
      fun obtenerMesas() {
         lifecycleScope.launch(Dispatchers.IO){
             var datos = mesaDao.obtenerTodo()
+            if(datos.size == 0){
+                tvEtiqueta.visibility = View.VISIBLE
 
+            }else{
+                tvEtiqueta.visibility = View.GONE
+            }
             adaptador = ConfiguracionMesasAdapter(datos)
             rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
             rvMesas.adapter = adaptador
