@@ -11,10 +11,8 @@ import com.example.project_kotlin.vistas.metodo_pago.MetodoPagoVista
 import com.example.project_kotlin.vistas.platos.DatosPlatos
 import com.example.project_kotlin.vistas.categoria_platos.CategoriaPlatosActivity
 import com.example.project_kotlin.vistas.empleados.DatosEmpleados
-<<<<<<< Updated upstream
-=======
+
 import com.example.project_kotlin.vistas.establecimiento.DatosEstablecimiento
->>>>>>> Stashed changes
 import com.example.project_kotlin.vistas.mesas.DatosMesas
 
 class ConfiguracionVista:AppCompatActivity() {
