@@ -1,6 +1,7 @@
 package com.example.project_kotlin.adaptador.adaptadores.empleado
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ import com.example.project_kotlin.vistas.empleados.ActualizarEmpleado
 class EmpleadoAdapter(var info:List<Empleado>):RecyclerView.Adapter<VistaItemUsuario>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemUsuario {
         val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_usuario, parent, false)
+        Log.d("Ingresar", "Empleado")
         return VistaItemUsuario(vista)
     }
 
@@ -26,8 +28,11 @@ class EmpleadoAdapter(var info:List<Empleado>):RecyclerView.Adapter<VistaItemUsu
         holder.tvDniUsu.text = info.get(position).dniEmpleado
         holder.tvNomUsu.text = info.get(position).nombreEmpleado
         holder.tvTelfUsu.text = info.get(position).telefonoEmpleado
+        Log.d("QUE", "EN EL AIRE WEON")
         var context = holder.itemView.context
+
         holder.itemView.setOnClickListener{
+            Log.d("EmpleadoAdapter", "Prueba de click")
             var intent = Intent(appConfig.CONTEXT,ActualizarEmpleado::class.java )
             intent.putExtra("empleado", info[position])
             ContextCompat.startActivity(context, intent, null)

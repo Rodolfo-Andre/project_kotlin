@@ -5,5 +5,5 @@ import androidx.room.*
 @Entity(tableName = "cargo")
 data class Cargo(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    var cargo: String) {
+    var cargo: String):java.io.Serializable {
 }

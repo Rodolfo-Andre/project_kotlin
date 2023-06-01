@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="Nuevo Usuario" />
+                android:text="Actualizar empleado" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtNomUsuE"
+                        android:id="@+id/edtNomUsuA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -75,7 +75,7 @@
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtApeUsuE"
+                        android:id="@+id/edtApeUsuA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -103,7 +103,7 @@
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtDniUsuE"
+                        android:id="@+id/edtDniUsuA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -131,7 +131,7 @@
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtCorreoUsuE"
+                        android:id="@+id/edtCorreoUsuA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -159,7 +159,7 @@
                     android:textColorHint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtTelfUsuE"
+                        android:id="@+id/edtTelfUsuA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number" />
@@ -182,7 +182,7 @@
                     android:text="Cargo :" />
 
                 <Spinner
-                    android:id="@+id/spnCargoEmpleadoE"
+                    android:id="@+id/spnCargoEmpleadoA"
                     android:layout_width="260dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.1" />
@@ -195,12 +195,12 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnNuevoUsu"
+                    android:id="@+id/btnActualizarUsu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/teal_700"
-                    android:text="AGREGAR" />
+                    android:text="Actualizar" />
 
                 <Button
                     android:id="@+id/btnEliminarUsu"
@@ -208,7 +208,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/md_theme_dark_errorContainer"
-                    android:text="CANCELAR" />
+                    android:text="Eliminar" />
+
+                <Button
+                    android:id="@+id/btnVolverEditarUsu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancelar" />
 
             </LinearLayout>
 

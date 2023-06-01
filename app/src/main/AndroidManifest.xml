@@ -100,6 +100,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".vistas.empleados.ActualizarEmpleado"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".vistas.empleados.DatosEmpleados"
             android:exported="true">
             <intent-filter>
@@ -140,17 +149,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".vistas.mesas.ActualizarMesas"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".vistas.MesasVista"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -162,24 +163,8 @@
         <!--Configuración de categoría platos-->>
 
 
-        <activity
-            android:name=".vistas.categoria_platos.EditCatPlatoActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".vistas.categoria_platos.DeletCatPlatoActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!--CAJA ACTIVITY-->
 

@@ -19,6 +19,7 @@ import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DatosEmpleados: AppCompatActivity() {
     private lateinit var btnVolver : Button
@@ -34,7 +35,7 @@ class DatosEmpleados: AppCompatActivity() {
         setContentView(R.layout.man_usuarios)
         btnAgregar = findViewById(R.id.btnNuevoEmpleadoCon)
         btnVolver = findViewById(R.id.btnRegresarIndexEmpleado)
-        spCargos = findViewById(R.id.spnCargoEmpleadoN)
+        spCargos = findViewById(R.id.spnCargoEmpleadoE)
         rvEmpleados = findViewById(R.id.rvEmpleadosConfiguracion)
         btnVolver.setOnClickListener({volver()})
         btnAgregar.setOnClickListener({agregar()})
@@ -54,14 +55,17 @@ class DatosEmpleados: AppCompatActivity() {
 
         }
     }
-    fun obtenerEmpleados(){
-        lifecycleScope.launch(Dispatchers.IO){
-            var datos = empleadoDao.obtenerTodo()
+    fun obtenerEmpleados() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val datos = empleadoDao.obtenerTodoLiveData()
+            withContext(Dispatchers.Main) {
+                datos.observe(this@DatosEmpleados) { empleados ->
+                    adaptador = EmpleadoAdapter(empleados)
+                    rvEmpleados.layoutManager = LinearLayoutManager(this@DatosEmpleados)
+                    rvEmpleados.adapter = adaptador
 
-            adaptador = EmpleadoAdapter(datos)
-            rvEmpleados.layoutManager= LinearLayoutManager(this@DatosEmpleados)
-            rvEmpleados.adapter = adaptador
-
+                }
+            }
         }
     }
     fun volver(){

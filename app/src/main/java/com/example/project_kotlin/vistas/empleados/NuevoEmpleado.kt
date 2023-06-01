@@ -14,7 +14,6 @@ import com.example.project_kotlin.entidades.Cargo
 import com.example.project_kotlin.entidades.Empleado
 import com.example.project_kotlin.entidades.Usuario
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -36,14 +35,14 @@ class NuevoEmpleado:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_usu)
 
-        edtNomUsu = findViewById(R.id.edtNomUsu)
-        edtApeUsu = findViewById(R.id.edtApeUsu)
-        edtDniUsu = findViewById(R.id.edtDniUsu)
-        edtCorreoUsu = findViewById(R.id.edtCorreoUsu)
-        edtTelfUsu = findViewById(R.id.edtTelfUsu)
-        spnCargo = findViewById(R.id.spnCargoEmpleadoN)
+        edtNomUsu = findViewById(R.id.edtNomUsuE)
+        edtApeUsu = findViewById(R.id.edtApeUsuE)
+        edtDniUsu = findViewById(R.id.edtDniUsuE)
+        edtCorreoUsu = findViewById(R.id.edtCorreoUsuE)
+        edtTelfUsu = findViewById(R.id.edtTelfUsuE)
+        spnCargo = findViewById(R.id.spnCargoEmpleadoE)
         btnNuevoUsu = findViewById(R.id.btnNuevoUsu)
-        btnCancelarUsu = findViewById(R.id.btnCancelarUsu)
+        btnCancelarUsu = findViewById(R.id.btnEliminarUsu)
         //Base de datos
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
@@ -64,15 +63,16 @@ class NuevoEmpleado:AppCompatActivity() {
                 val correo = edtCorreoUsu.text.toString()
                 val tel = edtTelfUsu.text.toString()
                 val cargo = spnCargo.selectedItemPosition +1
-                val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
-                telefonoEmpleado = tel)
+
                 //Crear objeto usuario
                 val usuario = Usuario(correo = correo)
                 usuario.contrasena = usuario.generarContrasenia(apellido)
-                usuarioDao.guardar(usuario)
-
+                val idUsuario = usuarioDao.guardar(usuario)
+                usuario.id = idUsuario
+                val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
+                    telefonoEmpleado = tel)
                 empleado.usuario = usuario
-                empleado.cargo = Cargo(cargo = spnCargo.selectedItem.toString())
+                empleado.cargo = Cargo(id = cargo.toLong(), cargo = spnCargo.selectedItem.toString())
                 empleadoDao.guardar(empleado)
                 mostrarToast("Empleado guardado correctamente")
                 volver()
@@ -121,7 +121,7 @@ class NuevoEmpleado:AppCompatActivity() {
         return true
     }
     fun volver(){
-        var intent = Intent(this, ConfiguracionVista::class.java)
+        var intent = Intent(this, DatosEmpleados::class.java)
         startActivity(intent)
     }
     private fun mostrarToast(mensaje: String) {

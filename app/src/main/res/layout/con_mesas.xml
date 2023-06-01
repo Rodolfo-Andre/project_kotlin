@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <TextView
-            android:id="@+id/tvManUsu"
+            android:id="@+id/tvManEditUsu"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

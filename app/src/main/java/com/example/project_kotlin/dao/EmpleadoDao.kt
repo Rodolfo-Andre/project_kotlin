@@ -1,11 +1,15 @@
 package com.example.project_kotlin.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.project_kotlin.entidades.Empleado
 import com.example.project_kotlin.entidades.Plato
 
 @Dao
 interface EmpleadoDao {
+
+    @Query("select * from Empleado")
+    fun obtenerTodoLiveData(): LiveData<List<Empleado>>
 
     @Query("select * from Empleado")
     fun obtenerTodo(): List<Empleado>
