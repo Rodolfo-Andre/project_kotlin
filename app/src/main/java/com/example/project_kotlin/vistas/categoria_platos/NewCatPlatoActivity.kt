@@ -59,9 +59,11 @@ class NewCatPlatoActivity: AppCompatActivity() {
 
     fun validarCampos(): Boolean {
         val cateNombre = findViewById<EditText>(R.id.edtCategoriaNombre)
+        val nombreCategoria = cateNombre.text.toString()
+        val regex = Regex("[0-9]")
 
-        if (cateNombre.text.toString().isEmpty()) {
-            mostrarToast("Debe Ingresar el nombre de la categoría")
+        if (cateNombre.text.toString().isEmpty() || regex.containsMatchIn(nombreCategoria)) {
+            mostrarToast("Ingrese categoría válida")
             return false
         }
         return true

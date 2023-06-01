@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.MesaDao
+import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Mesa
@@ -28,6 +29,7 @@ class EditCatPlatoActivity:AppCompatActivity() {
     private lateinit var btnEliminar:Button
 
     private lateinit var cateDAO: CategoriaPlatoDao
+    private lateinit var prodDAO: PlatoDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class EditCatPlatoActivity:AppCompatActivity() {
         btnCancelar= findViewById(R.id.btnCancelarCat)
         btnEliminar = findViewById(R.id.btnEliminarCat)
         cateDAO = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
+        prodDAO = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
 
         btnEditar.setOnClickListener({Editar()})
         btnCancelar.setOnClickListener({Cancelar()})
@@ -78,10 +81,16 @@ class EditCatPlatoActivity:AppCompatActivity() {
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
                 //Validar de comandas
+                val validarCategoria = prodDAO.obtenerPlatosPorCategoria(codCate)
+                if(validarCategoria.isEmpty()){
                     val eliminar = cateDAO.obtenerPorId(codCate)
                     cateDAO.eliminar(eliminar)
                     mostrarToast("Categoria eliminada correctamente")
                     Volver()
+                }else{
+                    mostrarToast("La categoría que tiene productos registrados no puede ser eliminado")
+                }
+
 
             }
         }
@@ -97,13 +106,15 @@ class EditCatPlatoActivity:AppCompatActivity() {
 
     fun validarCampos(): Boolean {
         val cateNombre = edtCategoriaNombres.text.toString()
+        val regex = Regex("[0-9]")
 
-        if (cateNombre.isEmpty()) {
-            mostrarToast("Debe Ingresar el nombre de la categoría")
+        if (cateNombre.isEmpty() || regex.containsMatchIn(cateNombre)) {
+            mostrarToast("Ingrese categoría válida")
             return false
         }
         return true
     }
+
 
 
     private fun mostrarToast(mensaje: String) {
