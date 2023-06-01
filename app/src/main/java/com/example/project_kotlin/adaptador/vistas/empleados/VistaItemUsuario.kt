@@ -13,6 +13,7 @@ class VistaItemUsuario(itemView: View):RecyclerView.ViewHolder(itemView) {
     var tvCorreoUsu:TextView
     var tvTelfUsu:TextView
     var tvCargoUsu:TextView
+    var tvFechaUsu:TextView
 
     init {
         tvNomUsu = itemView.findViewById(R.id.tvNomUsu)
@@ -21,6 +22,7 @@ class VistaItemUsuario(itemView: View):RecyclerView.ViewHolder(itemView) {
         tvCorreoUsu = itemView.findViewById(R.id.tvCorreoUsu)
         tvTelfUsu = itemView.findViewById(R.id.tvTelfUsu)
         tvCargoUsu = itemView.findViewById(R.id.tvCargoUsu)
+        tvFechaUsu = itemView.findViewById(R.id.tvFechaUsu)
 
     }
 }

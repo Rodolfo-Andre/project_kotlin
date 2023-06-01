@@ -28,6 +28,7 @@ class EmpleadoAdapter(var info:List<Empleado>):RecyclerView.Adapter<VistaItemUsu
         holder.tvDniUsu.text = info.get(position).dniEmpleado
         holder.tvNomUsu.text = info.get(position).nombreEmpleado
         holder.tvTelfUsu.text = info.get(position).telefonoEmpleado
+        holder.tvFechaUsu.text = info.get(position).fechaRegistro
         Log.d("QUE", "EN EL AIRE WEON")
         var context = holder.itemView.context
 

@@ -103,6 +103,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="---" />
+            <TextView
+                android:id="@+id/textView222"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha registro :"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvFechaUsu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="---" />
 
             <TextView
                 android:id="@+id/textView26"
