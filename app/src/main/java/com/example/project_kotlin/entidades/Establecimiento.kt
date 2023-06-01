@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Establecimiento")
 class
 Establecimiento(
-    @PrimaryKey var id: Long = 0,
+    @PrimaryKey (autoGenerate = true) var id: Long = 0,
     @ColumnInfo(name="nom_Establecimiento") var nombreEstablecimiento: String,
     @ColumnInfo(name="telefono_establecimiento") var telefonoEstablecimiento: String,
     @ColumnInfo(name="direccion_establecimiento") var direccionEstablecimiento: String,
     @ColumnInfo(name = "ruc_establecimiento") var rucEstablecimiento : String
-) {
+):java.io.Serializable{
 }
