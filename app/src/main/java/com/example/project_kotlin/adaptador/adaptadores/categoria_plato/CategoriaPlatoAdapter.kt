@@ -11,7 +11,7 @@ import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
 
-class CategoriaPlatoAdapter(var info : ArrayList<CategoriaPlato>)
+class CategoriaPlatoAdapter(var info : List<CategoriaPlato>)
     :RecyclerView.Adapter<VistaItemCategoriaPlato>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemCategoriaPlato {

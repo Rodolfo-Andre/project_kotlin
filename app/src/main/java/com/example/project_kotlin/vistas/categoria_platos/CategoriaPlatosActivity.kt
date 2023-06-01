@@ -47,15 +47,14 @@ class CategoriaPlatosActivity: AppCompatActivity() {
 
     fun obtenerCategorias() {
         lifecycleScope.launch(Dispatchers.IO){
-            var datos = cateDao.obtenerTodo()
-            val datosCopia = ArrayList<CategoriaPlato>(datos)
-
-            withContext(Dispatchers.Main) {
-                adaptador = CategoriaPlatoAdapter(datosCopia)
-                rvCategoria.layoutManager = LinearLayoutManager(this@CategoriaPlatosActivity)
-                rvCategoria.adapter = adaptador
+            var datos = cateDao.obtenerTodoLiveData()
+            withContext(Dispatchers.Main){
+                datos.observe(this@CategoriaPlatosActivity){categoria ->
+                    adaptador = CategoriaPlatoAdapter(categoria)
+                    rvCategoria.layoutManager = LinearLayoutManager(this@CategoriaPlatosActivity)
+                    rvCategoria.adapter = adaptador
+                }
             }
-
         }
     }
 

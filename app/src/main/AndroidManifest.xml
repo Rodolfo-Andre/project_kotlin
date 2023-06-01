@@ -110,16 +110,6 @@
             </intent-filter>
         </activity>
 
-        <!--CONFIGURACION PLATOS-->
-        <activity
-            android:name=".vistas.platos.DatosPlatos"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!--Configuración de mesas-->
 
@@ -182,7 +172,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--CAJA ACTIVITY-->
 
         <activity
