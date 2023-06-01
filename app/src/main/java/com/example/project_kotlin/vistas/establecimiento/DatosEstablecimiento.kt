@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -25,13 +26,12 @@ import kotlinx.coroutines.withContext
 
 class DatosEstablecimiento: AppCompatActivity() {
 
-        private lateinit var edtnombre:EditText
-        private  lateinit var edtdireccion:EditText
-        private lateinit var edtruc:EditText
-        private lateinit var edtTelefono:EditText
+
         private lateinit var btnNuevoEstablecimiento:Button
         private lateinit var btnVoler:Button
-        private lateinit var btnBusacr:Button
+
+
+        private lateinit var txtOcultarRegistros:TextView
 
         private lateinit var  establecimientoDao:EstablecimientoDao
         private lateinit var adaptador : ConfiguracionEstablecimientoAdapter
@@ -49,6 +49,8 @@ class DatosEstablecimiento: AppCompatActivity() {
                 btnNuevoEstablecimiento = findViewById(R.id.btnNuevoEstablecimiento)
                 btnVoler = findViewById(R.id.btnRegresarIndexEstablecimiento)
                 rvEstablecimiento = findViewById(R.id.rvListadoMesasCon)
+                txtOcultarRegistros=findViewById(R.id.txtOcultarRegistros)
+
 
                 btnNuevoEstablecimiento.setOnClickListener({ adicionar() })
                 btnVoler.setOnClickListener({ volverIndex() })
@@ -58,15 +60,21 @@ class DatosEstablecimiento: AppCompatActivity() {
 
         }
 
-        fun obtenerListadoEstablecimiento(){
-                lifecycleScope.launch(Dispatchers.IO){
-                        var datos = establecimientoDao.obtenerTodoLiveData()
-                        withContext(Dispatchers.Main){
-                                datos.observe(this@DatosEstablecimiento){
-                                        datos->
-                                        adaptador = ConfiguracionEstablecimientoAdapter(datos)
-                                        rvEstablecimiento.layoutManager= LinearLayoutManager(this@DatosEstablecimiento)
-                                        rvEstablecimiento.adapter = adaptador
+        fun obtenerListadoEstablecimiento() {
+                lifecycleScope.launch(Dispatchers.IO) {
+                        val datos = establecimientoDao.obtenerTodoLiveData()
+
+                        withContext(Dispatchers.Main) {
+                                datos.observe(this@DatosEstablecimiento) { listaDatos ->
+                                        if (!listaDatos.isNullOrEmpty()) {
+                                                adaptador = ConfiguracionEstablecimientoAdapter(listaDatos)
+                                                rvEstablecimiento.layoutManager = LinearLayoutManager(this@DatosEstablecimiento)
+                                                rvEstablecimiento.adapter = adaptador
+                                                txtOcultarRegistros.setText("")
+                                        } else {
+
+                                                txtOcultarRegistros.setText("No hay Registros")
+                                        }
                                 }
                         }
                 }

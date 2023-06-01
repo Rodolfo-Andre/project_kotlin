@@ -59,7 +59,13 @@
             android:background="?android:attr/listDivider" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/txtOcultarRegistros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
