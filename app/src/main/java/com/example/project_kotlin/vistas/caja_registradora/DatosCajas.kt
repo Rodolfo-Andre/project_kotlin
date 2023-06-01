@@ -2,10 +2,12 @@ package com.example.project_kotlin.vistas.caja_registradora
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +36,7 @@ class DatosCajas : AppCompatActivity()  {
     private lateinit var btnVolverIndexCaja : Button
     private lateinit var spnFiltrarCajas : Spinner
     private lateinit var btnFiltrarCajaPest : Button
+    private lateinit var tvSinRegistrosCaja : TextView
 
     private lateinit var establecimientoDao: EstablecimientoDao
 
@@ -50,6 +53,7 @@ class DatosCajas : AppCompatActivity()  {
         rvCajas = findViewById(R.id.rvCajas)
         spnFiltrarCajas = findViewById(R.id.spnEstablecimientoFlitrado)
         btnFiltrarCajaPest = findViewById(R.id.btnFiltroEstCaja)
+        tvSinRegistrosCaja = findViewById(R.id.tvSinRegistrosCaja)
 
         CajaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
         establecimientoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).establecimientoDao()
@@ -63,7 +67,7 @@ class DatosCajas : AppCompatActivity()  {
         obtenerCaja()
         cargarEstablecimiento()
     }
-
+    
     fun filtrar() {
         lifecycleScope.launch(Dispatchers.IO) {
             val datos = CajaDao.obtenerTodo()
@@ -76,7 +80,11 @@ class DatosCajas : AppCompatActivity()  {
                 datosFiltrados = datosFiltrados.filter { caja -> caja.establecimiento?.nombreEstablecimiento == selectedItem }
             }
             withContext(Dispatchers.Main) {
-                adaptador.actualizarListaCajas(datosFiltrados)
+                if (datosFiltrados.isNotEmpty()) {
+                    adaptador.actualizarListaCajas(datosFiltrados)
+                } else {
+                    mostrarToast("No se encontraron registros")
+                }
             }
         }
     }
@@ -121,8 +129,11 @@ class DatosCajas : AppCompatActivity()  {
                         adaptador = ConfiguracionCajasAdapter(datos)
                         rvCajas.layoutManager = LinearLayoutManager(this@DatosCajas)
                         rvCajas.adapter = adaptador
+
+
+                        tvSinRegistrosCaja.visibility = View.GONE
                     } else {
-                        // La lista de datos está vacía, manejarlo según sea necesario
+                        tvSinRegistrosCaja.visibility = View.VISIBLE
                     }
                 }
             } catch (e: Exception) {

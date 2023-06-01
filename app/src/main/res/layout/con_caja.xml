@@ -69,6 +69,12 @@
             android:layout_marginBottom="10dp"
             android:background="?attr/dividerColor" />
 
+        <TextView
+            android:id="@+id/tvSinRegistrosCaja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="- No existen cajas -" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCajas"
             android:layout_width="match_parent"
