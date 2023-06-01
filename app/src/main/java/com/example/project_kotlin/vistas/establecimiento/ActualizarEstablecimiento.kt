@@ -31,6 +31,8 @@ class ActualizarEstablecimiento:AppCompatActivity() {
     private lateinit var cajaDao:CajaDao
     private lateinit var establecimientoDao:EstablecimientoDao
 
+    private lateinit var establecimientoBean:Establecimiento
+
     private  val REGEX_NOMBRE = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-ZÑÁÉÍÓÚa-zñáéíóú]+(?: [A-ZÑÁÉÍÓÚa-zñáéíóú]+)*$"
     private  val REGEX_DIRECCION = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-Za-zñáéíóú0-9.\\-]+(?: [A-Za-zñáéíóú0-9.\\-]+)*$"
     private  val REGEX_TELEFONO = "^9[0-9]{8}$"
@@ -57,12 +59,12 @@ class ActualizarEstablecimiento:AppCompatActivity() {
         btnActualizar.setOnClickListener { Editar() }
 
         //Cargar dato
-        val establecimiento = intent.getSerializableExtra("establecimiento") as Establecimiento
-        edtCod.setText(establecimiento.id.toString())
-        edtNombre.setText(establecimiento.nombreEstablecimiento)
-        edtDireccion.setText(establecimiento.direccionEstablecimiento)
-        edtRuc.setText(establecimiento.rucEstablecimiento)
-        edtTelefono.setText(establecimiento.telefonoEstablecimiento)
+       establecimientoBean = intent.getSerializableExtra("establecimiento") as Establecimiento
+        edtCod.setText(establecimientoBean.id.toString())
+        edtNombre.setText(establecimientoBean.nombreEstablecimiento)
+        edtDireccion.setText(establecimientoBean.direccionEstablecimiento)
+        edtRuc.setText(establecimientoBean.rucEstablecimiento)
+        edtTelefono.setText(establecimientoBean.telefonoEstablecimiento)
 
     }
 
@@ -75,13 +77,11 @@ class ActualizarEstablecimiento:AppCompatActivity() {
                     val direccion = edtDireccion.text.toString()
                     val telefoono = edtTelefono.text.toString()
                     val ruc = edtRuc.text.toString();
-                    val establecimiento = Establecimiento(id=numEstablecimiento,
-                        nombreEstablecimiento = nombre,
-                        direccionEstablecimiento = direccion,
-                        telefonoEstablecimiento = telefoono,
-                        rucEstablecimiento = ruc
-                    )
-                    establecimientoDao.actualizar(establecimiento)
+                    establecimientoBean.nombreEstablecimiento=nombre
+                    establecimientoBean.direccionEstablecimiento=direccion
+                    establecimientoBean.rucEstablecimiento=ruc
+                    establecimientoBean.telefonoEstablecimiento=telefoono
+                    establecimientoDao.actualizar(establecimientoBean)
                     mostrarToast("Establecimiento actualizado correctamente")
                     Volver()
                 }
@@ -102,8 +102,8 @@ class ActualizarEstablecimiento:AppCompatActivity() {
                     //Validar caja
                     val validarCaja=cajaDao.obtenerCajaPorEstablecimiento(numEstablecimiento)
                     if(validarCaja.isEmpty()){
-                        val eliminar = establecimientoDao.obtenerPorId(numEstablecimiento.toLong())
-                        establecimientoDao.eliminar(eliminar)
+
+                        establecimientoDao.eliminar(establecimientoBean)
                         mostrarToast("Establecimiento eliminado correctamente")
                         Volver()
 

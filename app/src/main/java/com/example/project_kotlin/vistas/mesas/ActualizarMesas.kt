@@ -27,6 +27,7 @@ class ActualizarMesas : AppCompatActivity() {
     private lateinit var btnVolver: Button
     private lateinit var mesaDao: MesaDao
     private lateinit var comandaDao: ComandaDao
+    private lateinit var mesaBean : Mesa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +46,9 @@ class ActualizarMesas : AppCompatActivity() {
         btnEditar.setOnClickListener { Editar() }
 
         //Cargar dato
-        val mesa = intent.getSerializableExtra("mesa") as Mesa
-        edNumMesa.setText(mesa.id.toString())
-        edCantAsientos.setText(mesa.cantidadAsientos.toString())
+        mesaBean = intent.getSerializableExtra("mesa") as Mesa
+        edNumMesa.setText(mesaBean.id.toString())
+        edCantAsientos.setText(mesaBean.cantidadAsientos.toString())
     }
 
     fun Volver() {
@@ -66,8 +67,7 @@ class ActualizarMesas : AppCompatActivity() {
                 //Validar de comandas
                 val validarComandaPorMesa = comandaDao.obtenerComandasPorMesa(numMesa)
                 if (validarComandaPorMesa.isEmpty()) {
-                    val eliminar = mesaDao.obtenerPorId(numMesa.toLong())
-                    mesaDao.eliminar(eliminar)
+                    mesaDao.eliminar(mesaBean)
                     mostrarToast("Mesa eliminada correctamente")
                     Volver()
                 } else {
@@ -83,12 +83,11 @@ class ActualizarMesas : AppCompatActivity() {
     fun Editar() {
         val numMesa = edNumMesa.text.toString().toLong()
         lifecycleScope.launch(Dispatchers.IO) {
-            val validar = mesaDao.obtenerPorId(numMesa)
-            if (validar.estadoMesa == "Libre") {
+            if (mesaBean.estadoMesa == "Libre") {
                 if (validarCampos()) {
                     val cantidadAsientos = edCantAsientos.text.toString().toInt()
-                    val mesa = Mesa(numMesa, cantidadAsientos, "Libre")
-                    mesaDao.actualizar(mesa)
+                    mesaBean.cantidadAsientos = cantidadAsientos
+                    mesaDao.actualizar(mesaBean)
                     mostrarToast("Mesa actualizada correctamente")
                     Volver()
                 }

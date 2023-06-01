@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -29,7 +29,9 @@
                 android:id="@+id/textView29"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Codigo:" />
+                android:text="Codigo:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtcodListadoEstablecimineto"
@@ -41,7 +43,9 @@
                 android:id="@+id/textView39"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre" />
+                android:text="Nombre"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtnombreEstablecimientoList"
@@ -53,7 +57,9 @@
                 android:id="@+id/textView41"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Direccion" />
+                android:text="Direccion"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtdirecEstablecimientoList"
@@ -65,7 +71,9 @@
                 android:id="@+id/textView43"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ruc" />
+                android:text="Ruc"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtrucEstablecimientoList"
@@ -77,7 +85,9 @@
                 android:id="@+id/textView45"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Télefono" />
+                android:text="Télefono"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtelefonoEstablecimientoList"

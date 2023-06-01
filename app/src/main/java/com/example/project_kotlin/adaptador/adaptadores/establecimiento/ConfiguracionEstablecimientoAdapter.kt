@@ -42,11 +42,6 @@ class ConfiguracionEstablecimientoAdapter (var info:List<Establecimiento>):Recyc
         }
     }
 
-    fun actualizarEstablecimiento(info: List<Establecimiento>){
-        this.info=info
-        notifyDataSetChanged()
 
-
-    }
 
 }
