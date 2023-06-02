@@ -1,13 +1,18 @@
 package com.example.project_kotlin.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.project_kotlin.entidades.Comprobante
+import com.example.project_kotlin.entidades.Establecimiento
 import com.example.project_kotlin.entidades.Plato
 
 @Dao
 interface PlatoDao {
     @Query("select * from Plato")
     fun obtenerTodo(): List<Plato>
+
+    @Query("select * from Plato")
+    fun obtenerTodoLiveData(): LiveData<List<Plato>>
 
     @Query("select * from Plato where catplato_id = :catplato_id")
     fun obtenerPlatosPorCategoria(catplato_id: String): List<Plato>

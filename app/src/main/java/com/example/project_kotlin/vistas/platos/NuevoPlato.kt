@@ -29,7 +29,7 @@ class NuevoPlato : AppCompatActivity() {
     private lateinit var btnCancelar:Button
     private lateinit var platoDao:PlatoDao
 
-
+    private var estadoCatFiltro : String = "Seleccionar Categoria"
     private val PICK_IMAGE_REQUEST = 1
     private var imageData: ByteArray? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,8 +86,9 @@ class NuevoPlato : AppCompatActivity() {
                     val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
                     val nombre = edtNombrePlato.text.toString()
                     val precio = edtPrecioPlato.text.toString().toDouble()
-                    val codCatPlato = (spCategoria.selectedItemPosition + 1).toString()
+                    val codCatPlato = (spCategoria.selectedItemPosition).toString()
                     val cat = "C-00" + codCatPlato
+                    System.out.println(cat)
                     val nombrecat = spCategoria.selectedItem.toString()
 
                     val bean = Plato(
@@ -98,8 +99,6 @@ class NuevoPlato : AppCompatActivity() {
                     )
 
                     bean.categoriaPlato = CategoriaPlato(cat, nombrecat)
-
-
 
                     platoDao.guardar(bean)
                     mostrarToast("Plato agregado correctamente")
@@ -128,11 +127,17 @@ class NuevoPlato : AppCompatActivity() {
             // Obtén la lista de categorías de platos desde la base de datos
             var data = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao().obtenerTodo()
 
-            var nombreCat =   data.map {  it.categoria }
+            var nombreCate =   data.map {  it.categoria }
+
+            //Opcion por defecto
+            val opciones = mutableListOf<String>()
+            opciones.add("Seleccionar Categoria")
+            opciones.addAll(nombreCate)
+
             // Crea un ArrayAdapter con los nombres de las categorías de platos
             var adapter = ArrayAdapter(
                 this@NuevoPlato,
-                android.R.layout.simple_spinner_item,nombreCat
+                android.R.layout.simple_spinner_item,opciones
 
             )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -144,7 +149,7 @@ class NuevoPlato : AppCompatActivity() {
     fun validarCampos() : Boolean{
         val nombre = edtNombrePlato.text.toString()
         val precio = edtPrecioPlato.text.toString()
-
+        val spcat = spCategoria.selectedItem
         val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\s]*\$"
         val REGEX_PRECIO = "^[\\d]{1,3}(?:,[\\d]{3})*(?:\\.[\\d]{1,2})?\$"
 
@@ -156,6 +161,10 @@ class NuevoPlato : AppCompatActivity() {
         if (!REGEX_PRECIO.toRegex().matches(precio)) {
             // El campo nombre no cumple con el formato esperado
             mostrarToast("Ingrese un precio no maximo de 999.99")
+            return false
+        }
+        if (spcat == estadoCatFiltro) {
+            mostrarToast("Seleccione una categoría")
             return false
         }
 

@@ -83,6 +83,7 @@ class DatosCajas : AppCompatActivity()  {
                 if (datosFiltrados.isNotEmpty()) {
                     adaptador.actualizarListaCajas(datosFiltrados)
                 } else {
+
                     mostrarToast("No se encontraron registros")
                 }
             }

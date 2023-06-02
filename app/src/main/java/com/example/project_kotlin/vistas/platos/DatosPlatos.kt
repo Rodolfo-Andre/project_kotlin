@@ -13,6 +13,7 @@ import com.example.project_kotlin.adaptador.adaptadores.platos.PlatoAdapter
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Plato
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
@@ -28,14 +29,13 @@ class DatosPlatos: AppCompatActivity() {
     private lateinit var rvPlatos: RecyclerView
     private lateinit var btnAgregarPlatos:Button
     private lateinit var btnVolver:Button
-
+    private lateinit var txtNoexistePlatoss:TextView
     private lateinit var platoDao:PlatoDao
     private lateinit var categoriaPlatosDao: CategoriaPlatoDao
     private lateinit var adaptador : PlatoAdapter
 
 
     private var estadoCatFiltro : String = "Seleccionar Categoria"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_platos)
@@ -48,7 +48,7 @@ class DatosPlatos: AppCompatActivity() {
         btnVolver = findViewById(R.id.btnVolverConfi)
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
-
+        txtNoexistePlatoss = findViewById(R.id.txtNoexistePlatos)
         cargarCategoria()
         //acciones al boton
 
@@ -62,35 +62,49 @@ class DatosPlatos: AppCompatActivity() {
     }
 
     fun obtenerPlatos() {
-        lifecycleScope.launch(Dispatchers.IO){
-            var datos = platoDao.obtenerTodo()
-
-            adaptador = PlatoAdapter(datos)
-            rvPlatos.layoutManager= LinearLayoutManager(this@DatosPlatos)
-            rvPlatos.adapter = adaptador
-
+        lifecycleScope.launch(Dispatchers.IO) {
+            var datos = platoDao.obtenerTodoLiveData()
+            withContext(Dispatchers.Main) {
+                datos.observe(this@DatosPlatos) { listaDatos ->
+                    if (!listaDatos.isNullOrEmpty()) {
+                        adaptador = PlatoAdapter(listaDatos)
+                        rvPlatos.layoutManager = LinearLayoutManager(this@DatosPlatos)
+                        rvPlatos.adapter = adaptador
+                        txtNoexistePlatoss.setText("")
+                }
+                else{
+                txtNoexistePlatoss.setText("No Existe Registros")
+            }
+            }
+        }
         }
     }
 
     fun filtrar(nombreplato: EditText) {
+        if (validarCampos()) {
         lifecycleScope.launch(Dispatchers.IO) {
             val datos = platoDao.obtenerTodo()
             var datosFiltrados: List<Plato> = datos
+            val nombrecat = spnCategoriaPlato.selectedItem.toString()
 
-            val selectedItem = spnCategoriaPlato.selectedItem.toString()
-            estadoCatFiltro = selectedItem
-
-            if (selectedItem != "Seleccionar Categoria") {
-                datosFiltrados = datosFiltrados.filter { plato -> plato.categoriaPlato.categoria == selectedItem }
+            if (nombrecat == nombrecat ) {
+                datosFiltrados = datosFiltrados.filter { plato -> plato.categoriaPlato.categoria == nombrecat }
             }
             if (!nombreplato.text.toString().isNullOrBlank()) {
                 datosFiltrados = datosFiltrados.filter { plato -> plato.nombrePlato == nombreplato.text.toString() }
             }
-
             withContext(Dispatchers.Main) {
-                adaptador.actulizarPlatos(datosFiltrados)
+                if (datosFiltrados.isNotEmpty()) {
+                    adaptador.actulizarPlatos(datosFiltrados)
+                } else {
+
+                    mostrarToast("No se encontraron registros")
+                }
             }
         }
+
+        }
+
     }
 
 
@@ -126,6 +140,16 @@ class DatosPlatos: AppCompatActivity() {
             spnCategoriaPlato.adapter = adapter
         }
     }
+    fun validarCampos() : Boolean{
+        val spcat = spnCategoriaPlato.selectedItem
+
+        if (spcat == estadoCatFiltro) {
+            mostrarToast("Seleccione una categoría")
+            return false
+        }
+        return true
+    }
+
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
