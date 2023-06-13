@@ -94,7 +94,7 @@ class DatosMesas : AppCompatActivity(){
             var datos = mesaDao.obtenerTodo()
             var datosFiltrados : List<Mesa> = datos
             if(!estadoMesa.equals("Seleccionar estado")){
-                datosFiltrados = datosFiltrados.filter { mesa -> mesa.estadoMesa.equals(estadoMesa) }
+                datosFiltrados = datosFiltrados.filter { mesa -> mesa.estado.equals(estadoMesa) }
             }
             if(cantAsientos != 0){
                 datosFiltrados = datosFiltrados.filter { mesa -> mesa.cantidadAsientos == cantAsientos }

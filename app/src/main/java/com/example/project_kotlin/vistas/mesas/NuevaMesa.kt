@@ -39,7 +39,7 @@ class NuevaMesa : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (validarCampos()) {
                 val cantidad = edCantidadAsientos.text.toString().toInt()
-                val bean = Mesa(cantidadAsientos = cantidad, estadoMesa = "Libre")
+                val bean = Mesa(cantidadAsientos = cantidad, estado = "Libre")
                 mesaDao.guardar(bean)
                 mostrarToast("Mesa agregada correctamente")
                 volver()

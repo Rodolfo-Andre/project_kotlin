@@ -79,11 +79,11 @@ class ActualizarMesas : AppCompatActivity() {
         mensaje.setIcon(android.R.drawable.ic_delete)
         mensaje.show()
     }
-
+    //HOLA
     fun Editar() {
         val numMesa = edNumMesa.text.toString().toLong()
         lifecycleScope.launch(Dispatchers.IO) {
-            if (mesaBean.estadoMesa == "Libre") {
+            if (mesaBean.estado == "Libre") {
                 if (validarCampos()) {
                     val cantidadAsientos = edCantAsientos.text.toString().toInt()
                     mesaBean.cantidadAsientos = cantidadAsientos

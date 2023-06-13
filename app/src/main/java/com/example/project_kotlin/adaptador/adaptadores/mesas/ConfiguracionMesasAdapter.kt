@@ -24,7 +24,7 @@ class ConfiguracionMesasAdapter(var info:List<Mesa>):RecyclerView.Adapter<VistaI
     override fun onBindViewHolder(holder: VistaItemAgregarMesa, position: Int) {
         holder.tvID.text = "" + info.get(position).id
         holder.tvCanAsientos.text = "" + info.get(position).cantidadAsientos
-        holder.tvEstadoMesa.text = "" + info.get(position).estadoMesa
+        holder.tvEstadoMesa.text = "" + info.get(position).estado
         var context = holder.itemView.context
 
         holder.itemView.setOnClickListener{
