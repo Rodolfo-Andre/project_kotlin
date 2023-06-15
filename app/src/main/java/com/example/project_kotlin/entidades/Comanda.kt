@@ -30,6 +30,6 @@ data class Comanda (
     @ColumnInfo(name = "precio_total") var precioTotal: Double = 0.0,
     @ColumnInfo(name = "mesa_id") var mesaId: Int,
     @ColumnInfo(name = "estado_comanda_id") var estadoComandaId: Int,
-    @ColumnInfo(name = "empleado_id") var empleadoId: Int
+    @ColumnInfo(name = "empleado_id") var empleadoId: Int,
 ) {
 }

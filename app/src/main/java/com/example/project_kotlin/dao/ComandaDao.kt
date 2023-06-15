@@ -2,17 +2,19 @@ package com.example.project_kotlin.dao
 
 import androidx.room.*
 import com.example.project_kotlin.entidades.Comanda
+import com.example.project_kotlin.entidades.relaciones.ComandaConMesa
 
 @Dao
 interface ComandaDao {
+    @Transaction
     @Query("SELECT * FROM comanda")
-     fun obtenerTodo() : List<Comanda>
+     fun obtenerTodo() : List<ComandaConMesa>
 
     @Query("SELECT * FROM comanda WHERE id = :id")
-     fun obtenerPorId(id: Long) : Comanda
+     fun obtenerPorId(id: Long) : ComandaConMesa
 
      @Query("SELECT * FROM comanda WHERE mesa_id = :mesa_id")
-     fun obtenerComandasPorMesa(mesa_id: Int) : List<Comanda>
+     fun obtenerComandasPorMesa(mesa_id: Int) : List<ComandaConMesa>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun guardar(comanda: Comanda) : Long

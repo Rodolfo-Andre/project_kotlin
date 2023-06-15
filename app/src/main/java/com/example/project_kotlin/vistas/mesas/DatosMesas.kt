@@ -111,15 +111,15 @@ class DatosMesas : AppCompatActivity(){
      fun obtenerMesas() {
         lifecycleScope.launch(Dispatchers.IO){
             var datos = mesaDao.obtenerTodo()
-            if(datos.size == 0){
-                tvEtiqueta.visibility = View.VISIBLE
-
-            }else{
+            if(datos.size != 0)
                 tvEtiqueta.visibility = View.GONE
+
+            withContext(Dispatchers.Main) {
+                adaptador = ConfiguracionMesasAdapter(datos)
+                rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
+                rvMesas.adapter = adaptador
             }
-            adaptador = ConfiguracionMesasAdapter(datos)
-            rvMesas.layoutManager=LinearLayoutManager(this@DatosMesas)
-            rvMesas.adapter = adaptador
+
 
         }
     }
