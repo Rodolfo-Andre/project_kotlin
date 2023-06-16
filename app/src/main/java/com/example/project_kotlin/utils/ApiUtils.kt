@@ -1,5 +1,6 @@
 package com.example.project_kotlin.utils
 
+import com.example.project_kotlin.service.ApiServiceEmpleado
 import com.example.project_kotlin.service.ApiServiceMesa
 
 class ApiUtils {
@@ -8,6 +9,9 @@ class ApiUtils {
         val BASE_URL="http://192.168.56.1:8091"
         fun getAPIServiceMesa(): ApiServiceMesa{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceMesa::class.java)
+        }
+        fun getAPIServiceEmpleado(): ApiServiceEmpleado{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServiceEmpleado::class.java)
         }
     }
 }

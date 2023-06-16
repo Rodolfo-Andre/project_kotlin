@@ -2,6 +2,7 @@ package com.example.project_kotlin.vistas.empleados
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -12,10 +13,23 @@ import com.example.project_kotlin.dao.UsuarioDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Cargo
 import com.example.project_kotlin.entidades.Empleado
+import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.entidades.Usuario
+import com.example.project_kotlin.entidades.dto.EmpleadoDTO
+import com.example.project_kotlin.entidades.firebase.CargoNoSql
+import com.example.project_kotlin.entidades.firebase.EmpleadoNoSql
+import com.example.project_kotlin.entidades.firebase.UsuarioNoSql
+import com.example.project_kotlin.service.ApiServiceEmpleado
+import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +47,11 @@ class NuevoEmpleado:AppCompatActivity() {
     private lateinit var cargoDao : CargoDao
     private lateinit var empleadoDao : EmpleadoDao
     private lateinit var usuarioDao : UsuarioDao
+    //REST
+    lateinit var apiEmpleado : ApiServiceEmpleado
+    //Firebase
+    lateinit var bdFirebase : DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_usu)
@@ -46,15 +65,22 @@ class NuevoEmpleado:AppCompatActivity() {
         btnNuevoUsu = findViewById(R.id.btnNuevoUsu)
         btnCancelarUsu = findViewById(R.id.btnEliminarUsu)
         //Base de datos
+        apiEmpleado = ApiUtils.getAPIServiceEmpleado()
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
         cargarCargos()
+        conectar()
         btnNuevoUsu.setOnClickListener({nuevoUsuario()})
         btnCancelarUsu.setOnClickListener({volver()})
 
 
 
+    }
+    fun conectar(){
+        //Iniciar firebase en la clase actual
+        FirebaseApp.initializeApp(this)
+        bdFirebase = FirebaseDatabase.getInstance().reference
     }
     fun nuevoUsuario(){
         lifecycleScope.launch(Dispatchers.IO) {
@@ -64,26 +90,49 @@ class NuevoEmpleado:AppCompatActivity() {
                 val dni = edtDniUsu.text.toString()
                 val correo = edtCorreoUsu.text.toString()
                 val tel = edtTelfUsu.text.toString()
-                val cargo = spnCargo.selectedItemPosition +1
+                val cargo = Cargo((spnCargo.selectedItemPosition +1).toLong(), spnCargo.selectedItem.toString())
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+                val fechaActual = Date()
+                val fechaFormateada = dateFormat.format(fechaActual)
+
 
                 //Crear objeto usuario
                 val usuario = Usuario(correo = correo)
                 usuario.contrasena = usuario.generarContrasenia(apellido)
+                //Crear objeto empleado DTO
+                val empleadoDTO = EmpleadoDTO(0, nombre, apellido, tel, dni, fechaFormateada, usuario, cargo)
+                grabarEmpleadoMySql(empleadoDTO)
+                //GUARDAR ROOM
                 val idUsuario = usuarioDao.guardar(usuario)
                 usuario.id = idUsuario
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-                val fechaActual = Date()
-                val fechaFormateada = dateFormat.format(fechaActual)
+
                 val empleado = Empleado(nombreEmpleado = nombre, apellidoEmpleado = apellido, dniEmpleado = dni,
-                    telefonoEmpleado = tel, fechaRegistro = fechaFormateada)
-                empleado.usuario = usuario
-                empleado.cargo = Cargo(id = cargo.toLong(), cargo = spnCargo.selectedItem.toString())
-                empleadoDao.guardar(empleado)
+                    telefonoEmpleado = tel, fechaRegistro = fechaFormateada, cargo_id = cargo.id.toInt(), usuario_id = idUsuario.toInt())
+
+                val empleadoId = empleadoDao.guardar(empleado)
+                //GUARDAR EN FIREBASE
+                val cargoNoSql = CargoNoSql(cargo.cargo)
+                val usuNoSql = UsuarioNoSql(usuario.correo, usuario.contrasena)
+                val empleadoNoSql = EmpleadoNoSql(nombre, apellido, tel, dni, fechaFormateada, usuNoSql, cargoNoSql)
+                bdFirebase.child("empleado").child(empleadoId.toString()).setValue(empleadoNoSql)
+
+
+
                 mostrarToast("Empleado guardado correctamente")
                 volver()
 
             }
         }
+    }
+    fun grabarEmpleadoMySql(bean: EmpleadoDTO){
+        apiEmpleado.fetchGuardarEmpleado(bean).enqueue(object:Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
     }
     fun validarCampos() : Boolean{
         val nombre = edtNomUsu.text.toString()

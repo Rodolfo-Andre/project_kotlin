@@ -22,6 +22,7 @@ import com.example.project_kotlin.dao.CargoDao
 import com.example.project_kotlin.dao.EmpleadoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Empleado
+import com.example.project_kotlin.entidades.EmpleadoUsuarioYCargo
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
@@ -94,16 +95,16 @@ class DatosEmpleados: AppCompatActivity() {
         val fecha = edFechaFiltro.text
         lifecycleScope.launch(Dispatchers.IO){
             var datos = empleadoDao.obtenerTodo()
-            var datosFiltrados : List<Empleado> = datos
+            var datosFiltrados : List<EmpleadoUsuarioYCargo> = datos
             if(idCargo.toInt() != 0){
-                datosFiltrados = datosFiltrados.filter { empleado -> empleado.cargo.id == idCargo}
+                datosFiltrados = datosFiltrados.filter { empleado -> empleado.empleado.cargo.id == idCargo}
             }
 
             if(!fecha.isNullOrEmpty()){
-                datosFiltrados = datosFiltrados.filter { empleado -> empleado.fechaRegistro.trim().contains(fecha.trim())  }
+                datosFiltrados = datosFiltrados.filter { empleado -> empleado.empleado.empleado.fechaRegistro.trim().contains(fecha.trim())  }
             }
             if (!nombre.isNullOrEmpty() && nombre.matches(Regex("^[a-zA-Z ]+\$"))) {
-                datosFiltrados = datosFiltrados.filter { empleado -> empleado.nombreEmpleado.contains(nombre, ignoreCase = true) }
+                datosFiltrados = datosFiltrados.filter { empleado -> empleado.empleado.empleado.nombreEmpleado.contains(nombre, ignoreCase = true) }
             } else if(!nombre.isNullOrEmpty()){
                 // El campo de nombre contiene caracteres no permitidos
                 mostrarToast("Ingrese solo texto en el nombre")

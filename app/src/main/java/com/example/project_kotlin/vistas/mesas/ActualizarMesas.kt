@@ -101,7 +101,6 @@ class ActualizarMesas : AppCompatActivity() {
 
     //HOLA
     fun Editar() {
-        val numMesa = edNumMesa.text.toString().toLong()
         lifecycleScope.launch(Dispatchers.IO) {
             if (mesaBean.estado == "Libre") {
                 if (validarCampos()) {

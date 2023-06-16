@@ -7,9 +7,8 @@ import java.util.*
 @Entity(tableName = "usuario")
 data class Usuario (
     @PrimaryKey(autoGenerate = true) var id: Long? = null,
-    @ColumnInfo(name="correo") var correo: String,
-    @ColumnInfo(name="contraseña") var contrasena: String? = null,
-    @ColumnInfo(name = "codigo_recuperacion", defaultValue = "0") var codigoRecuperacion: Int = 0):java.io.Serializable {
+    @ColumnInfo(name="correo") var correo: String? = null,
+    @ColumnInfo(name="contraseña") var contrasena: String? = null):java.io.Serializable {
 
 
     //Generar Contraseña

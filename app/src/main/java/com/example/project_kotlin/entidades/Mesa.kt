@@ -8,3 +8,4 @@ data class Mesa (
     @ColumnInfo(name = "cantidad_asientos") var cantidadAsientos: Int,
     @ColumnInfo(name = "estado_mesa", defaultValue = "Libre") var estado: String? = null):java.io.Serializable {
 }
+
