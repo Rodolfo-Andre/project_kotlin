@@ -1,115 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="ID COMANDA:" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvComandaIdList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
+                    <TextView
+                        android:id="@+id/tvNumComandaG"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título del elemento"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textView40"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ID MESA:" />
+                    <TextView
+                        android:id="@+id/tvEstadoComanda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción del elemento"
+                        android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tvMesaIdList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
 
-                <TextView
-                    android:id="@+id/textView42"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="FECHA DE CREACIÓN:" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvFechaCList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
+                <ImageView
+                    android:id="@+id/btnEditarComanda"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/icon_edit" />
 
-                <TextView
-                    android:id="@+id/textView44"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ESTADO DE COMANDA:" />
+                <ImageView
+                    android:id="@+id/btnEliminarComanda"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/icon_delete" />
 
-                <TextView
-                    android:id="@+id/tvEstadoList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="?attr/dividerColor" />
+                <ImageView
+                    android:id="@+id/btnVerComanda"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/icon_view_c" />
 
             </LinearLayout>
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="?attr/dividerColor" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/listCEditar"
-                    android:layout_width="36dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/editar" />
-
-                <ImageView
-                    android:id="@+id/listCEliminar"
-                    android:layout_width="36dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/eliminar" />
-
-                <ImageView
-                    android:id="@+id/listCFacturar"
-                    android:layout_width="36dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/facturar" />
-            </LinearLayout>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 
