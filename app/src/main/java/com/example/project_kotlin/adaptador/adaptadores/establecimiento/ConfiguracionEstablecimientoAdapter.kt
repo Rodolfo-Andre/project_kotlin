@@ -27,10 +27,11 @@ class ConfiguracionEstablecimientoAdapter (var info:List<Establecimiento>):Recyc
 
 
         holder.tvIdEstablecimiento.text=""+info.get(position).id
-        holder.tvNombre.text=""+info.get(position).nombreEstablecimiento
-        holder.tvDireccion.text=""+info.get(position).direccionEstablecimiento
-        holder.tvRuc.text=""+info.get(position).rucEstablecimiento
-        holder.tvTelefono.text=""+info.get(position).telefonoEstablecimiento
+        holder.tvNombre.text=""+info.get(position).nomEstablecimiento
+        holder.tvDireccion.text=""+info.get(position).direccionestablecimiento
+        holder.tvRuc.text=""+info.get(position).rucestablecimiento
+        holder.tvTelefono.text=""+info.get(position).telefonoestablecimiento
+
 
         var context = holder.itemView.context
 

@@ -19,6 +19,9 @@ interface UsuarioDao {
     @Query("SELECT * FROM usuario WHERE correo = :correo")
     fun obtenerPorCorreo(correo: String) : Usuario
 
+    @Query("SELECT * FROM usuario WHERE correo = :correo AND contraseña = :contraseña")
+    fun verificarcorreoycontraseña(correo: String,contraseña:String):Usuario?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun guardar(usuario: Usuario) : Long
 

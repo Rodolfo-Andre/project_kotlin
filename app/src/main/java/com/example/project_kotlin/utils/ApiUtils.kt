@@ -1,6 +1,7 @@
 package com.example.project_kotlin.utils
 
 import com.example.project_kotlin.service.ApiServiceEmpleado
+import com.example.project_kotlin.service.ApiServiceEstablecimiento
 import com.example.project_kotlin.service.ApiServiceMesa
 
 class ApiUtils {
@@ -13,5 +14,9 @@ class ApiUtils {
         fun getAPIServiceEmpleado(): ApiServiceEmpleado{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceEmpleado::class.java)
         }
+        fun getAPIServiceEstablecimiento(): ApiServiceEstablecimiento{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServiceEstablecimiento::class.java)
+        }
+
     }
 }

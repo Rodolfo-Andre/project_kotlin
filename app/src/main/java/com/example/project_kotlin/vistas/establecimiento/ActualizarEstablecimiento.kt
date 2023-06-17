@@ -2,6 +2,7 @@ package com.example.project_kotlin.vistas.establecimiento
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -14,10 +15,15 @@ import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Establecimiento
 import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.service.ApiServiceEstablecimiento
+import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.mesas.DatosMesas
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActualizarEstablecimiento:AppCompatActivity() {
     private lateinit var edtCod:EditText
@@ -32,6 +38,8 @@ class ActualizarEstablecimiento:AppCompatActivity() {
     private lateinit var establecimientoDao:EstablecimientoDao
 
     private lateinit var establecimientoBean:Establecimiento
+
+    private lateinit var apiEstablecimiento: ApiServiceEstablecimiento
 
     private  val REGEX_NOMBRE = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-ZÑÁÉÍÓÚa-zñáéíóú]+(?: [A-ZÑÁÉÍÓÚa-zñáéíóú]+)*$"
     private  val REGEX_DIRECCION = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-Za-zñáéíóú0-9.\\-]+(?: [A-Za-zñáéíóú0-9.\\-]+)*$"
@@ -57,14 +65,15 @@ class ActualizarEstablecimiento:AppCompatActivity() {
         btnVolver.setOnClickListener { Volver() }
         btnEliminar.setOnClickListener { Eliminar() }
         btnActualizar.setOnClickListener { Editar() }
+        apiEstablecimiento=ApiUtils.getAPIServiceEstablecimiento()
 
         //Cargar dato
        establecimientoBean = intent.getSerializableExtra("establecimiento") as Establecimiento
         edtCod.setText(establecimientoBean.id.toString())
-        edtNombre.setText(establecimientoBean.nombreEstablecimiento)
-        edtDireccion.setText(establecimientoBean.direccionEstablecimiento)
-        edtRuc.setText(establecimientoBean.rucEstablecimiento)
-        edtTelefono.setText(establecimientoBean.telefonoEstablecimiento)
+        edtNombre.setText(establecimientoBean.nomEstablecimiento)
+        edtDireccion.setText(establecimientoBean.direccionestablecimiento)
+        edtRuc.setText(establecimientoBean.rucestablecimiento)
+        edtTelefono.setText(establecimientoBean.telefonoestablecimiento)
 
     }
 
@@ -77,17 +86,31 @@ class ActualizarEstablecimiento:AppCompatActivity() {
                     val direccion = edtDireccion.text.toString()
                     val telefoono = edtTelefono.text.toString()
                     val ruc = edtRuc.text.toString();
-                    establecimientoBean.nombreEstablecimiento=nombre
-                    establecimientoBean.direccionEstablecimiento=direccion
-                    establecimientoBean.rucEstablecimiento=ruc
-                    establecimientoBean.telefonoEstablecimiento=telefoono
+                    establecimientoBean.nomEstablecimiento=nombre
+                    establecimientoBean.direccionestablecimiento=direccion
+                    establecimientoBean.rucestablecimiento=ruc
+                    establecimientoBean.telefonoestablecimiento=telefoono
                     establecimientoDao.actualizar(establecimientoBean)
+                    EditarMysql(establecimientoBean)
+
                     mostrarToast("Establecimiento actualizado correctamente")
                     Volver()
                 }
 
 
         }
+        }
+
+        fun EditarMysql(bean:Establecimiento){
+            apiEstablecimiento.fetchActualizarEstablecimiento(bean).enqueue(object: Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    mostrarToast("Establecimiento actualizado correctamente")
+                    Volver()
+                }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("Error : ",t.toString())
+                }
+            })
         }
 
 
@@ -104,6 +127,7 @@ class ActualizarEstablecimiento:AppCompatActivity() {
                     if(validarCaja.isEmpty()){
 
                         establecimientoDao.eliminar(establecimientoBean)
+                        EliminarMySql(numEstablecimiento.toLong())
                         mostrarToast("Establecimiento eliminado correctamente")
                         Volver()
 
@@ -118,6 +142,19 @@ class ActualizarEstablecimiento:AppCompatActivity() {
         mensaje.setIcon(android.R.drawable.ic_delete)
         mensaje.show()
     }
+
+    fun EliminarMySql(codigo: Long){
+        apiEstablecimiento.fetcEliminarEstablecimiento(codigo.toInt()).enqueue(object:Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                mostrarToast("Establecimiento eliminada correctamente")
+                Volver()
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
+
 
     fun validarCampos():Boolean{
 

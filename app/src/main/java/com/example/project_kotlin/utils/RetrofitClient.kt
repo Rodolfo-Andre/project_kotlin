@@ -8,7 +8,7 @@ class RetrofitClient {
         fun getClient(URL:String): Retrofit {
             val retrofit = Retrofit.Builder()
                 .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create()) //lo que haces es convertir nuestro objeto json en un arreglo
                 .build()
             return retrofit
         }
