@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="Actualizar comandas" />
+                android:text="Registrar comandas" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtNumMesa"
+                        android:id="@+id/edtIdComanda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -80,7 +80,7 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtComensal"
+                        android:id="@+id/edtComensalR"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:enabled="false"
@@ -131,7 +131,7 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtEstadoComanda"
+                        android:id="@+id/edtEstadoComandaR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="true"
@@ -149,7 +149,7 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPrecioTotal"
+                        android:id="@+id/edtPrecioTotalR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="true"
@@ -183,7 +183,7 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtEmpleado"
+                        android:id="@+id/edtEmpleadoR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="true"
@@ -211,7 +211,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAniadirPlato"
+                    android:id="@+id/btnAniadirPlatoR"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="16dp"
@@ -221,7 +221,7 @@
                     android:text="Añadir Plato" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRegresarC"
+                    android:id="@+id/btnRegresarCR"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"

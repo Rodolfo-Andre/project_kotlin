@@ -26,5 +26,5 @@ class DetalleComanda (
     @NotNull @ColumnInfo("cantidad_pedido") var cantidadPedido : Int,
     @NotNull @ColumnInfo("precioUnitario") var precioUnitario : Double,
     @NotNull @ColumnInfo("observacion") var observacion : String
-        ){
+):java.io.Serializable {
 }

@@ -177,6 +177,20 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".vistas.comandas.ComandasVista"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".vistas.comandas.EditarComanda"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".vistas.comandas.RegistrarComanda"
+            android:exported="true">
+        </activity>
 
     </application>
 
