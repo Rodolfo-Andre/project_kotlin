@@ -177,6 +177,7 @@
             android:exported="true">
         </activity>
 
+        <!--COMANDAS-->
         <activity
             android:name=".vistas.comandas.ComandasVista"
             android:exported="true">
@@ -191,6 +192,7 @@
             android:name=".vistas.comandas.RegistrarComanda"
             android:exported="true">
         </activity>
+
 
     </application>
 
