@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="289dp"
-        android:layout_height="129dp"
+        android:layout_width="292dp"
+        android:layout_height="98dp"
         app:cardBackgroundColor="#ACBAF6"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp"
@@ -25,56 +25,27 @@
                 android:id="@+id/imageView8"
                 android:layout_width="45dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="44dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.494"
+                app:layout_constraintVertical_bias="0.298"
                 app:srcCompat="@drawable/insertar_mesa_50" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cantidad de Asientos :"
+                android:text="Asientos :"
                 android:textColor="#41186E"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="46dp" />
-
-            <TextView
-                android:id="@+id/tvCodMesaListado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="---"
-                android:textColor="#515151"
-                android:textSize="14dp"
-                android:textStyle="italic"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="27dp" />
-
-            <TextView
-                android:id="@+id/tvCanAsientos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="---"
-                android:textColor="#515151"
-                android:textSize="14dp"
-                android:textStyle="italic"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="65dp" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Estado de Mesa :"
-                android:textColor="#41186E"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="84dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.737"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.145" />
 
             <TextView
                 android:id="@+id/tvEstadoMesa"
@@ -84,19 +55,72 @@
                 android:textColor="#515151"
                 android:textSize="14dp"
                 android:textStyle="italic"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="104dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.597"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado :"
+                android:textColor="#41186E"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.697"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.658" />
+
+            <TextView
+                android:id="@+id/tvCanAsientos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textColor="#515151"
+                android:textSize="14dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.597"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Código de mesa :"
+                android:text="Código :"
                 android:textColor="#41186E"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                tools:layout_editor_absoluteX="119dp"
-                tools:layout_editor_absoluteY="8dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.308"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.318" />
+
+            <TextView
+                android:id="@+id/tvCodMesaListado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textColor="#515151"
+                android:textSize="14dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.263"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView37"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

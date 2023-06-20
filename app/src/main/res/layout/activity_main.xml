@@ -37,6 +37,7 @@
         android:id="@+id/edtEmail"
         android:layout_width="321dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_background"
         android:drawableStart="@drawable/email"
         android:drawablePadding="16dp"
@@ -46,13 +47,16 @@
         android:textColor="#756c6c"
         android:textColorHint="#756c6c"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintEnd_toEndOf="@+id/textView17"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="321dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_background"
         android:drawableStart="@drawable/password"
         android:drawablePadding="16dp"
@@ -62,20 +66,25 @@
         android:textColor="#756c6c"
         android:textColorHint="#756c6c"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="381dp" />
+        app:layout_constraintEnd_toEndOf="@+id/edtEmail"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/edtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIngresar"
         style="@android:style/Widget.Button"
         android:layout_width="347dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:background="@drawable/button_background"
         android:text="Login"
         android:textColor="@color/white"
         android:textSize="19dp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="463dp" />
+        app:layout_constraintEnd_toEndOf="@+id/edtPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edtPassword"
+        app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
     <TextView
         android:id="@+id/textView42"
