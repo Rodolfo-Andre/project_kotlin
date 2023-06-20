@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vistas.MainActivity"
-    android:background="#e8e8f9">
+    android:background="#e8e8f9"
+    tools:context=".vistas.MainActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -34,11 +34,9 @@
 
 
     <EditText
-        android:id="@+id/edtCorreo"
+        android:id="@+id/edtEmail"
         android:layout_width="321dp"
         android:layout_height="50dp"
-        android:layout_margin="12dp"
-        android:layout_marginTop="12dp"
         android:background="@drawable/edittext_background"
         android:drawableStart="@drawable/email"
         android:drawablePadding="16dp"
@@ -48,17 +46,13 @@
         android:textColor="#756c6c"
         android:textColorHint="#756c6c"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="319dp" />
 
     <EditText
-        android:id="@+id/edtContra"
+        android:id="@+id/edtPassword"
         android:layout_width="321dp"
         android:layout_height="50dp"
-        android:layout_margin="12dp"
-        android:layout_marginTop="50dp"
         android:background="@drawable/edittext_background"
         android:drawableStart="@drawable/password"
         android:drawablePadding="16dp"
@@ -68,35 +62,30 @@
         android:textColor="#756c6c"
         android:textColorHint="#756c6c"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCorreo" />
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="381dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIngresar"
-        android:layout_margin="32dp"
         style="@android:style/Widget.Button"
+        android:layout_width="347dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/button_background"
+        android:text="Login"
         android:textColor="@color/white"
         android:textSize="19dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtContra" />
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="463dp" />
 
     <TextView
         android:id="@+id/textView42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:textSize="16dp"
-        android:textColor="@color/pink"
-        android:textStyle="bold"
         android:text="Olvidaste tu contraseña?"
+        android:textColor="@color/pink"
+        android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIngresar" />
