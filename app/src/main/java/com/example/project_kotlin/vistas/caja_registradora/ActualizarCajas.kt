@@ -64,7 +64,7 @@ class ActualizarCajas  : AppCompatActivity(){
     private fun cargarEstablecimiento() {
         lifecycleScope.launch(Dispatchers.IO) {
             val establecimientoList = establecimientoDao.obtener()
-            val nombreEstablecimientoList = establecimientoList.map { it.nombreEstablecimiento }
+            val nombreEstablecimientoList = establecimientoList.map { it.nomEstablecimiento }
 
             val opciones = mutableListOf<String>()
             opciones.add("Seleccionar Establecimiento")

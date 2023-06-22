@@ -34,10 +34,7 @@ class Empleado(
 
     ):java.io.Serializable {
 
-
-
 }
-
 
 data class EmpleadoCargo(
     @Embedded val empleado: Empleado,

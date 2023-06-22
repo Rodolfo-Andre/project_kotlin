@@ -25,7 +25,7 @@ class ConfiguracionCajasAdapter(private var info: List<Caja>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: VistaItemCajasExistentes, position: Int) {
         val caja = info[position]
         val cajaId = caja.id.toString()
-        val cajaEstablecimiento = caja.establecimiento?.nombreEstablecimiento.toString()
+        val cajaEstablecimiento = caja.establecimiento?.nomEstablecimiento.toString()
 
         holder.tvIdCaja.text = cajaId
         holder.tvNombEstablecimiento.text = cajaEstablecimiento

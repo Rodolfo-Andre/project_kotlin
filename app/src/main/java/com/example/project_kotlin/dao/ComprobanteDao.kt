@@ -1,12 +1,16 @@
 package com.example.project_kotlin.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.project_kotlin.entidades.Comprobante
+import com.example.project_kotlin.entidades.ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago
 
 @Dao
 interface ComprobanteDao {
     @Query("SELECT * FROM comprobante")
-     fun obtenerTodo() : List<Comprobante>
+     fun obtenerTodoLiveData() : LiveData<List<ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago>>
+    @Query("SELECT * FROM comprobante")
+    fun obtenerTodo(): List<ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago>
 
     @Query("SELECT * FROM comprobante WHERE id = :id")
      fun obtenerPorId(id: Long) : Comprobante

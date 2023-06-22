@@ -77,7 +77,7 @@ class DatosCajas : AppCompatActivity()  {
             establecimientoDefault = selectedItem
 
             if (selectedItem != "Seleccionar Establecimiento") {
-                datosFiltrados = datosFiltrados.filter { caja -> caja.establecimiento?.nombreEstablecimiento == selectedItem }
+                datosFiltrados = datosFiltrados.filter { caja -> caja.establecimiento?.nomEstablecimiento == selectedItem }
             }
             withContext(Dispatchers.Main) {
                 if (datosFiltrados.isNotEmpty()) {
@@ -99,7 +99,7 @@ class DatosCajas : AppCompatActivity()  {
             // Obtén la lista de categorías de platos desde la base de datos
             var data = establecimientoDao.obtener()
 
-            var nombreEstablecimientoList =   data.map {  it.nombreEstablecimiento }
+            var nombreEstablecimientoList =   data.map {  it.nomEstablecimiento }
 
             val opciones = mutableListOf<String>()
             opciones.add("Seleccionar Establecimiento")
