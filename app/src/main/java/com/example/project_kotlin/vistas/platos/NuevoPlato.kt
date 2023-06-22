@@ -1,22 +1,29 @@
 package com.example.project_kotlin.vistas.platos
 
+import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import androidx.appcompat.app.AppCompatActivity
-import com.example.project_kotlin.R
-import java.io.ByteArrayOutputStream
-import com.example.project_kotlin.dao.PlatoDao
-import com.example.project_kotlin.utils.appConfig
 import android.provider.MediaStore
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.CategoriaPlatoDao
+import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Plato
+import com.example.project_kotlin.service.ApiServicePlato
+import com.example.project_kotlin.utils.ApiUtils
+import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 @Suppress("DEPRECATION")
 class NuevoPlato : AppCompatActivity() {
@@ -27,11 +34,26 @@ class NuevoPlato : AppCompatActivity() {
     private lateinit var spCategoria:Spinner
     private lateinit var btnAgregarplato:Button
     private lateinit var btnCancelar:Button
+    //BASE DE DATOS
     private lateinit var platoDao:PlatoDao
-
+    private lateinit var categoriaPlatoDao: CategoriaPlatoDao
+    //REST
+    lateinit var apiPlato:ApiServicePlato
+    //FIREBASE
+    lateinit var bdFirebase :DatabaseReference
+    //para las imagenes
+    var foto : String ="foto"
+    var storage_path : String = "platos/*"
+    private val COD_SEL_STORAGE = 200
+    var COD_SEL_IMAGE : Int = 300
+    private lateinit var image_url : Uri
+    var progressDialog: ProgressDialog? = null
+    //ADICIONALES
     private var estadoCatFiltro : String = "Seleccionar Categoria"
     private val PICK_IMAGE_REQUEST = 1
-    private var imageData: ByteArray? = null
+
+
+    private var imageData: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.platoregistrar)
@@ -42,11 +64,14 @@ class NuevoPlato : AppCompatActivity() {
         spCategoria=findViewById(R.id.spCategoria)
         btnAgregarplato=findViewById(R.id.btnAgregarPlato)
         btnCancelar=findViewById(R.id.btnCancelar)
+        //BASES DE DATOS
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
+        categoriaPlatoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
+        apiPlato = ApiUtils.getAPIServicePlato()
+       
 
+        conectar()
         cargarCategoria()
-
-
         btnAgregarplato.setOnClickListener({Agregar()})
 
         btnImagen.setOnClickListener {
@@ -57,50 +82,22 @@ class NuevoPlato : AppCompatActivity() {
 
         btnCancelar.setOnClickListener({Cancelar()})
 
-
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            // Obtener la imagen seleccionada
-            val imageUri = data.data
-            val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-
-            // Convertir la imagen en un ByteArray
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            imageData = outputStream.toByteArray()
-
-            // Mostrar la imagen seleccionada en una ImageView (opcional)
-            val imageView = findViewById<ImageView>(R.id.imagenCrear)
-            imageView.setImageBitmap(bitmap)
-        }
+    fun conectar(){
+        //Iniciar firebase en la clase actual
+        FirebaseApp.initializeApp(this)
+        bdFirebase = FirebaseDatabase.getInstance().reference
     }
-
     fun Agregar() {
         if (validarCampos()) {
          if (imageData != null ) {
 
                 lifecycleScope.launch(Dispatchers.IO) {
+
                     val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
                     val nombre = edtNombrePlato.text.toString()
                     val precio = edtPrecioPlato.text.toString().toDouble()
-                    val codCatPlato = (spCategoria.selectedItemPosition).toString()
-                    val cat = "C-00" + codCatPlato
-                    System.out.println(cat)
-                    val nombrecat = spCategoria.selectedItem.toString()
-
-                    val bean = Plato(
-                        id = codigo,
-                        nombrePlato = nombre,
-                        precioPlato = precio,
-                        nombreImagen = imageData!!
-                    )
-
-                    bean.categoriaPlato = CategoriaPlato(cat, nombrecat)
-
-                    platoDao.guardar(bean)
+                    val codCatPlato = CategoriaPlato((spCategoria.selectedItemPosition+1).toString(),spCategoria.selectedItem.toString())
                     mostrarToast("Plato agregado correctamente")
                     Cancelar()
                 }
@@ -171,4 +168,5 @@ class NuevoPlato : AppCompatActivity() {
 
         return true
     }
-}
+    }
+

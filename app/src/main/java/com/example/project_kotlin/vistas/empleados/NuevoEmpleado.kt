@@ -1,6 +1,7 @@
 package com.example.project_kotlin.vistas.empleados
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -25,6 +26,7 @@ import com.example.project_kotlin.utils.appConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -52,6 +54,7 @@ class NuevoEmpleado:AppCompatActivity() {
     //Firebase
     lateinit var bdFirebase : DatabaseReference
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_usu)
@@ -69,6 +72,10 @@ class NuevoEmpleado:AppCompatActivity() {
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
+
+
+
+
         cargarCargos()
         conectar()
         btnNuevoUsu.setOnClickListener({nuevoUsuario()})

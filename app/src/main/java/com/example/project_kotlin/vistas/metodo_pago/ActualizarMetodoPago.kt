@@ -1,5 +1,6 @@
 package com.example.project_kotlin.vistas.metodo_pago
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -88,6 +89,7 @@ class ActualizarMetodoPago : AppCompatActivity() {
         return true
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun editar() {
         val nuevoNombre = edtNomMetodoPago.text.toString()
 

@@ -49,18 +49,18 @@ class DatosPlatos: AppCompatActivity() {
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
         txtNoexistePlatoss = findViewById(R.id.txtNoexistePlatos)
-        cargarCategoria()
+        /*cargarCategoria()*/
         //acciones al boton
-
+/*
         btnVolver.setOnClickListener({volver()})
         btnAgregarPlatos.setOnClickListener({nuevoPlatos()})
         btnBuscar.setOnClickListener({filtrar( edtBuscarPlato)})
 
-        obtenerPlatos()
+        obtenerPlatos()*/
 
 
     }
-
+/*
     fun obtenerPlatos() {
         lifecycleScope.launch(Dispatchers.IO) {
             var datos = platoDao.obtenerTodoLiveData()
@@ -154,5 +154,5 @@ class DatosPlatos: AppCompatActivity() {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 }

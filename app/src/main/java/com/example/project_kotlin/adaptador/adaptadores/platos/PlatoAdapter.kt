@@ -32,11 +32,8 @@ class PlatoAdapter(var info: List<Plato>) : RecyclerView.Adapter<VistaItemPlato>
         holder.tvCodPlato.text = info.get(position).id
         holder.tvNombrePlato.text = info.get(position).nombrePlato
         holder.tvPrecioPlato.text = info.get(position).precioPlato.toString()
-        holder.tvCatNomPlato.text = info.get(position).categoriaPlato.categoria
+        holder.tvCatNomPlato.text = info.get(position).catplato_id.toString()
 
-        var imageData = info.get(position).nombreImagen
-        var bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
-        holder.imagenPlato.setImageBitmap(bitmap)
 
 
         var context = holder.itemView.context

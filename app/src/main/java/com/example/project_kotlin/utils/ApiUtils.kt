@@ -2,6 +2,7 @@ package com.example.project_kotlin.utils
 
 import com.example.project_kotlin.service.ApiServiceEmpleado
 import com.example.project_kotlin.service.ApiServiceMesa
+import com.example.project_kotlin.service.ApiServicePlato
 
 class ApiUtils {
     companion object {
@@ -12,6 +13,9 @@ class ApiUtils {
         }
         fun getAPIServiceEmpleado(): ApiServiceEmpleado{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceEmpleado::class.java)
+        }
+        fun getAPIServicePlato(): ApiServicePlato{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServicePlato::class.java)
         }
     }
 }

@@ -52,11 +52,11 @@ class ActualizarPlato:AppCompatActivity() {
         btnEliminar = findViewById(R.id.btnEliminar)
         btnImagenPlato = findViewById(R.id.btnSubirImagens)
 
-        cargarCategoria()
-
+        /*cargarCategoria()*/
+/*
         btnEditar.setOnClickListener{actualizar()}
         btnEliminar.setOnClickListener{Eliminar()}
-        btnCancelar.setOnClickListener{volver()}
+        btnCancelar.setOnClickListener{volver()}*/
 
         btnImagenPlato.setOnClickListener {
             // Lanzar la selección de imágenes desde la galería
@@ -64,7 +64,7 @@ class ActualizarPlato:AppCompatActivity() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-
+/*
         //Cargar dato
         val plato = intent.getSerializableExtra("plato") as Plato
         tvCodPlatos.text = plato.id
@@ -224,5 +224,6 @@ class ActualizarPlato:AppCompatActivity() {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
-
+*/
+}
 }
