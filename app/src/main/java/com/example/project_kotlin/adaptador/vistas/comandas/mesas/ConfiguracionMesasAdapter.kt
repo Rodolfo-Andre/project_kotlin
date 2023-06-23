@@ -1,4 +1,4 @@
-package com.example.project_kotlin.adaptador.adaptadores.mesas
+package com.example.project_kotlin.adaptador.vistas.comandas.mesas
 
 import android.content.Intent
 import android.view.LayoutInflater

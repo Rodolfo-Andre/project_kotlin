@@ -66,6 +66,7 @@ abstract class ComandaDatabase : RoomDatabase() {
                             val estadosComandaDao = instancia?.estadoComandaDao()
                             val metodosPagoDao = instancia?.metodoPagoDao()
                             val categoriaPlatoDao = instancia?.categoriaPlatoDao()
+                            val platoDao = instancia?.platoDao()
                             val establecimientoDao = instancia?.establecimientoDao()
                             val tipoComprobanteDao = instancia?.tipoComprobanteDao()
                             val empleadoDao = instancia?.empleadoDao()
@@ -78,11 +79,9 @@ abstract class ComandaDatabase : RoomDatabase() {
                             cargoDao.guardar(Cargo(cargo= "ADMINISTRADOR"))
                             cargoDao.guardar(Cargo(cargo = "MESERO"))
                             cargoDao.guardar(Cargo(cargo= "CAJERO"))
-                            cargoDao.guardar(Cargo(cargo= "COCINERO"))
                             cargoDao.guardar(Cargo(cargo="GERENTE"))
                             //Agregando estados
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda ="Generada"))
-                            estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Preparado"))
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Pagada"))
                             //Métodos de pago
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "Yape"))
@@ -90,6 +89,7 @@ abstract class ComandaDatabase : RoomDatabase() {
                             //Categoría Plato
 
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-001", "Entradas"))
+                            platoDao?.guardar(Plato("P-001", "Prueba", 22.5, "", "C-001"))
                             //Establecimiento
                             establecimientoDao?.guardar(
                                 Establecimiento(1, "Establecimiento1",
@@ -102,7 +102,6 @@ abstract class ComandaDatabase : RoomDatabase() {
                             //Tipo comprobante
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Nota de Venta"))
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))
-                            tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Factura"))
                             //FECHA PARA EMPLEADO
                             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                             val fechaActual = Date()
@@ -144,29 +143,18 @@ abstract class ComandaDatabase : RoomDatabase() {
                                 usuarioNoSql3, cargoNoSql3)
                             bdFirebase.child("empleado").child(empleadoId3.toString()).setValue(empleadoNoSql3)
 
-                            //CREAR EMPLEADOS 4
-                            val usuario4 = Usuario(correo= "cocinero@cocinero.com", contrasena = "cocinero")
-                            usuarioDao?.guardar(usuario4)
-                            val empleado4 = Empleado(nombreEmpleado = "Cocinero", apellidoEmpleado = "Cocinero", telefonoEmpleado = "999999993",
-                                dniEmpleado = "37777777", fechaRegistro = fechaFormateada, cargo_id = 4, usuario_id = 4)
-                            val empleadoId4 = empleadoDao?.guardar(empleado4)
-                            val cargoNoSql4 = CargoNoSql("COCINERO")
-                            val usuarioNoSql4 = UsuarioNoSql(usuario.correo, usuario.contrasena)
-                            val empleadoNoSql4 = EmpleadoNoSql("Cocinero", "Cocinero", "999999993", "37777777", fechaFormateada,
-                                usuarioNoSql4, cargoNoSql4)
-                            bdFirebase.child("empleado").child(empleadoId4.toString()).setValue(empleadoNoSql4)
 
-                            //CREAR EMPLEADOS 5
+                            //CREAR EMPLEADOS 4
                             val usuario5 = Usuario(correo= "gerente@gerente.com", contrasena = "gerente")
                             usuarioDao?.guardar(usuario5)
                             val empleado5 = Empleado(nombreEmpleado = "Gerente", apellidoEmpleado = "Gerente", telefonoEmpleado = "999999992",
-                                dniEmpleado = "55777777", fechaRegistro = fechaFormateada, cargo_id = 5, usuario_id = 5)
+                                dniEmpleado = "55777777", fechaRegistro = fechaFormateada, cargo_id = 4, usuario_id = 4)
                             val empleadoId5 = empleadoDao?.guardar(empleado5)
                             val cargoNoSql5 = CargoNoSql("GERENTE")
                             val usuarioNoSql5 = UsuarioNoSql(usuario.correo, usuario.contrasena)
                             val empleadoNoSql5 = EmpleadoNoSql("Gerente", "Gerente", "999999992", "55777777", fechaFormateada,
                                 usuarioNoSql5, cargoNoSql5)
-                            bdFirebase.child("empleado").child(empleadoId5.toString()).setValue(empleadoNoSql2)
+                            bdFirebase.child("empleado").child(empleadoId5.toString()).setValue(empleadoNoSql5)
 
                         }
                     }

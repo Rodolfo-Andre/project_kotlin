@@ -8,6 +8,10 @@ import com.example.project_kotlin.entidades.relaciones.MesaConComandas
 interface MesaDao {
     @Query("SELECT * FROM mesa")
      fun obtenerTodo() : List<Mesa>
+
+    @Query("SELECT * FROM mesa WHERE estado_mesa = 'Libre'")
+     fun obtenerMesasLibres() : List<Mesa>
+
     @Transaction
     @Query("SELECT * FROM mesa WHERE id = :id")
      fun obtenerPorId(id: Long) : MesaConComandas

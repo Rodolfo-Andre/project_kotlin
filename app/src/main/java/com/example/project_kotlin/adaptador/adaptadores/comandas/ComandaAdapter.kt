@@ -11,11 +11,12 @@ import com.example.project_kotlin.adaptador.vistas.comandas.VistaItemComanda
 import com.example.project_kotlin.entidades.CategoriaPlato
 
 import com.example.project_kotlin.entidades.Comanda
+import com.example.project_kotlin.entidades.ComandaMesaYEmpleadoYEstadoComanda
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
 import com.example.project_kotlin.vistas.comandas.EditarComanda
 
-class ComandaAdapter (var info :  List<Comanda>)
+class ComandaAdapter (var info :  List<ComandaMesaYEmpleadoYEstadoComanda>)
     : RecyclerView.Adapter<VistaItemComanda>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemComanda {
@@ -29,11 +30,11 @@ class ComandaAdapter (var info :  List<Comanda>)
 
 
     override fun onBindViewHolder(holder: VistaItemComanda, position: Int) {
-        holder.tvComandaIdList.text = info.get(position).id.toString()
-        holder.tvMesaIdList.text = info.get(position).mesaId.toString()
+        holder.tvComandaIdList.text = info.get(position).comanda.comanda.comanda.id.toString()
+        holder.tvMesaIdList.text = info.get(position).comanda.comanda.mesa.id.toString()
         //no existe dato de fecha en la entidad
-        holder.tvFechaCList.text = info.get(position).cantidadAsientos.toString()
-        holder.tvEstadoList.text = info.get(position).estadoComandaId.toString()
+        holder.tvFechaCList.text = info.get(position).comanda.comanda.comanda.cantidadAsientos.toString()
+        holder.tvEstadoList.text = info.get(position).estadoComanda.id.toString()
         var context = holder.itemView.context
 
         holder.itemView.setOnClickListener{
@@ -46,14 +47,9 @@ class ComandaAdapter (var info :  List<Comanda>)
 
     }
 
-
-    fun actualizarComanda(info:List<Comanda>){
-
-        this.info = info as ArrayList<Comanda>
+    fun actualizarComanda(info:List<ComandaMesaYEmpleadoYEstadoComanda>){
+        this.info = info as ArrayList<ComandaMesaYEmpleadoYEstadoComanda>
         notifyDataSetChanged()
-
     }
-
-
 
 }

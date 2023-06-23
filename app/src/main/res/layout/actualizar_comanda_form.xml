@@ -54,30 +54,21 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <Spinner
+                    android:id="@+id/spnMesasActualizarComanda"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="51dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtNumMesa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:hint="0"
-                        android:inputType="number"
-                        android:textColor="@color/disabled_text_color" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_weight="1" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtComensal"
@@ -89,9 +80,10 @@
                         android:textColor="@color/disabled_text_color" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-
             </LinearLayout>
+
+
+
 
 
             <LinearLayout
@@ -134,6 +126,7 @@
                         android:id="@+id/edtEstadoComanda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
                         android:enabled="true"
                         android:hint="Sin pagar"
                         android:inputType="textPersonName"
@@ -152,6 +145,7 @@
                         android:id="@+id/edtPrecioTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
                         android:enabled="true"
                         android:hint="0.00"
                         android:inputType="numberDecimal"
@@ -186,6 +180,7 @@
                         android:id="@+id/edtEmpleado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
                         android:enabled="true"
                         android:hint="Gary Sebastian Morales"
                         android:inputType="textPersonName"
@@ -238,6 +233,31 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnActualizarComanda"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/icon_delete"
+                    android:text="Actualizar comanda" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnActualizarEstado"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="0.5"
+                    android:text="Actualizar estado"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

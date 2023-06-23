@@ -16,11 +16,11 @@ import androidx.room.*
     ])
 
 class Plato (
-    @PrimaryKey var id: String,
+    @PrimaryKey var id: String = "",
     @NonNull @ColumnInfo(name = "nom_plato") var nombrePlato : String,
     @NonNull @ColumnInfo(name="precio_plato") var precioPlato : Double,
     @NonNull @ColumnInfo(name="nom_imagen") var nombreImagen : String,
-    @ColumnInfo(name="catplato_id") var catplato_id : Int
+    @ColumnInfo(name="catplato_id") var catplato_id : String
     ):java.io.Serializable{
 
         companion object {
@@ -35,7 +35,7 @@ class Plato (
         }
     }
 
-data class PlatoCategoriaPlato(
+data class PlatoConCategoria(
     @Embedded val plato: Plato,
     @Relation(
         parentColumn = "catplato_id",

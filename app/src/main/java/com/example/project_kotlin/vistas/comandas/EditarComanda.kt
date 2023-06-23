@@ -34,15 +34,13 @@ class EditarComanda : AppCompatActivity() {
         setContentView(R.layout.actualizar_comanda_form)
 
 
-        //val btnRegresarC : Button = findViewById(R.id.btnRegresarC)
         val btnAniadirPlato : Button = findViewById(R.id.btnAniadirPlato)
 
-        edtNumMesa = findViewById(R.id.edtNumMesa)
+        edtNumMesa = findViewById(R.id.spnMesasActualizarComanda)
         edtComensal = findViewById(R.id.edtComensal)
         edtEstadoComanda = findViewById(R.id.edtEstadoComanda)
         edtPrecioTotal = findViewById(R.id.edtPrecioTotal)
         edtEmpleado = findViewById(R.id.edtEmpleado)
-        //btnAniadirPlato = findViewById(R.id.btnAniadirPlato)
         btnRegresarC = findViewById(R.id.btnRegresarC)
         rvDetalleComanda = findViewById(R.id.rvDetalleComanda)
         btnRegresarC.setOnClickListener({volver()})

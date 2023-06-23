@@ -17,3 +17,12 @@ data class CategoriaPlato (
         }
     }
 }
+data class CategoriaConPlatos(
+    @Embedded val categoria : CategoriaPlato,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "catplato_id"
+    )
+    val platos: List<Plato>
+
+)
