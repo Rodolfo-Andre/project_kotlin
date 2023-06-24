@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.comandas.ComandaAdapter
-import com.example.project_kotlin.adaptador.vistas.comandas.mesas.ConfiguracionMesasAdapter
+import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.ComandaDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.utils.appConfig
@@ -50,9 +50,10 @@ class ComandasVista:AppCompatActivity() {
     fun obtenerComandas(){
         lifecycleScope.launch(Dispatchers.IO){
             var datos = comandaDao.ComandasSinPagar()
-            if(datos.size != 0)
-                tvSinComandas.visibility = View.GONE
+
             withContext(Dispatchers.Main) {
+                if(datos.size != 0)
+                    tvSinComandas.visibility = View.GONE
                 adaptador = ComandaAdapter(datos)
                 rvComanda.layoutManager= LinearLayoutManager(this@ComandasVista)
                 rvComanda.adapter = adaptador

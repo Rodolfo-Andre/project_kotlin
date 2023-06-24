@@ -19,7 +19,7 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.vistas.inicio.IndexComandasActivity
 
 class EditarComanda : AppCompatActivity() {
-    private lateinit var edtNumMesa : EditText
+    private lateinit var edtNumMesa : Spinner
     private lateinit var edtComensal : EditText
     private lateinit var edtEstadoComanda : EditText
     private lateinit var edtPrecioTotal : EditText

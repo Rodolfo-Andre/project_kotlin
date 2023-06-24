@@ -12,12 +12,13 @@ import com.example.project_kotlin.adaptador.vistas.comandas.VistaItemComanda
 import com.example.project_kotlin.entidades.CategoriaPlato
 
 import com.example.project_kotlin.entidades.DetalleComanda
+import com.example.project_kotlin.entidades.DetalleComandaConPlato
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
 import com.example.project_kotlin.vistas.comandas.EditarComanda
 import com.example.project_kotlin.vistas.comandas.RegistrarComanda
 
-class DetalleComandaAdapter (var info :  List<DetalleComanda>)
+class DetalleComandaAdapter (var info :  List<DetalleComandaConPlato>, private var listener: OnItemClickLister? = null)
     : RecyclerView.Adapter<VistaDetalleItemComanda>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaDetalleItemComanda {
@@ -31,28 +32,29 @@ class DetalleComandaAdapter (var info :  List<DetalleComanda>)
 
 
     override fun onBindViewHolder(holder: VistaDetalleItemComanda, position: Int) {
-        holder.tvDetalleidListD.text = info.get(position).id.toString()
+
         //debo cambiar por el nombre del plato
-        holder.tvPlatoListD.text = info.get(position).idPlato.toString()
-        holder.tvCantidadListD.text = info.get(position).cantidadPedido.toString()
+        holder.tvPlatoListD.text = info.get(position).plato.nombrePlato
+        holder.tvCantidadListD.text = info.get(position).detalle.cantidadPedido.toString()
+        holder.tvObservacionListD.text = info.get(position).detalle.observacion
+        holder.tvPrecioPlato.text = info.get(position).plato.precioPlato.toString()
         var context = holder.itemView.context
-
-        holder.itemView.setOnClickListener{
-
-            var intent = Intent(appConfig.CONTEXT, RegistrarComanda::class.java)
-            intent.putExtra("DetalleComanda",info[position])
-            ContextCompat.startActivity(context, intent, null)
-
+        holder.listCEliminarP.setOnClickListener{
+            listener?.onItemDeleteClick(info.get(position))
+        }
+        holder.listCEditarP.setOnClickListener{
+            listener?.onItemUpdateClick(info.get(position))
         }
 
     }
 
-
-    fun actualizarDetalleComanda(info:List<DetalleComanda>){
-
-        this.info = info as ArrayList<DetalleComanda>
+    fun actualizarDetalleComanda(info:List<DetalleComandaConPlato>){
+        this.info = info as ArrayList<DetalleComandaConPlato>
         notifyDataSetChanged()
-
+    }
+    interface OnItemClickLister {
+        fun onItemDeleteClick(detalle: DetalleComandaConPlato)
+        fun onItemUpdateClick(detalle: DetalleComandaConPlato)
     }
 
 

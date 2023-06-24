@@ -33,8 +33,8 @@ class ComandaAdapter (var info :  List<ComandaMesaYEmpleadoYEstadoComanda>)
         holder.tvComandaIdList.text = info.get(position).comanda.comanda.comanda.id.toString()
         holder.tvMesaIdList.text = info.get(position).comanda.comanda.mesa.id.toString()
         //no existe dato de fecha en la entidad
-        holder.tvFechaCList.text = info.get(position).comanda.comanda.comanda.cantidadAsientos.toString()
-        holder.tvEstadoList.text = info.get(position).estadoComanda.id.toString()
+        holder.tvFechaCList.text = info.get(position).comanda.comanda.comanda.fechaRegistro
+        holder.tvEstadoList.text = info.get(position).estadoComanda.estadoComanda
         var context = holder.itemView.context
 
         holder.itemView.setOnClickListener{

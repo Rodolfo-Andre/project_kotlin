@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.cajas.ConfiguracionCajasAdapter
-import com.example.project_kotlin.adaptador.vistas.comandas.mesas.ConfiguracionMesasAdapter
+import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.CajaDao
 import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase

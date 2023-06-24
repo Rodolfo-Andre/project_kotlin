@@ -12,9 +12,7 @@ class VistaItemComanda (itemView: View): RecyclerView.ViewHolder(itemView) {
     var tvMesaIdList: TextView
     var tvFechaCList: TextView
     var tvEstadoList: TextView
-    var listCEditar : ImageButton
-    var listCEliminar : ImageButton
-    var listCFacturar : ImageButton
+
 
 
     //Vincular
@@ -23,8 +21,6 @@ class VistaItemComanda (itemView: View): RecyclerView.ViewHolder(itemView) {
         tvMesaIdList = itemView.findViewById(R.id.tvMesaIdList)
         tvFechaCList = itemView.findViewById(R.id.tvFechaCList)
         tvEstadoList = itemView.findViewById(R.id.tvEstadoList)
-        listCEditar = itemView.findViewById(R.id.listCEditar)
-        listCEliminar = itemView.findViewById(R.id.listCEliminar)
-        listCFacturar = itemView.findViewById(R.id.listCFacturar)
+
     }
 }
