@@ -22,20 +22,7 @@
             android:layout_margin="4dp"
             android:text="Comandas" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="?attr/dividerColor" />
 
-        <Spinner
-            android:id="@+id/spnEstadoComanda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingBottom="1dp" />
 
         <View
             android:id="@+id/divider22"
@@ -52,11 +39,16 @@
             android:text="No hay comandas"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvComanda"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_height="368dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvComanda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
+        </ScrollView>
 
         <Button
             android:id="@+id/btnNuevaComanda"

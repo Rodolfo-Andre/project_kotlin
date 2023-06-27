@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.*
@@ -17,17 +18,23 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.comandas.DetalleComandaAdapter
 import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.Comanda
-import com.example.project_kotlin.entidades.DetalleComanda
-import com.example.project_kotlin.entidades.DetalleComandaConPlato
+import com.example.project_kotlin.entidades.*
+import com.example.project_kotlin.entidades.dto.*
+import com.example.project_kotlin.entidades.firebase.*
 import com.example.project_kotlin.service.ApiServiceComanda
+import com.example.project_kotlin.utils.ApiUtils
+import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
+import com.google.errorprone.annotations.Var
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,6 +62,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
     private lateinit var detalleDao : DetalleComandaDao
     //Entidades globales para guardar
     private lateinit var comandaGlobal : Comanda
+    private lateinit var EmpleadoGlobal : EmpleadoUsuarioYCargo
     private  var detalleComandaGlobal : MutableList<DetalleComandaConPlato> = mutableListOf()
     //ADAPTADOR
     private lateinit var adaptadorDetalle : DetalleComandaAdapter
@@ -83,6 +91,11 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         }
         btnRegresarCR.setOnClickListener({volver()})
         btnGenerarComanda.setOnClickListener({generarComanda()})
+        if(VariablesGlobales.empleado != null){
+            EmpleadoGlobal = VariablesGlobales.empleado!!
+        }
+        apiComanda = ApiUtils.getApiServiceComanda()
+        edtEmpleadoR.setText(EmpleadoGlobal.empleado.empleado.nombreEmpleado + " " + EmpleadoGlobal.empleado.empleado.apellidoEmpleado)
         cargarMesasLibres()
         conectar()
     }
@@ -94,9 +107,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
 
-        mostrarToast(numMesa.toString())
-        if(cantCli == null){
-            mostrarToast("Debes ingresar la cantidad de clientes")
+        if(cantCli == null || cantCli > 15){
+            mostrarToast("Debes ingresar la cantidad de clientes y debe ser menor a 15")
             return
         }
         if(detalleComandaGlobal.size == 0){
@@ -104,19 +116,68 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             return
         }
         lifecycleScope.launch(Dispatchers.IO){
+            val mesa = mesaDao.obtenerPorId(numMesa.toLong())
+
             val comandaAgregar = Comanda(cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesaId = numMesa,
                 estadoComandaId = 1, fechaRegistro = fechaFormateada, empleadoId = 1)
             val idComanda = comandaDao.guardar(comandaAgregar)
-
+            //MYSQL - QUE TERRIBLE CÓDIGO D':
+            //ACTUALIZAR MESA
+            mesa.mesa.estado = "Ocupado"
+            mesaDao.actualizar(mesa.mesa)
+            val mesaDTO = Mesa(mesa.mesa.id, mesa.mesa.cantidadAsientos, mesa.mesa.estado)
+            val empleado = EmpleadoGlobal.empleado.empleado
+            val empleadoDTO = EmpleadoDTO(empleado.id, empleado.nombreEmpleado, empleado.apellidoEmpleado, empleado.telefonoEmpleado,
+            empleado.dniEmpleado, empleado.fechaRegistro, EmpleadoGlobal.usuario, EmpleadoGlobal.empleado.cargo)
+            val detalleComandaNoSql : MutableList<DetalleComandaNoSql> =  mutableListOf()
+            val detalleComandaDTOS : MutableList<DetalleComandaDTO> =  mutableListOf()
+            val comandaDTO = ComandaDTO(id = 0, cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesa = mesaDTO,
+            estadoComanda = EstadoComanda(1, "Libre"), fechaEmision = fechaFormateada, empleado = empleadoDTO)
             detalleComandaGlobal.forEach{detalleComanda ->
+                val categoriaPlato = categoriaDao.obtenerPorId(detalleComanda.plato.catplato_id)
+                //GUARDAR EN ROOM
                 detalleDao.guardar(DetalleComanda(comandaId = idComanda.toInt(), idPlato = detalleComanda.plato.id,
                     cantidadPedido = detalleComanda.detalle.cantidadPedido, precioUnitario = detalleComanda.detalle.precioUnitario,
                     observacion = detalleComanda.detalle.observacion))
+                //GUARDAR PARA MYSQL
+                val platoDTO = PlatoDTO(detalleComanda.plato.id, detalleComanda.plato.nombrePlato, detalleComanda.plato.nombreImagen,
+                detalleComanda.plato.precioPlato, CategoriaPlato(id = detalleComanda.plato.catplato_id, categoria = categoriaPlato.categoria))
+                detalleComandaDTOS.add(
+                    DetalleComandaDTO(id = 0, cantidadPedido = detalleComanda.detalle.cantidadPedido,
+                        precioUnitario = detalleComanda.detalle.precioUnitario, observacion = detalleComanda.detalle.observacion,
+                        plato = platoDTO)
+                )
+                //GUARDAR PARA FIREBASE
+
+                detalleComandaNoSql.add(
+                    DetalleComandaNoSql(detalleComanda.detalle.cantidadPedido, detalleComanda.detalle.precioUnitario,
+                detalleComanda.detalle.observacion, PlatoNoSql(platoDTO.nombre,platoDTO.imagen, platoDTO.precioPlato, CategoriaPlatoNoSql(categoria = categoriaPlato.categoria))
+                    )
+                )
             }
-            mostrarToast("Comanda generada")
+            comandaDTO.listaDetalleComanda = detalleComandaDTOS
+            grabarComandaMySql(comandaDTO)
+            //FIREBASE
+            val empleadoNoSql : EmpleadoNoSql = EmpleadoNoSql(empleado.nombreEmpleado,empleado.apellidoEmpleado, empleado.telefonoEmpleado, empleado.dniEmpleado, empleado.fechaRegistro,
+            UsuarioNoSql(EmpleadoGlobal.usuario.correo), CargoNoSql(EmpleadoGlobal.empleado.cargo.cargo)
+            )
+            val comandaNoSql : ComandaNoSql = ComandaNoSql(comandaAgregar.cantidadAsientos, comandaAgregar.precioTotal, fechaFormateada,
+            MesaNoSql(mesa.mesa.cantidadAsientos, mesa.mesa.estado), EstadoComandaNoSql("Generada"), empleadoNoSql)
+            bdFirebase.child("comanda").child(idComanda.toString()).setValue(comandaNoSql)
+            mostrarToast("Comanda agregada correctamente")
             volver()
         }
 
+    }
+    fun grabarComandaMySql(bean:ComandaDTO){
+        apiComanda.fetchGuardarComanda(bean).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
     }
     fun volver(){
         var intent = Intent(this, ComandasVista::class.java)

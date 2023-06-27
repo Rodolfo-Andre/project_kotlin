@@ -15,6 +15,7 @@ import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.dao.UsuarioDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Empleado
+import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.IndexComandasActivity
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     lateinit var btnIngresar: Button
     private lateinit var usuarioDao: UsuarioDao
+    private lateinit var empleadoDao: EmpleadoDao
     private lateinit var edtEmail: EditText
     private lateinit var edtContraseña: EditText
 
@@ -33,15 +35,16 @@ class MainActivity : AppCompatActivity() {
         edtContraseña = findViewById(R.id.edtPassword)
         btnIngresar = findViewById(R.id.btnIngresar)
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
+        empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         btnIngresar.setOnClickListener({ vincular() })
 
     }
 
     fun vincular() {
-        val intent = Intent(this@MainActivity, IndexComandasActivity::class.java)
-        startActivity(intent)
+        /*val intent = Intent(this@MainActivity, IndexComandasActivity::class.java)
+        startActivity(intent)*/
 
-        /*val email = edtEmail.text.toString()
+        val email = edtEmail.text.toString()
         val password = edtContraseña.text.toString()
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -49,6 +52,12 @@ class MainActivity : AppCompatActivity() {
 
             launch(Dispatchers.Main) {
                 if (verificarusuario != null) {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        var id = verificarusuario.id
+                        if(id != null){
+                            VariablesGlobales.empleado = empleadoDao.obtenerPorId(id)
+                        }
+                    }
                     mostrarToast("Ingresando al sistema")
                     val intent = Intent(this@MainActivity, IndexComandasActivity::class.java)
                     startActivity(intent)
@@ -56,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     mostrarToast("Verifique su email o contraseña")
                 }
             }
-        }*/
+        }
 
 
     }
