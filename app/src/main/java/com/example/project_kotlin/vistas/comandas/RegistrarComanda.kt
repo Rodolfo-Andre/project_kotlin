@@ -107,8 +107,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
 
-        if(cantCli == null){
-            mostrarToast("Debes ingresar la cantidad de clientes")
+        if(cantCli == null || cantCli > 15){
+            mostrarToast("Debes ingresar la cantidad de clientes y debe ser menor a 15")
             return
         }
         if(detalleComandaGlobal.size == 0){
@@ -116,11 +116,12 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             return
         }
         lifecycleScope.launch(Dispatchers.IO){
+            val mesa = mesaDao.obtenerPorId(numMesa.toLong())
+
             val comandaAgregar = Comanda(cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesaId = numMesa,
                 estadoComandaId = 1, fechaRegistro = fechaFormateada, empleadoId = 1)
             val idComanda = comandaDao.guardar(comandaAgregar)
             //MYSQL - QUE TERRIBLE CÓDIGO D':
-            val mesa = mesaDao.obtenerPorId(numMesa.toLong())
             //ACTUALIZAR MESA
             mesa.mesa.estado = "Ocupado"
             mesaDao.actualizar(mesa.mesa)
@@ -158,7 +159,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             grabarComandaMySql(comandaDTO)
             //FIREBASE
             val empleadoNoSql : EmpleadoNoSql = EmpleadoNoSql(empleado.nombreEmpleado,empleado.apellidoEmpleado, empleado.telefonoEmpleado, empleado.dniEmpleado, empleado.fechaRegistro,
-            UsuarioNoSql(EmpleadoGlobal.usuario.correo), CargoNoSql(EmpleadoGlobal.empleado.cargo.cargo))
+            UsuarioNoSql(EmpleadoGlobal.usuario.correo), CargoNoSql(EmpleadoGlobal.empleado.cargo.cargo)
+            )
             val comandaNoSql : ComandaNoSql = ComandaNoSql(comandaAgregar.cantidadAsientos, comandaAgregar.precioTotal, fechaFormateada,
             MesaNoSql(mesa.mesa.cantidadAsientos, mesa.mesa.estado), EstadoComandaNoSql("Generada"), empleadoNoSql)
             bdFirebase.child("comanda").child(idComanda.toString()).setValue(comandaNoSql)
