@@ -25,7 +25,6 @@ import kotlinx.coroutines.withContext
 class ComandasVista:AppCompatActivity() {
 
 
-    private lateinit var spnEstadoComanda : Spinner
     private lateinit var rvComanda : RecyclerView
     private lateinit var btnNuevaComanda : Button
     private lateinit var btnVolverConfi : Button
@@ -37,7 +36,6 @@ class ComandasVista:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_comanda)
-        spnEstadoComanda = findViewById(R.id.spnEstadoComanda)
         rvComanda = findViewById(R.id.rvComanda)
         btnNuevaComanda = findViewById(R.id.btnNuevaComanda)
         btnVolverConfi = findViewById(R.id.btnVolverConfi)
