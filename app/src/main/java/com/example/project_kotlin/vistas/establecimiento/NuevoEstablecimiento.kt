@@ -82,11 +82,13 @@ class NuevoEstablecimiento:AppCompatActivity() {
 
                 agregarEstablecimientoMySql(bean)
 
-                //CREAR NODO RAIZ y nodo de tipo establecimiento
+                //CRto
                 val beanNoSql = EstablecimientoNoSql(bean.nomEstablecimiento,bean.telefonoestablecimiento,
                                                     bean.direccionestablecimiento,bean.rucestablecimiento)
-                bd.child("establecimiento").child(establecimientoid.toString()).setValue(beanNoSql)
-                mostrarToast("Establecimiento agregado correctamente")
+                bd.child("establecimiento").child(establecimientoid.toString()).setValue(beanNoSql).addOnCompleteListener{
+                    mostrarToast("Establecimiento agregado correctamente")
+                }
+
                 volver()
 
             }

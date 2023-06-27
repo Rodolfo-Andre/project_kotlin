@@ -14,7 +14,7 @@ interface ApiServiceEstablecimiento {
     fun fetchGuardarEstablecimiento(@Body bean: Establecimiento): Call<Void>
 
     @PUT("/configuracion/establecimiento/actualizar")
-    fun fetchActualizarEstablecimiento(@Body bean: Establecimiento): Call<Void>
+    fun fetchUpdateEstablecimiento(@Body bean: Establecimiento): Call<Void>
 
     @DELETE("/configuracion/establecimiento/eliminar/{codigo}")
     fun fetcEliminarEstablecimiento(@Path("codigo") codigo: Int): Call<Void>
