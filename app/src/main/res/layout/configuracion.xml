@@ -4,399 +4,406 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9BEFD7" >
+    android:background="@drawable/fondoaplicacion">
 
 
-    <LinearLayout
-        android:layout_width="416dp"
-        android:layout_height="691dp"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-3dp"
-        tools:layout_editor_absoluteY="20dp">
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="409dp"
+        android:layout_height="537dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <TextView
-            android:id="@+id/textView8"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/alfa_slab_one"
-            android:letterSpacing="0.13"
-            android:shadowRadius="2"
-            android:text="configuración"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="-1dp"
-            tools:layout_editor_absoluteY="1dp" />
+            android:background="@drawable/top_rounded_background"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/iconImageView"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/empleado__1_" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvEmpleados"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                        <ImageView
+                            android:id="@+id/iconImageView"
+                            android:layout_width="78dp"
+                            android:layout_height="82dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/empleado__1_" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:text="Empleados"
+                        android:textAlignment="center"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Empleados"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvPlatos"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/iconImageView1"
+                            android:layout_width="78dp"
+                            android:layout_height="82dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/platos" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:text="Platos"
+                        android:textAlignment="center"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
+
+                </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        //
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv1"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+            //
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/iconImageView1"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvCategoriaPlatos"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
 
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/platos" />
+                        <ImageView
+                            android:id="@+id/iconImageView3"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/categorias" />
+                    </androidx.cardview.widget.CardView>
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout1"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="2dp"
+                        android:text="Categorías"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Platos"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvMesas"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="8dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/iconImageView2"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/comedor" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:text="Mesas"
+                        android:textAlignment="center"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
+
+                </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        //
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv2"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+            //
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
+                <LinearLayout
+                    android:layout_width="169dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/iconImageView2"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/comedor" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvEstablecimiento"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
 
+                        <ImageView
+                            android:id="@+id/iconImageView4"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/establecimiento" />
+                    </androidx.cardview.widget.CardView>
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:text="Establecimiento"
+                        android:textAlignment="center"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Mesas"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvMetodoPago"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/iconImageView5"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/comandas" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:text="Metodo de Pago"
+                        android:textAlignment="center"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp" />
+
+                </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        //
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv3"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
 
-                    <ImageView
-                        android:id="@+id/iconImageView3"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/clientes" />
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="51dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvCajas"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/iconImageView6"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/registradora" />
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="2dp"
+                        android:text="Cajas"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp"  />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Clientes"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-        //
+                <LinearLayout
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="35dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@color/cardview_shadow_end_color"
+                    android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv6"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvRegresarIndex"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:layout_marginTop="5dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/iconImageView7"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            app:srcCompat="@drawable/regreso" />
+                    </androidx.cardview.widget.CardView>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
-
-                    <ImageView
-                        android:id="@+id/iconImageView4"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/establecimiento" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout4"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="2dp"
+                        android:text="Volver"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/baloo_thambi"
+                        android:textColor="#1D1736"
+                        android:textSize="22.5sp"  />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Establecimiento"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv5"
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
+        </LinearLayout>
+    </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/cardview_shadow_end_color"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bungee"
+        android:letterSpacing="0.13"
+        android:text="configuración"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#1D1736"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="6dp">
-
-                    <ImageView
-                        android:id="@+id/iconImageView5"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
-                        app:srcCompat="@drawable/comandas" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Comandas"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

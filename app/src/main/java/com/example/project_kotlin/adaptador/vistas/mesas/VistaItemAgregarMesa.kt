@@ -10,7 +10,6 @@ class VistaItemAgregarMesa(itemView: View):RecyclerView.ViewHolder(itemView) {
     var tvID : TextView
     var tvCanAsientos: TextView
     var tvEstadoMesa:TextView
-
     init {
         tvCanAsientos = itemView.findViewById(R.id.tvCanAsientos)
         tvEstadoMesa = itemView.findViewById(R.id.tvEstadoMesa)

@@ -5,7 +5,7 @@ import androidx.room.*
 @Entity(tableName = "categoria_plato")
 data class CategoriaPlato (
     @PrimaryKey var id: String = "",
-    var categoria: String) {
+    var categoria: String):java.io.Serializable {
     companion object {
         fun generarCodigo(listCatDish: List<CategoriaPlato>): String {
             if (listCatDish.isEmpty()) return "C-001"
@@ -17,3 +17,12 @@ data class CategoriaPlato (
         }
     }
 }
+data class CategoriaConPlatos(
+    @Embedded val categoria : CategoriaPlato,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "catplato_id"
+    )
+    val platos: List<Plato>
+
+)

@@ -8,20 +8,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#e8e8f9"
         android:orientation="vertical"
         android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp">
+        tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/tvManUsu"
+            android:id="@+id/tvManEditUsu"
             style="@style/TituloPagina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:paddingBottom="6dp"
-            android:text="Caja Registradora" />
+            android:text="CAJA REGISTRADORA"
+            android:fontFamily="@font/baloo_thambi"/>
 
         <View
             android:id="@+id/divider"
@@ -44,7 +47,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="0.5"
-                android:backgroundTint="@color/material_green_500"
                 android:src="@drawable/icon_delete"
                 android:text="Aperturar" />
 
@@ -54,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_weight="0.5"
-                android:backgroundTint="@color/material_red_500_disable"
+                android:backgroundTint="#B3258A"
                 android:text="Cerrar"
                 android:textColor="@android:color/white" />
         </LinearLayout>
@@ -72,7 +74,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -88,7 +91,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/button_blue"
                 android:text="Aplicar busqueda"
                 android:textColor="@android:color/white" />
 
@@ -107,8 +109,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -150,15 +152,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spnMetPago"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="0.5"
                     android:layout_marginTop="3dp"
+                    android:layout_weight="0.5"
                     android:entries="@array/metPago" />
 
                 <Space
@@ -182,11 +184,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-
-
-
-
-
 
 
         </LinearLayout>

@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 class EstadoComanda(
     @PrimaryKey(autoGenerate = true) var id : Long = 0,
     @ColumnInfo(name="estado") var estadoComanda : String
-) {
+):java.io.Serializable {
 }

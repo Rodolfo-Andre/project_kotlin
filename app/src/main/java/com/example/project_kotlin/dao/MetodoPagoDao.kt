@@ -1,11 +1,14 @@
 package com.example.project_kotlin.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.entidades.MetodoPago
 
 @Dao
 interface MetodoPagoDao {
+    @Query("select * from metodo_pago")
+    fun obtenerTodoLiveData(): LiveData<List<MetodoPago>>
     @Query("SELECT * FROM metodo_pago")
     fun buscarTodo() : List<MetodoPago>
 

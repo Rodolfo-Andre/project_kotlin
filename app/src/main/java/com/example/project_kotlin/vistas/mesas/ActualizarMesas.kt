@@ -2,6 +2,7 @@ package com.example.project_kotlin.vistas.mesas
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -14,9 +15,14 @@ import com.example.project_kotlin.dao.ComandaDao
 import com.example.project_kotlin.dao.MesaDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.service.ApiServiceMesa
+import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActualizarMesas : AppCompatActivity() {
 
@@ -25,17 +31,18 @@ class ActualizarMesas : AppCompatActivity() {
     private lateinit var btnEditar: Button
     private lateinit var btnEliminar: Button
     private lateinit var btnVolver: Button
-    private lateinit var db: ComandaDatabase
     private lateinit var mesaDao: MesaDao
     private lateinit var comandaDao: ComandaDao
+    private lateinit var mesaBean : Mesa
+    private lateinit var apiMesa : ApiServiceMesa
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modificar_mesa)
-        db = Room.databaseBuilder(this, ComandaDatabase::class.java, "comanda_database").build()
-        mesaDao = db.mesaDao()
-        comandaDao = db.comandaDao()
-
+        mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
+        comandaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comandaDao()
+        apiMesa = ApiUtils.getAPIServiceMesa()
         edCantAsientos = findViewById(R.id.edtCanModMesa)
         edNumMesa = findViewById(R.id.edtNumMesa)
         btnEditar = findViewById(R.id.btnEditarMesa)
@@ -47,9 +54,9 @@ class ActualizarMesas : AppCompatActivity() {
         btnEditar.setOnClickListener { Editar() }
 
         //Cargar dato
-        val mesa = intent.getSerializableExtra("mesa") as Mesa
-        edNumMesa.setText(mesa.id.toString())
-        edCantAsientos.setText(mesa.cantidadAsientos.toString())
+        mesaBean = intent.getSerializableExtra("mesa") as Mesa
+        edNumMesa.setText(mesaBean.id.toString())
+        edCantAsientos.setText(mesaBean.cantidadAsientos.toString())
     }
 
     fun Volver() {
@@ -68,10 +75,8 @@ class ActualizarMesas : AppCompatActivity() {
                 //Validar de comandas
                 val validarComandaPorMesa = comandaDao.obtenerComandasPorMesa(numMesa)
                 if (validarComandaPorMesa.isEmpty()) {
-                    val eliminar = mesaDao.obtenerPorId(numMesa.toLong())
-                    mesaDao.eliminar(eliminar)
-                    mostrarToast("Mesa eliminada correctamente")
-                    Volver()
+                    mesaDao.eliminar(mesaBean)
+                    eliminarMysql(mesaBean.id)
                 } else {
                     mostrarToast("No puedes eliminar mesas que tienen información de comandas")
                 }
@@ -81,23 +86,44 @@ class ActualizarMesas : AppCompatActivity() {
         mensaje.setIcon(android.R.drawable.ic_delete)
         mensaje.show()
     }
+    fun eliminarMysql(id:Long){
+        apiMesa.fetcEliminarMesa(id.toInt()).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                mostrarToast("Mesa eliminada correctamente")
+                Volver()
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
 
+
+    //HOLA
     fun Editar() {
-        val numMesa = edNumMesa.text.toString().toLong()
         lifecycleScope.launch(Dispatchers.IO) {
-            val validar = mesaDao.obtenerPorId(numMesa)
-            if (validar.estadoMesa == "Libre") {
+            if (mesaBean.estado == "Libre") {
                 if (validarCampos()) {
                     val cantidadAsientos = edCantAsientos.text.toString().toInt()
-                    val mesa = Mesa(numMesa, cantidadAsientos, "Libre")
-                    mesaDao.actualizar(mesa)
-                    mostrarToast("Mesa actualizada correctamente")
-                    Volver()
+                    mesaBean.cantidadAsientos = cantidadAsientos
+                    mesaDao.actualizar(mesaBean)
+                    actualizarMesaMysql(mesaBean)
                 }
             } else {
                 mostrarToast("No puedes actualizar una mesa ocupada")
             }
         }
+    }
+    fun actualizarMesaMysql(bean:Mesa){
+        apiMesa.fetchActualizarMesa(bean).enqueue(object:Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                mostrarToast("Mesa actualizada correctamente")
+                Volver()
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
     }
 
     fun validarCampos(): Boolean {
