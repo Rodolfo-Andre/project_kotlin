@@ -17,6 +17,7 @@ import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.entidades.dto.CategoriaPlatoDTO
+import com.example.project_kotlin.entidades.firebase.CategoriaPlatoNoSql
 import com.example.project_kotlin.service.ApiServiceCategoriaPlato
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
@@ -44,6 +45,8 @@ class EditCatPlatoActivity:AppCompatActivity() {
 
     //REST
     lateinit var apiCategoria : ApiServiceCategoriaPlato
+    //Firebase
+    lateinit var bdFirebase : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +70,8 @@ class EditCatPlatoActivity:AppCompatActivity() {
         tvCodCategoriaPlatos.setText(cateBean.id)
         edtCategoriaNombres.setText(cateBean.categoria)
 
+        conectar()
+
 
     }
     fun Cancelar(){
@@ -84,6 +89,11 @@ class EditCatPlatoActivity:AppCompatActivity() {
                     val cateDTO = CategoriaPlatoDTO(idCategoria, nombreCategoria)
                     cateDAO.actualizar(catego)
                     actualizarCateMySql(cateDTO)
+                    //FIREBASE
+                    val numero = idCategoria.substringAfter('-').toInt()
+                    val idCatPlato = numero.toString()
+                    val cateNoSqL = CategoriaPlatoNoSql(catego.categoria)
+                    bdFirebase.child("establecimiento").child(idCatPlato).setValue(cateNoSqL)
                     mostrarToast("Categoria actualizada correctamente")
                     Volver()
                 }
@@ -105,6 +115,10 @@ class EditCatPlatoActivity:AppCompatActivity() {
                     val eliminar = cateDAO.obtenerPorId(codCate)
                     cateDAO.eliminar(eliminar)
                     eliminarMysql(codCate)
+                    //FIREBASE
+                    val numero = codCate.substringAfter('-').toInt()
+                    val idCatPlato = numero.toString()
+                    bdFirebase.child("categoria").child(idCatPlato).removeValue()
                     mostrarToast("Categoria eliminada correctamente")
                     Volver()
                 }else{
@@ -156,10 +170,15 @@ class EditCatPlatoActivity:AppCompatActivity() {
     }
 
 
-
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun conectar(){
+        //Iniciar firebase en la clase actual
+        FirebaseApp.initializeApp(this)
+        bdFirebase = FirebaseDatabase.getInstance().reference
     }
 }
