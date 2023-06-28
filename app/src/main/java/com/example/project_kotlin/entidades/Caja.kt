@@ -12,12 +12,31 @@ import androidx.room.*
     indices = [
         Index("establecimiento_id")
     ])
-data class Caja (
-    @PrimaryKey(autoGenerate = true) var id: Long = 0
+data class Caja(
+    @PrimaryKey
+    var id: String = ""
 ) :java.io.Serializable{
     @Embedded(prefix = "establecimiento_")
     var establecimiento: Establecimiento? = null
+
+    constructor(listaCaja: List<Caja>) : this() {
+        id = generarIdCaja(listaCaja)
+    }
+
+    companion object {
+        fun generarIdCaja(listaCaja: List<Caja>): String {
+            if (listaCaja.isEmpty())
+                return "C-001"
+
+            val ultimoId = listaCaja[listaCaja.size - 1].id
+
+            val numero = Integer.parseInt(ultimoId.split("-")[1])
+
+            return "C-" + String.format("%03d", numero + 1)
+        }
+    }
 }
+
 
 
 data class CajaConComprobantes(

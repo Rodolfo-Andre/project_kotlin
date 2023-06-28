@@ -42,10 +42,10 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TIPO COMPROBANTE:" />
+                    android:text="FECHA DE EMISION:" />
 
                 <TextView
-                    android:id="@+id/tvTipoComprobanteList"
+                    android:id="@+id/tvFechaEmisionList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="-" />
@@ -66,10 +66,22 @@
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="FECHA DE EMISION:" />
+                    android:text="CAJA:" />
 
                 <TextView
-                    android:id="@+id/tvFechaEmisionList"
+                    android:id="@+id/tvCajaList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/textView50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL:" />
+
+                <TextView
+                    android:id="@+id/tvTotalList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="-" />

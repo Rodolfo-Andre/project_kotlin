@@ -27,5 +27,8 @@ class ApiUtils {
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceEstablecimiento::class.java)
         }
 
+        fun getAPIServiceCaja(): ApiServiceCaja{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServiceCaja::class.java)
+        }
     }
 }

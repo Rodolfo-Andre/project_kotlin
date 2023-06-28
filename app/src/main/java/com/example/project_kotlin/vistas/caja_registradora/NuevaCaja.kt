@@ -3,8 +3,6 @@ package com.example.project_kotlin.vistas.caja_registradora
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 
@@ -18,14 +16,21 @@ import com.example.project_kotlin.dao.CajaDao
 import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Caja
-import com.example.project_kotlin.entidades.Establecimiento
+import com.example.project_kotlin.entidades.firebase.CajaNoSql
+import com.example.project_kotlin.entidades.firebase.EstablecimientoNoSql
+import com.example.project_kotlin.service.ApiServiceCaja
+import com.example.project_kotlin.utils.ApiUtils
 
 
 import com.example.project_kotlin.utils.appConfig
-import kotlinx.coroutines.CoroutineScope
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 import kotlin.collections.map
 
@@ -40,10 +45,12 @@ class NuevaCaja : AppCompatActivity() {
 
     private var establecimientoDefault : String = "Seleccionar Establecimiento"
 
-
+    private lateinit var apiCaja: ApiServiceCaja
+    lateinit var bd: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_caja)
+        conectar()
 
         btnRegresar = findViewById(R.id.btnRegresarlistaCajas)
         cajaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
@@ -54,6 +61,7 @@ class NuevaCaja : AppCompatActivity() {
         btnRegistrarCaja.setOnClickListener { agregarCaja() }
 
         establecimientoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).establecimientoDao()
+        apiCaja = ApiUtils.getAPIServiceCaja()
 
         cargarEstablecimiento()
     }
@@ -98,60 +106,62 @@ class NuevaCaja : AppCompatActivity() {
 
     private fun agregarCaja() {
         lifecycleScope.launch(Dispatchers.IO) {
+
+
+
             val establecimientoId = spnEstablecimiento.selectedItemPosition
             if (establecimientoId == 0) {
                 mostrarToast("Seleccione un establecimiento")
             } else {
                 val establecimiento = establecimientoDao.obtenerPorId(establecimientoId.toLong())
+                val listaCaja: List<Caja> = cajaDao.obtenerTodo()
 
-                val nuevaCaja = Caja()
+                val nuevaCaja = Caja(listaCaja)
                 nuevaCaja.establecimiento = establecimiento
 
                 cajaDao.guardar(nuevaCaja)
+
+                agregarCajaMySql(nuevaCaja)
+
+                // Guardar en Firebase
+                val establecimientoNoSql = EstablecimientoNoSql(
+                    establecimiento.nomEstablecimiento,
+                    establecimiento.telefonoestablecimiento,
+                    establecimiento.direccionestablecimiento,
+                    establecimiento.rucestablecimiento
+                )
+                val cajaNoSql = CajaNoSql(nuevaCaja.id , establecimientoNoSql)
+
+                bd.child("caja").child(nuevaCaja.id.toString()).setValue(cajaNoSql)
+
                 mostrarToast("Caja registrada")
                 volver()
             }
         }
     }
 
+    fun agregarCajaMySql(bean: Caja) {
+        Log.d("Datos de la caja:", "ID: ${bean.id}, Establecimiento: ${bean.establecimiento?.nomEstablecimiento}")
+
+        apiCaja.fetchGuardarCaja(bean).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("Respuesta del servidor:", response.message())
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error al enviar la caja:", t.toString())
+            }
+        })
+    }
 
 
+    fun conectar(){
 
-
-
-
-
+        //inicar mi firebase
+        FirebaseApp.initializeApp(this)
+        bd= FirebaseDatabase.getInstance().reference
+    }
     //
 }
 
 
-
-
-
-
-
-/*
-    fun agregarCaja() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (validarCampos()) {
-                val cantidad = edCantidadAsientos.text.toString().toInt()
-                val bean = Mesa(cantidadAsientos = cantidad, estadoMesa = "Libre")
-                mesaDao.guardar(bean)
-                mostrarToast("Mesa agregada correctamente")
-                volver()
-            }
-        }
-    }
-
-
-
-    fun validarCampos(): Boolean {
-        val cantidad = edCantidadAsientos.text.toString().toIntOrNull()
-        if (cantidad == null || cantidad !in 1..9) {
-            mostrarToast("La cantidad de asientos debe ser un número de 1 al 9")
-            return false
-        }
-        return true
-    }
-
-    */

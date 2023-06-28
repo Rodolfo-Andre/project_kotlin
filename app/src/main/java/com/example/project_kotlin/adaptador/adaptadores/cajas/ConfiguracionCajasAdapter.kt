@@ -3,14 +3,12 @@ package com.example.project_kotlin.adaptador.adaptadores.cajas
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.vistas.cajas.VistaItemCajasExistentes
 
 import com.example.project_kotlin.entidades.Caja
-
 import com.example.project_kotlin.vistas.caja_registradora.ActualizarCajas
 
 class ConfiguracionCajasAdapter(private var info: List<Caja>) : RecyclerView.Adapter<VistaItemCajasExistentes>() {

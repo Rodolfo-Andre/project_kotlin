@@ -9,7 +9,7 @@ interface CajaDao {
      fun obtenerTodo() : List<Caja>
 
     @Query("SELECT * FROM caja WHERE id = :id")
-     fun obtenerPorId(id: Long) : Caja
+     fun obtenerPorId(id: String) : Caja
     @Query("SELECT * FROM Caja WHERE establecimiento_id = :establecimiento_id")
     fun obtenerCajaPorEstablecimiento(establecimiento_id: Int) : List<Caja>
 
@@ -19,9 +19,9 @@ interface CajaDao {
     @Update
      fun actualizar(caja: Caja)
 
+
     @Delete
      fun eliminar(caja: Caja)
-
     @Transaction
     @Query("SELECT * FROM caja")
     fun obtenerCajaConComprobantes(): List<CajaConComprobantes>
