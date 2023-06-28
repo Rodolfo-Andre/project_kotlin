@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         tools:cardCornerRadius="20dp"
-        tools:cardElevation="4dp"
+        tools:cardElevation="8dp"
         tools:cardUseCompatPadding="true"
         tools:ignore="MissingConstraints">
 
@@ -44,8 +44,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Codigo Categoria Plato:"
-                        android:textSize="18sp" />
+                        android:text="Codigo :"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/tvCodCategoriaPlato"
@@ -82,8 +83,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre Categoria Plato:"
-                        android:textSize="18sp" />
+                        android:text="Categoria :"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/tvNombreCategoriaPlato"

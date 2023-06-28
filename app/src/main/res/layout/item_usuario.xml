@@ -5,13 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/card_view"
+        android:layout_width="243dp"
+        android:layout_height="343dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:cardCornerRadius="20dp"
+        tools:cardElevation="8dp"
+        tools:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -20,11 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -103,6 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="---" />
+
             <TextView
                 android:id="@+id/textView222"
                 android:layout_width="match_parent"
@@ -116,11 +124,6 @@
                 android:layout_height="wrap_content"
                 android:text="---" />
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
             <View
                 android:id="@+id/divider8"
                 android:layout_width="match_parent"
@@ -133,7 +136,6 @@
                 android:layout_height="10dp" />
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

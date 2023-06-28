@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,17 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.categoria_plato.CategoriaPlatoAdapter
-import com.example.project_kotlin.adaptador.adaptadores.mesas.ConfiguracionMesasAdapter
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.CategoriaPlato
-import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
 
 class CategoriaPlatosActivity: AppCompatActivity() {
     private lateinit var rvCategoria: RecyclerView
@@ -39,11 +34,11 @@ class CategoriaPlatosActivity: AppCompatActivity() {
 
 
         cateDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
-        rvCategoria = findViewById(R.id.rvCategoria)
-        btnAgregarCategoria = findViewById(R.id.btnAgregarCategoriaPlatos)
-        btnRegresar = findViewById(R.id.btnRegresarIndex)
+        rvCategoria = findViewById(R.id.rvListadoMesasCon)
+        btnAgregarCategoria = findViewById(R.id.btnAgregarCategoria)
+        btnRegresar = findViewById(R.id.btnCancelarCategoria)
         tvDAtosSinCategoria = findViewById(R.id.tvCategoriaSinDatos)
-        rvCategoria = findViewById(R.id.rvCategoria)
+        rvCategoria = findViewById(R.id.rvListadoMesasCon)
 
         btnAgregarCategoria.setOnClickListener({agregarVista()})
         btnRegresar.setOnClickListener({regresar()})

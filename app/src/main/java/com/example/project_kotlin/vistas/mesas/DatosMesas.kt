@@ -38,7 +38,7 @@ class DatosMesas : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.con_mesas)
         btnNuevaMesa = findViewById(R.id.btnNuevoEmpleadoCon)
-        btnVolverIndexMesa = findViewById(R.id.btnRegresarIndexEmpleado)
+        btnVolverIndexMesa = findViewById(R.id.btnCancelarCategoria)
         rvMesas = findViewById(R.id.rvListadoMesasCon)
         spEstadoMesa = findViewById(R.id.spnFiltrarEstadoMesas)
         edBuscarNumAsientos = findViewById(R.id.edtBuscarMesas)

@@ -12,7 +12,6 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.Cargo
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Plato
 import com.example.project_kotlin.entidades.dto.PlatoDTO
@@ -31,7 +30,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.net.URL
 
 
 @Suppress("DEPRECATION")
@@ -65,12 +63,12 @@ class NuevoPlato : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.platoregistrar)
 
-        edtNombrePlato = findViewById(R.id.edtNombrePlato)
-        edtPrecioPlato = findViewById(R.id.edtPrecioPlato)
-        btnImagen = findViewById(R.id.btnSubirImagen)
-        spcategoria = findViewById(R.id.spCategoria)
-        btnAgregarplato = findViewById(R.id.btnAgregarPlato)
-        btnCancelar = findViewById(R.id.btnCancelar)
+        edtNombrePlato = findViewById(R.id.edtBuscarNombreUsu)
+        edtPrecioPlato = findViewById(R.id.edtPrePlato)
+        btnImagen = findViewById(R.id.btnAplicarUsu)
+        spcategoria = findViewById(R.id.spnCargoEmpleadoE)
+        btnAgregarplato = findViewById(R.id.btnNuevoUsu)
+        btnCancelar = findViewById(R.id.btnCancelarCategoria)
         //BASES DE DATOS
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()

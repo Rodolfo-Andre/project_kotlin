@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.ComandaDao
 import com.example.project_kotlin.dao.MesaDao
@@ -43,11 +42,11 @@ class ActualizarMesas : AppCompatActivity() {
         mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
         comandaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comandaDao()
         apiMesa = ApiUtils.getAPIServiceMesa()
-        edCantAsientos = findViewById(R.id.edtCanModMesa)
+        edCantAsientos = findViewById(R.id.edtApeUsuE)
         edNumMesa = findViewById(R.id.edtNumMesa)
-        btnEditar = findViewById(R.id.btnEditarMesa)
-        btnEliminar = findViewById(R.id.btnEliminarMesa)
-        btnVolver = findViewById(R.id.btnVolverListadoEdit)
+        btnEditar = findViewById(R.id.btnEditarCategoria)
+        btnEliminar = findViewById(R.id.btnEliminarCat)
+        btnVolver = findViewById(R.id.btnCancelarCat)
 
         btnVolver.setOnClickListener { Volver() }
         btnEliminar.setOnClickListener { Eliminar() }

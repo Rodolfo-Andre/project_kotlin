@@ -3,7 +3,7 @@ package com.example.project_kotlin.vistas.metodo_pago
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -11,13 +11,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
-import com.example.project_kotlin.dao.DetalleComandaDao
 import com.example.project_kotlin.dao.MetodoPagoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.MetodoPago
+import com.example.project_kotlin.entidades.firebase.MetodoPagoNoSql
+import com.example.project_kotlin.service.ApiServiceMetodoPago
+import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActualizarMetodoPago : AppCompatActivity() {
 
@@ -27,12 +35,18 @@ class ActualizarMetodoPago : AppCompatActivity() {
     private lateinit var btnVolverListadoPago: Button
     private lateinit var metodoPagoDao: MetodoPagoDao
 
+    lateinit var  bd: DatabaseReference
+
     private lateinit var metodoPagoBean : MetodoPago
+
+    private lateinit var apiMetodoPago: ApiServiceMetodoPago
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modificar_pago)
         metodoPagoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).metodoPagoDao()
+
+        conectarApi()
 
         edtNomMetodoPago = findViewById(R.id.edtNomMetodoPago)
         btnEditarPago = findViewById(R.id.btnEditarPago)
@@ -42,6 +56,8 @@ class ActualizarMetodoPago : AppCompatActivity() {
         btnVolverListadoPago.setOnClickListener { volver() }
         btnEliminarPago.setOnClickListener { eliminar() }
         btnEditarPago.setOnClickListener { editar() }
+
+        apiMetodoPago = ApiUtils.getAPIServiceMetodoPago()
 
         //cargar datos
         metodoPagoBean = intent.getSerializableExtra("metodo_pago") as MetodoPago
@@ -62,6 +78,10 @@ class ActualizarMetodoPago : AppCompatActivity() {
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
                     metodoPagoDao.eliminar(metodoPagoBean)
+                    EliminarMySql(metodoPagoBean)
+
+                    bd.child("metodopago").child(metodoPagoBean.id.toString()).removeValue()
+
                     mostrarToast("Método de pago eliminado correctamente")
                     volver()
             }
@@ -69,6 +89,19 @@ class ActualizarMetodoPago : AppCompatActivity() {
         mensaje.setNegativeButton("Cancelar") { _, _ -> }
         mensaje.setIcon(android.R.drawable.ic_delete)
         mensaje.show()
+    }
+
+    fun EliminarMySql(bean: MetodoPago) {
+        apiMetodoPago.fetcEliminarMetodoPago(bean.id).enqueue(object : Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                mostrarToast("Método de pago eliminado correctamente")
+                volver()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
     }
 
     fun validarCampos(): Boolean {
@@ -96,17 +129,44 @@ class ActualizarMetodoPago : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (validarCampos()) {
                 metodoPagoBean.nombreMetodoPago = nuevoNombre
+                    EditarMySql(metodoPagoBean)
                     metodoPagoDao.actualizar(metodoPagoBean)
+
+
+
+                    val beanNoSql= MetodoPagoNoSql(metodoPagoBean.nombreMetodoPago)
+                    bd.child("metodopago").child(metodoPagoBean.id.toString()).setValue(beanNoSql)
+
                     mostrarToast("Método de pago actualizado correctamente")
                     volver()
             }
         }
     }
 
+    fun EditarMySql(bean: MetodoPago) {
+        apiMetodoPago.fetchActualizarMetodoPago(bean).enqueue(object :Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                mostrarToast("Método de pago actualizado correctamente")
+                volver()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
+
+
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun conectarApi() {
+        //inicar mi firebase
+        FirebaseApp.initializeApp(this)
+        bd= FirebaseDatabase.getInstance().reference
     }
 }
 

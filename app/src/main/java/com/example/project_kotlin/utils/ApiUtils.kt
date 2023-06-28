@@ -26,6 +26,10 @@ class ApiUtils {
         fun getAPIServiceEstablecimiento(): ApiServiceEstablecimiento{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceEstablecimiento::class.java)
         }
+        fun getAPIServiceMetodoPago(): ApiServiceMetodoPago{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServiceMetodoPago::class.java)
+        }
+
 
     }
 }
