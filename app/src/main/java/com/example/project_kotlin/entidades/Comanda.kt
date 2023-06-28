@@ -61,3 +61,4 @@ data class ComandaMesaYEmpleadoYEstadoComanda(
     )
     val estadoComanda:EstadoComanda
 ):java.io.Serializable
+

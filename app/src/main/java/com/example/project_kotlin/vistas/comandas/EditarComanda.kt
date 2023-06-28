@@ -20,8 +20,7 @@ import com.example.project_kotlin.entidades.*
 import com.example.project_kotlin.service.ApiServiceComanda
 import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.facturar.IndexFacturar
-import com.example.project_kotlin.vistas.inicio.IndexComandasActivity
+import com.example.project_kotlin.vistas.facturar.FacturarActivity
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -267,8 +266,9 @@ class EditarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickList
     }
 
     fun factuarIndex(){
-        var int=Intent(this,IndexFacturar::class.java)
-        startActivity(int)
+        var intentFacturar=Intent(appConfig.CONTEXT,FacturarActivity::class.java)
+        intentFacturar.putExtra("comandaFacturar", comandabean)
+        startActivity(intentFacturar)
     }
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {

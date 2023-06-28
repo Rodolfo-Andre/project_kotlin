@@ -316,7 +316,7 @@
         android:layout_width="412dp"
         android:layout_height="45dp"
         android:fontFamily="@font/baloo_thambi"
-        android:text="¿Que desea hacer hoy?"
+        android:text="¿Qué desea hacer hoy?"
         android:textAlignment="center"
         android:textColor="#1D1736"
         android:textSize="35dp"

@@ -12,6 +12,16 @@
         android:layout_margin="20dp"
         android:paddingTop="10dp">
 
+        <TextView
+            android:id="@+id/tvManEditUsu"
+            style="@style/TituloPagina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingBottom="6dp"
+            android:text="FACTURAR"
+            android:fontFamily="@font/baloo_thambi"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -56,6 +66,7 @@
                     android:id="@+id/edtIdComanda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:editable="false"
                     android:enabled="false"
                     android:hint="ID"
                     android:inputType="number"
@@ -76,29 +87,131 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1">
+                android:layout_weight="0.3"
+                android:hint="ID EMPLEADO"
+                android:textColorHint="@color/placeholder_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtFechaEmision"
-                    android:layout_width="148dp"
+                    android:id="@+id/edtEmpleadoNombreF"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:hint="Fecha Emision"
-                    android:inputType="number"
-                    android:textColor="@color/disabled_text_color" />
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:hint="Cliente"
+                android:textColorHint="@color/placeholder_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtClienteF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="IGV"
+                android:textColorHint="@color/placeholder_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtIGV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Subtotal"
+                android:textColorHint="@color/placeholder_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtSubTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="DESCUENTO"
+                android:textColorHint="@color/placeholder_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDescuento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="TOTAL PAGAR"
+                android:textColorHint="@color/placeholder_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPrecioTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,11 +224,25 @@
             android:layout_weight="1"
             android:background="?android:attr/listDivider" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvListComprobante"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/BtnFacturar"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="FACTURAR" />
+
+            <Button
+                android:id="@+id/BtnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Cancelar" />
+        </LinearLayout>
 
 
     </LinearLayout>

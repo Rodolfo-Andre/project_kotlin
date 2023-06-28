@@ -10,6 +10,9 @@ class ApiUtils {
         fun getApiServiceComanda() : ApiServiceComanda{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceComanda::class.java)
         }
+        fun getApiServiceComprobante() : ApiServiceComprobante{
+            return RetrofitClient.getClient(BASE_URL).create(ApiServiceComprobante::class.java)
+        }
         fun getAPIServiceMesa(): ApiServiceMesa{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceMesa::class.java)
         }

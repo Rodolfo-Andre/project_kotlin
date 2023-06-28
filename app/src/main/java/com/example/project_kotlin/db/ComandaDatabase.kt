@@ -120,8 +120,8 @@ abstract class ComandaDatabase : RoomDatabase() {
                                     "966250432", "Dirección pruebas", "12345678910")
                             )
                             //Tipo comprobante
-                            tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Nota de Venta"))
-                            tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))
+                            tipoComprobanteDao?.guardar(TipoComprobante(tipo = "Nota de Venta"))
+                            tipoComprobanteDao?.guardar(TipoComprobante(tipo = "Boleta"))
                             bdFirebase.child("tipocomprobante").child("1").setValue(TipoComprobanteNoSql("Nota de Venta"))
                             bdFirebase.child("tipocomprobante").child("2").setValue(TipoComprobanteNoSql("Boleta"))
 

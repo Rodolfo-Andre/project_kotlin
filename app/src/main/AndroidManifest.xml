@@ -193,7 +193,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".vistas.facturar.IndexFacturar"
+            android:name=".vistas.facturar.FacturarActivity"
             android:exported="true">
         </activity>
 
