@@ -71,33 +71,44 @@ class NewCatPlatoActivity: AppCompatActivity() {
     }
 
 
-
-    fun AgregarCategoria(){
-        lifecycleScope.launch(Dispatchers.IO){
-            if(validarCampos()){
-                val codigo = CategoriaPlato.generarCodigo(cateDao.obtenerTodo())
+    fun AgregarCategoria() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (validarCampos()) {
                 val nombre = edtCategoriaNombre.text.toString()
 
-                //crear objeto categoria DTO
-                val cateDTO = CategoriaPlatoDTO(codigo,nombre)
-                grabarCateMySql(cateDTO)
-                //Guardar room
-                val categoriaPlato = CategoriaPlato(id = codigo, categoria = nombre)
-                val categoriaPlatoId = cateDao.guardar(categoriaPlato)
-                //guardar en firebase
+                // Verificar si el nombre de la categoría ya existe en la base de datos
+                if (!categoriaExistente(nombre)) {
+                    val codigo = CategoriaPlato.generarCodigo(cateDao.obtenerTodo())
 
-                val numero = codigo.substringAfter('-').toInt()
+                    //crear objeto categoria DTO
+                    val cateDTO = CategoriaPlatoDTO(codigo, nombre)
+                    grabarCateMySql(cateDTO)
 
-                val idCatPlato = numero.toString()
+                    //Guardar room
+                    val categoriaPlato = CategoriaPlato(id = codigo, categoria = nombre)
+                    cateDao.guardar(categoriaPlato)
 
+                    //guardar en firebase
+                    val numero = codigo.substringAfter('-').toInt()
+                    val idCatPlato = numero.toString()
+                    val cateNoSqL = CategoriaPlatoNoSql(categoriaPlato.categoria)
+                    bdFirebase.child("categoria").child(idCatPlato).setValue(cateNoSqL)
 
-                val cateNoSqL= CategoriaPlatoNoSql(categoriaPlato.categoria)
-                bdFirebase.child("categoria").child(idCatPlato).setValue(cateNoSqL)
-                mostrarToast("Categoría agregada correctamente")
-                volverIndex()
+                    mostrarToast("Categoría agregada correctamente")
+                    volverIndex()
+                } else {
+                    mostrarToast("El nombre de la categoría ya existe")
+                }
             }
         }
     }
+
+    // Función para verificar si el nombre de la categoría ya existe en la base de datos
+    suspend fun categoriaExistente(nombre: String): Boolean {
+        val categorias = cateDao.obtenerTodo()
+        return categorias.any { it.categoria == nombre }
+    }
+
 
     fun grabarCateMySql(bean: CategoriaPlatoDTO){
         apiCategoria.fetchGuardarCategoria(bean).enqueue(object: Callback<Void> {

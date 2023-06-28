@@ -15,10 +15,14 @@ import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Establecimiento
 import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.entidades.firebase.EstablecimientoNoSql
 import com.example.project_kotlin.service.ApiServiceEstablecimiento
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.mesas.DatosMesas
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -37,9 +41,12 @@ class ActualizarEstablecimiento:AppCompatActivity() {
     private lateinit var cajaDao:CajaDao
     private lateinit var establecimientoDao:EstablecimientoDao
 
+
     private lateinit var establecimientoBean:Establecimiento
 
     private lateinit var apiEstablecimiento: ApiServiceEstablecimiento
+
+    lateinit var bd: DatabaseReference
 
     private  val REGEX_NOMBRE = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-ZÑÁÉÍÓÚa-zñáéíóú]+(?: [A-ZÑÁÉÍÓÚa-zñáéíóú]+)*$"
     private  val REGEX_DIRECCION = "^(?=.{3,100}$)[A-ZÑÁÉÍÓÚ][A-Za-zñáéíóú0-9.\\-]+(?: [A-Za-zñáéíóú0-9.\\-]+)*$"
@@ -51,7 +58,7 @@ class ActualizarEstablecimiento:AppCompatActivity() {
         setContentView(R.layout.modificar_establecimiento)
         establecimientoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).establecimientoDao()
         cajaDao=ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
-
+        conectar()
         edtCod=findViewById(R.id.edtCodigoA)
         edtNombre = findViewById(R.id.edtNombreA)
         edtDireccion = findViewById(R.id.edtDireccionA)
@@ -77,42 +84,41 @@ class ActualizarEstablecimiento:AppCompatActivity() {
 
     }
 
-
     fun Editar() {
-        val numEstablecimiento = edtCod.text.toString().toLong()
         lifecycleScope.launch(Dispatchers.IO) {
                 if (validarCampos()) {
                     val nombre = edtNombre.text.toString()
                     val direccion = edtDireccion.text.toString()
-                    val telefoono = edtTelefono.text.toString()
+                    val telefono = edtTelefono.text.toString()
                     val ruc = edtRuc.text.toString();
-                    establecimientoBean.nomEstablecimiento=nombre
-                    establecimientoBean.direccionestablecimiento=direccion
-                    establecimientoBean.rucestablecimiento=ruc
-                    establecimientoBean.telefonoestablecimiento=telefoono
+                    establecimientoBean.nomEstablecimiento = nombre
+                    establecimientoBean.direccionestablecimiento = direccion
+                    establecimientoBean.rucestablecimiento = ruc
+                    establecimientoBean.telefonoestablecimiento = telefono
                     establecimientoDao.actualizar(establecimientoBean)
                     EditarMysql(establecimientoBean)
 
+                    val beanNoSql = EstablecimientoNoSql(establecimientoBean.nomEstablecimiento,establecimientoBean.telefonoestablecimiento,
+                        establecimientoBean.direccionestablecimiento,establecimientoBean.rucestablecimiento)
+                    bd.child("establecimiento").child(establecimientoBean.id.toString()).setValue(beanNoSql)
                     mostrarToast("Establecimiento actualizado correctamente")
                     Volver()
                 }
-
-
         }
         }
 
         fun EditarMysql(bean:Establecimiento){
-            apiEstablecimiento.fetchActualizarEstablecimiento(bean).enqueue(object: Callback<Void> {
+            apiEstablecimiento.fetchUpdateEstablecimiento(bean).enqueue(object :Callback<Void>{
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    mostrarToast("Establecimiento actualizado correctamente")
+                    mostrarToast("Establecimiento actualizada correctamente")
                     Volver()
                 }
+
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.e("Error : ",t.toString())
                 }
             })
         }
-
 
     fun Eliminar() {
         val numEstablecimiento = edtCod.text.toString().toInt()
@@ -125,9 +131,9 @@ class ActualizarEstablecimiento:AppCompatActivity() {
                     //Validar caja
                     val validarCaja=cajaDao.obtenerCajaPorEstablecimiento(numEstablecimiento)
                     if(validarCaja.isEmpty()){
-
                         establecimientoDao.eliminar(establecimientoBean)
                         EliminarMySql(numEstablecimiento.toLong())
+                        bd.child("establecimiento").child(establecimientoBean.id.toString()).removeValue()
                         mostrarToast("Establecimiento eliminado correctamente")
                         Volver()
 
@@ -154,6 +160,8 @@ class ActualizarEstablecimiento:AppCompatActivity() {
             }
         })
     }
+
+
 
 
     fun validarCampos():Boolean{
@@ -196,7 +204,14 @@ class ActualizarEstablecimiento:AppCompatActivity() {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
+    fun conectar(){
 
-
+        //inicar mi firebase
+        FirebaseApp.initializeApp(this)
+        bd= FirebaseDatabase.getInstance().reference
     }
+
+
+
+}
 
