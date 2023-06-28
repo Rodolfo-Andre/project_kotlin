@@ -41,7 +41,6 @@ class NuevoPlato : AppCompatActivity() {
     private lateinit var spcategoria: Spinner
     private lateinit var btnAgregarplato: Button
     private lateinit var btnCancelar: Button
-
     //BASE DE DATOS
     private lateinit var platoDao: PlatoDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao

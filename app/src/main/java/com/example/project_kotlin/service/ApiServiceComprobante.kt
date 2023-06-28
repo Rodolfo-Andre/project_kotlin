@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface ApiServiceComprobante {
     @POST("/configuracion/comprobante/registrar")
-    fun fetchGuardarEmpleado(@Body bean: ComprobanteDTO): Call<Void>
+    fun fetchGuardarComprobante(@Body bean: ComprobanteDTO): Call<Void>
 
 }

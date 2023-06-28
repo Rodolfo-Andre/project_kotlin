@@ -130,7 +130,7 @@ class NuevaCaja : AppCompatActivity() {
                     establecimiento.direccionestablecimiento,
                     establecimiento.rucestablecimiento
                 )
-                val cajaNoSql = CajaNoSql(nuevaCaja.id , establecimientoNoSql)
+                val cajaNoSql = CajaNoSql(establecimientoNoSql)
 
                 bd.child("caja").child(nuevaCaja.id.toString()).setValue(cajaNoSql)
 

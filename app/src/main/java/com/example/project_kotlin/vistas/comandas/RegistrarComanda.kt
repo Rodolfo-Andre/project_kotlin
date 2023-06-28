@@ -61,7 +61,6 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
     private lateinit var platoDao : PlatoDao
     private lateinit var detalleDao : DetalleComandaDao
     //Entidades globales para guardar
-    private lateinit var comandaGlobal : Comanda
     private lateinit var EmpleadoGlobal : EmpleadoUsuarioYCargo
     private  var detalleComandaGlobal : MutableList<DetalleComandaConPlato> = mutableListOf()
     //ADAPTADOR
@@ -164,6 +163,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             )
             val comandaNoSql : ComandaNoSql = ComandaNoSql(comandaAgregar.cantidadAsientos, comandaAgregar.precioTotal, fechaFormateada,
             MesaNoSql(mesa.mesa.cantidadAsientos, mesa.mesa.estado), EstadoComandaNoSql("Generada"), empleadoNoSql)
+            comandaNoSql.listaDetalleComanda = detalleComandaNoSql
             bdFirebase.child("comanda").child(idComanda.toString()).setValue(comandaNoSql)
             mostrarToast("Comanda agregada correctamente")
             volver()

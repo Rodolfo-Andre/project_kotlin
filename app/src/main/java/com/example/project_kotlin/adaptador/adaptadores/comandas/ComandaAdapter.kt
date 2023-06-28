@@ -33,13 +33,10 @@ class ComandaAdapter (var info :  List<ComandaMesaYEmpleadoYEstadoComanda>)
         holder.tvFechaCList.text = info.get(position).comanda.comanda.comanda.fechaRegistro
         holder.tvEstadoList.text = info.get(position).estadoComanda.estadoComanda
         var context = holder.itemView.context
-
         holder.itemView.setOnClickListener{
-
             var intent = Intent(appConfig.CONTEXT, EditarComanda::class.java)
             intent.putExtra("Comanda",info[position])
             ContextCompat.startActivity(context, intent, null)
-
         }
 
     }

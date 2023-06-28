@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.ComandaMesaYEmpleadoYEstadoComanda
-import com.example.project_kotlin.entidades.Comprobante
-import com.example.project_kotlin.entidades.DetalleComandaConPlato
+import com.example.project_kotlin.entidades.*
+import com.example.project_kotlin.entidades.dto.*
+import com.example.project_kotlin.entidades.firebase.*
 import com.example.project_kotlin.service.ApiServiceComanda
 import com.example.project_kotlin.service.ApiServiceComprobante
 import com.example.project_kotlin.service.ApiServiceMesa
@@ -27,6 +27,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,10 +49,12 @@ class FacturarActivity: AppCompatActivity() {
     private lateinit var edDescuento : EditText
     private lateinit var edTotalPagar : EditText
     //BD
+    private lateinit var categoriaDao : CategoriaPlatoDao
     private lateinit var detalleComandaDao : DetalleComandaDao
     private lateinit var comprobanteDao : ComprobanteDao
     private lateinit var apiComprobante : ApiServiceComprobante
     private lateinit var mesaDao: MesaDao
+    private lateinit var empleadoDao : EmpleadoDao
     private lateinit var apiMesa : ApiServiceMesa
     private lateinit var comandaDao: ComandaDao
     private lateinit var apiComanda : ApiServiceComanda
@@ -61,12 +66,17 @@ class FacturarActivity: AppCompatActivity() {
     //Llamando al objeto comandas con mesa, empleados y estadocomanda
     private lateinit var comandabean: ComandaMesaYEmpleadoYEstadoComanda
     private  var detalleComandaGlobal : List<DetalleComandaConPlato> = emptyList()
+    //GLOBALES
+    private lateinit var EmpleadoGlobal : EmpleadoUsuarioYCargo
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.facturar_activity)
         //Inicializar componentes
+        if(VariablesGlobales.empleado != null){
+            EmpleadoGlobal = VariablesGlobales.empleado!!
+        }
         btnFacturar = findViewById(R.id.BtnFacturarF)
         btnVolver = findViewById(R.id.BtnCancelar)
         spnMetodoPago = findViewById(R.id.spnMetPagoF)
@@ -81,6 +91,7 @@ class FacturarActivity: AppCompatActivity() {
         edTotalPagar = findViewById(R.id.edtPrecioTotal)
         edDescuento.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         //Inicializar room
+        empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         comprobanteDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comprobanteDao()
         mesaDao =ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
         apiMesa = ApiUtils.getAPIServiceMesa()
@@ -91,6 +102,7 @@ class FacturarActivity: AppCompatActivity() {
         tipoComprobanteDao =ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).tipoComprobanteDao()
         detalleComandaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).detalleComandaDao()
         apiComprobante = ApiUtils.getApiServiceComprobante()
+        categoriaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
         conectar()
         //Comanda global
         comandabean = intent.getSerializableExtra("comandaFacturar") as ComandaMesaYEmpleadoYEstadoComanda
@@ -201,8 +213,11 @@ class FacturarActivity: AppCompatActivity() {
                 mostrarToast("El descuento no puede ser mayor al precio total")
                 return@launch
             }
+            val metodoPago = metodoPagoDao.buscarPorId(metodoPagoId.toLong())
+            val tipoComprobante = tipoComprobanteDao.obtenerPorId(tipoComprobanteId.toLong())
             totalPagar = totalPagar - descuento!!
             val cajaIdFormateada = "C-00$cajaID"
+            val caja = cajaDao.obtenerPorId(cajaIdFormateada)
             val comprobanteRoom = Comprobante(nombreCliente = clienteNombre, fechaEmision = fechaFormateada,
             igv = igv, subTotal = subTOTAL, descuento = descuento!!, caja_id = cajaIdFormateada, precioTotalPedido = totalPagar,
             comanda_id = comandaId.toInt(), metodopago_id = metodoPagoId, tipocomprobante_id = tipoComprobanteId,
@@ -213,10 +228,97 @@ class FacturarActivity: AppCompatActivity() {
             comandabean.comanda.comanda.comanda.estadoComandaId = 2
             mesaDao.actualizar(comandabean.comanda.comanda.mesa)
             comandaDao.actualizar(comandabean.comanda.comanda.comanda)
-            mostrarToast("Comprobante generado")
+            //ACTUALIZAR MESA
+            comandabean.comanda.comanda.mesa.estado = "Libre"
+            actualizarMesaMysql(comandabean.comanda.comanda.mesa)
+            bdFirebase.child("mesa").child(comandabean.comanda.comanda.mesa.id.toString()).setValue(MesaNoSql(comandabean.comanda.comanda.mesa.cantidadAsientos,
+                comandabean.comanda.comanda.mesa.estado))
+            //ACTUALIZAR COMANDA
+            val detalleComandaDTOS : MutableList<DetalleComandaDTO> =  mutableListOf()
+            val detalleComandaNoSql : MutableList<DetalleComandaNoSql> =  mutableListOf()
+            detalleComandaGlobal.forEach{detalleComanda ->
+                val categoriaPlato = categoriaDao.obtenerPorId(detalleComanda.plato.catplato_id)
+                //GUARDAR PARA MYSQL
+                val platoDTO = PlatoDTO(detalleComanda.plato.id, detalleComanda.plato.nombrePlato, detalleComanda.plato.nombreImagen,
+                    detalleComanda.plato.precioPlato, CategoriaPlato(id = detalleComanda.plato.catplato_id, categoria = categoriaPlato.categoria))
+                detalleComandaDTOS.add(
+                    DetalleComandaDTO(id = 0, cantidadPedido = detalleComanda.detalle.cantidadPedido,
+                        precioUnitario = detalleComanda.detalle.precioUnitario, observacion = detalleComanda.detalle.observacion,
+                        plato = platoDTO)
+                )
+                //GUARDAR PARA FIREBASE
+                detalleComandaNoSql.add(
+                    DetalleComandaNoSql(detalleComanda.detalle.cantidadPedido, detalleComanda.detalle.precioUnitario,
+                        detalleComanda.detalle.observacion, PlatoNoSql(platoDTO.nombre,platoDTO.imagen, platoDTO.precioPlato, CategoriaPlatoNoSql(categoria = categoriaPlato.categoria))
+                    )
+                )
+            }
+            val comandaRecibida = comandabean.comanda.comanda.comanda
+            val empleado = empleadoDao.obtenerPorId(comandaRecibida.empleadoId.toLong())
+            val empleadoDTO = EmpleadoDTO(empleado.empleado.empleado.id, empleado.empleado.empleado.nombreEmpleado, empleado.empleado.empleado.apellidoEmpleado, empleado.empleado.empleado.telefonoEmpleado,
+                empleado.empleado.empleado.dniEmpleado, empleado.empleado.empleado.fechaRegistro, empleado.usuario, empleado.empleado.cargo)
+            val comandaDTO = ComandaDTO(comandaId.toLong(), comandaRecibida.cantidadAsientos, subTOTAL, comandaRecibida.fechaRegistro,
+            comandabean.comanda.comanda.mesa, comandabean.estadoComanda, empleadoDTO)
+            comandaDTO.listaDetalleComanda = detalleComandaDTOS
+            actualizarComanda(comandaDTO)
+            //FIREBASE COMANDA
+            val empleadoNoSql : EmpleadoNoSql = EmpleadoNoSql(empleado.empleado.empleado.nombreEmpleado,empleado.empleado.empleado.apellidoEmpleado,
+                empleado.empleado.empleado.telefonoEmpleado, empleado.empleado.empleado.dniEmpleado, empleado.empleado.empleado.fechaRegistro,
+                UsuarioNoSql(empleado.usuario.correo), CargoNoSql(empleado.empleado.cargo.cargo)
+            )
+            val comandaNoSql : ComandaNoSql = ComandaNoSql(comandaRecibida.cantidadAsientos, comandaRecibida.precioTotal, fechaFormateada,
+                MesaNoSql(comandabean.comanda.comanda.mesa.cantidadAsientos, comandabean.comanda.comanda.mesa.estado), EstadoComandaNoSql("Pagada"), empleadoNoSql)
+            comandaNoSql.listaDetalleComanda = detalleComandaNoSql
+            bdFirebase.child("comanda").child(comandaRecibida.id.toString()).setValue(comandaNoSql)
+            //GENERAR CDP MYSQL
+            val comandaMySQL = ComprobanteDTO(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
+            descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaDTO, empleado = empleadoDTO,
+            caja = caja, metodoPago = metodoPago, tipoComprobante = tipoComprobante)
+            grabarComprobanteMySQL(comandaMySQL)
+            //GENERAR CDP FIREBASE
+
+            /*val establecimientoNoSql = EstablecimientoNoSql(
+                caja.establecimiento.nomEstablecimiento,
+                establecimiento.telefonoestablecimiento,
+                establecimiento.direccionestablecimiento,
+                establecimiento.rucestablecimiento
+            )*/
+            /*val comprobanteNoSql = ComprobanteNoSql(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
+                descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaNoSql, empleado = empleadoDTO,
+                caja = CajaNoSql(), metodoPago = MetodoPagoNoSql(metodoPago.nombreMetodoPago), tipoComprobante = TipoComprobanteNoSql(tipoComprobante.tipo))
+            mostrarToast("Comprobante generado")*/
             cajaIntent()
 
+
         }
+    }
+    fun grabarComprobanteMySQL(bean: ComprobanteDTO){
+        apiComprobante.fetchGuardarComprobante(bean).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
+    fun actualizarMesaMysql(bean: Mesa){
+        apiMesa.fetchActualizarMesa(bean).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
+    fun actualizarComanda(bean: ComandaDTO){
+        apiComanda.fetchActualizarComanda(bean).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
     }
     fun cajaIntent(){
         if(VariablesGlobales.empleado?.empleado?.cargo?.id?.toInt() == 3){
