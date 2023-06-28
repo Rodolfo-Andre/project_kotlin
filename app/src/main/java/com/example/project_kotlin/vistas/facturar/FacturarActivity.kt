@@ -228,6 +228,7 @@ class FacturarActivity: AppCompatActivity() {
             comandabean.comanda.comanda.comanda.estadoComandaId = 2
             mesaDao.actualizar(comandabean.comanda.comanda.mesa)
             comandaDao.actualizar(comandabean.comanda.comanda.comanda)
+
             //ACTUALIZAR MESA
             comandabean.comanda.comanda.mesa.estado = "Libre"
             actualizarMesaMysql(comandabean.comanda.comanda.mesa)
@@ -276,17 +277,23 @@ class FacturarActivity: AppCompatActivity() {
             caja = caja, metodoPago = metodoPago, tipoComprobante = tipoComprobante)
             grabarComprobanteMySQL(comandaMySQL)
             //GENERAR CDP FIREBASE
+            val empleadoSESION = EmpleadoGlobal.empleado.empleado
+            val empleadoNoSqlFactura : EmpleadoNoSql = EmpleadoNoSql(empleadoSESION.nombreEmpleado,empleadoSESION.apellidoEmpleado, empleadoSESION.telefonoEmpleado, empleadoSESION.dniEmpleado, empleadoSESION.fechaRegistro,
+                UsuarioNoSql(EmpleadoGlobal.usuario.correo), CargoNoSql(EmpleadoGlobal.empleado.cargo.cargo)
+            )
 
-            /*val establecimientoNoSql = EstablecimientoNoSql(
-                caja.establecimiento.nomEstablecimiento,
-                establecimiento.telefonoestablecimiento,
-                establecimiento.direccionestablecimiento,
-                establecimiento.rucestablecimiento
-            )*/
-            /*val comprobanteNoSql = ComprobanteNoSql(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
-                descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaNoSql, empleado = empleadoDTO,
-                caja = CajaNoSql(), metodoPago = MetodoPagoNoSql(metodoPago.nombreMetodoPago), tipoComprobante = TipoComprobanteNoSql(tipoComprobante.tipo))
-            mostrarToast("Comprobante generado")*/
+            val establecimientoNoSql = caja.establecimiento?.let {
+                EstablecimientoNoSql(
+                    it.nomEstablecimiento,
+                    it.telefonoestablecimiento,
+                    it.direccionestablecimiento,
+                    it.rucestablecimiento
+                )
+            }
+            val comprobanteNoSql = ComprobanteNoSql(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
+                descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaNoSql, empleado = empleadoNoSqlFactura,
+                caja = CajaNoSql(establecimientoNoSql!!), metodoPago = MetodoPagoNoSql(metodoPago.nombreMetodoPago), tipoComprobante = TipoComprobanteNoSql(tipoComprobante.tipo))
+            mostrarToast("Comprobante generado")
             cajaIntent()
 
 

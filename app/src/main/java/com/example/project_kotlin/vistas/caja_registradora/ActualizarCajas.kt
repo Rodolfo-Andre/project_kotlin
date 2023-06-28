@@ -131,7 +131,7 @@ class ActualizarCajas  : AppCompatActivity(){
                 EditarMysql(cajabean)
 
                 val beanNoSql =
-                    CajaNoSql(cajabean.id, establecimiento!!.toEstablecimientoNoSql())
+                    CajaNoSql(establecimiento!!.toEstablecimientoNoSql())
                 bd.child("caja").child(cajabean.id).setValue(beanNoSql)
 
                 mostrarToast("Caja actualizada correctamente")
