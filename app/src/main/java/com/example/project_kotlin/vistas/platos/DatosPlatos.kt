@@ -1,16 +1,26 @@
 package com.example.project_kotlin.vistas.platos
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.platos.PlatoAdapter
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.Plato
+import com.example.project_kotlin.entidades.PlatoConCategoria
 import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DatosPlatos: AppCompatActivity() {
     private lateinit var spnCategoriaPlato:Spinner
@@ -30,27 +40,28 @@ class DatosPlatos: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_platos)
 
-        spnCategoriaPlato = findViewById(R.id.spnCargoEmpleadoE)
-        edtBuscarPlato = findViewById(R.id.edtBuscarNombreUsu)
-        btnBuscar= findViewById(R.id.btnAplicarUsu)
+        spnCategoriaPlato = findViewById(R.id.spnPlatoC)
+        edtBuscarPlato = findViewById(R.id.edtNombrePlato)
+        btnBuscar= findViewById(R.id.btnBuscarP)
         rvPlatos = findViewById(R.id.rvPlatos)
-        btnAgregarPlatos = findViewById(R.id.btnNuevoUsu)
-        btnVolver = findViewById(R.id.btnVolverConfi)
+        btnAgregarPlatos = findViewById(R.id.btnNuevoplato)
+        btnVolver = findViewById(R.id.btnVolverMenu)
+        //bd
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
         txtNoexistePlatoss = findViewById(R.id.txtNoexistePlatos)
-        /*cargarCategoria()*/
+        cargarCategoria()
         //acciones al boton
-/*
+
         btnVolver.setOnClickListener({volver()})
         btnAgregarPlatos.setOnClickListener({nuevoPlatos()})
         btnBuscar.setOnClickListener({filtrar( edtBuscarPlato)})
 
-        obtenerPlatos()*/
+        obtenerPlatos()
 
 
     }
-/*
+
     fun obtenerPlatos() {
         lifecycleScope.launch(Dispatchers.IO) {
             var datos = platoDao.obtenerTodoLiveData()
@@ -61,37 +72,37 @@ class DatosPlatos: AppCompatActivity() {
                         rvPlatos.layoutManager = LinearLayoutManager(this@DatosPlatos)
                         rvPlatos.adapter = adaptador
                         txtNoexistePlatoss.setText("")
+                    }
+                    else{
+                        txtNoexistePlatoss.setText("No Existe Registros")
+                    }
                 }
-                else{
-                txtNoexistePlatoss.setText("No Existe Registros")
             }
-            }
-        }
         }
     }
 
     fun filtrar(nombreplato: EditText) {
         if (validarCampos()) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val datos = platoDao.obtenerTodo()
-            var datosFiltrados: List<Plato> = datos
-            val nombrecat = spnCategoriaPlato.selectedItem.toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                val datos = platoDao.obtenerTodo()
+                var datosFiltrados: List<PlatoConCategoria> = datos
+                val nombrecat = spnCategoriaPlato.selectedItem.toString()
 
-            if (nombrecat == nombrecat ) {
-                datosFiltrados = datosFiltrados.filter { plato -> plato.categoriaPlato.categoria == nombrecat }
-            }
-            if (!nombreplato.text.toString().isNullOrBlank()) {
-                datosFiltrados = datosFiltrados.filter { plato -> plato.nombrePlato == nombreplato.text.toString() }
-            }
-            withContext(Dispatchers.Main) {
-                if (datosFiltrados.isNotEmpty()) {
-                    adaptador.actulizarPlatos(datosFiltrados)
-                } else {
+                if (nombrecat.isNullOrEmpty() ) {
+                    datosFiltrados = datosFiltrados.filter { plato -> plato.categoriaPlato.categoria == nombrecat }
+                }
+                if (!nombreplato.text.toString().isNullOrBlank()) {
+                    datosFiltrados = datosFiltrados.filter { plato -> plato.plato.nombrePlato == nombreplato.text.toString() }
+                }
+                withContext(Dispatchers.Main) {
+                    if (datosFiltrados.isNotEmpty()) {
+                        adaptador.actualizarPlatos(datosFiltrados)
+                    } else {
 
-                    mostrarToast("No se encontraron registros")
+                        mostrarToast("No se encontraron registros")
+                    }
                 }
             }
-        }
 
         }
 
@@ -105,7 +116,7 @@ class DatosPlatos: AppCompatActivity() {
     }
 
     fun volver(){
-        var intent = Intent(this, ConfiguracionVista::class.java)
+        var intent = Intent(this,  ConfiguracionVista::class.java)
         startActivity(intent)
     }
     private fun cargarCategoria() {
@@ -144,5 +155,5 @@ class DatosPlatos: AppCompatActivity() {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
-    }*/
+    }
 }

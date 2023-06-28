@@ -41,6 +41,7 @@ class NuevoPlato : AppCompatActivity() {
     private lateinit var spcategoria: Spinner
     private lateinit var btnAgregarplato: Button
     private lateinit var btnCancelar: Button
+
     //BASE DE DATOS
     private lateinit var platoDao: PlatoDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
@@ -117,37 +118,39 @@ class NuevoPlato : AppCompatActivity() {
     fun Agregar() {
         if (validarCampos()) {
             if(imageData!=null){
-            lifecycleScope.launch(Dispatchers.IO) {
-                val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
-                val nombre = edtNombrePlato.text.toString()
-                val precio = edtPrecioPlato.text.toString().toDouble()
-                val codCatPlato = (spcategoria.selectedItemPosition).toString()
-                val cat = "C-00$codCatPlato"
-                val categoriaPlato = CategoriaPlato(cat, spcategoria.selectedItem.toString())
-                val base64String = android.util.Base64.encodeToString(imageData, android.util.Base64.DEFAULT)
-                val imageUrl = "data:image/jpeg;base64,$base64String"
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
+                    val nombre = edtNombrePlato.text.toString()
+                    val precio = edtPrecioPlato.text.toString().toDouble()
+                    val codCatPlato = (spcategoria.selectedItemPosition).toString()
+                    val cat = "C-00$codCatPlato"
+                    val categoriaPlato = CategoriaPlato(cat, spcategoria.selectedItem.toString())
+                    val base64String = android.util.Base64.encodeToString(imageData, android.util.Base64.DEFAULT)
+                    val imageUrl = "data:image/jpeg;base64,$base64String"
 
-                // Crear objeto plato
-                val platoDTO = PlatoDTO(codigo, nombre, imageUrl, precio, categoriaPlato)
-                grabarPlatoMysql(platoDTO)
+                    // Crear objeto plato
+                    val platoDTO = PlatoDTO(codigo, nombre, imageUrl, precio, categoriaPlato)
+                    grabarPlatoMysql(platoDTO)
 
-                // Guardar en Room
-                val plato = Plato(codigo, nombre, precio, imageUrl,cat)
-                val platoId = platoDao.guardar(plato)
+                    // Guardar en Room
+                    val plato = Plato(codigo, nombre, precio, imageUrl,cat)
+                    platoDao.guardar(plato)
 
-                // Guardar en Firebase
-                val categoriaPlatoNoSql = CategoriaPlatoNoSql(categoriaPlato.categoria)
-                val platoNoSql = PlatoNoSql(nombre, imageUrl, precio, categoriaPlatoNoSql)
-                bdFirebase.child("plato").child(1.toString()).setValue(platoNoSql)
+                    // Guardar en Firebase
+                    val numero = codigo.substringAfter('-').toInt()
+                    val idCatPlato = numero.toString()
+                    val categoriaPlatoNoSql = CategoriaPlatoNoSql(categoriaPlato.categoria)
+                    val platoNoSql = PlatoNoSql(nombre, imageUrl, precio, categoriaPlatoNoSql)
+                    bdFirebase.child("plato").child(idCatPlato).setValue(platoNoSql)
 
-                mostrarToast("Plato agregado correctamente")
-                Cancelar()
+                    mostrarToast("Plato agregado correctamente")
+                    Cancelar()
+                }
             }
-        }
 
-        else{
-            mostrarToast("Agregar imagen del plato")
-        }
+            else{
+                mostrarToast("Agregar imagen del plato")
+            }
         }
     }
 

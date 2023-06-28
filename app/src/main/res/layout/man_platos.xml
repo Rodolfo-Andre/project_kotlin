@@ -78,7 +78,7 @@
     </LinearLayout>
 
     <Spinner
-        android:id="@+id/spnCargoEmpleadoE"
+        android:id="@+id/spnPlatoC"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="44dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAplicarUsu"
+        android:id="@+id/btnBuscarP"
         style="@android:style/Widget.Button"
         android:layout_width="90dp"
         android:layout_height="30dp"
@@ -102,10 +102,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.862"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtBuscarNombreUsu" />
+        app:layout_constraintTop_toBottomOf="@+id/edtNombrePlato" />
 
     <EditText
-        android:id="@+id/edtBuscarNombreUsu"
+        android:id="@+id/edtNombrePlato"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginTop="14dp"
@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnCargoEmpleadoE" />
+        app:layout_constraintTop_toBottomOf="@+id/spnPlatoC" />
 
     <View
         android:id="@+id/divider22"
@@ -131,7 +131,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAplicarUsu" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscarP" />
 
 
     <TextView
@@ -177,7 +177,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNuevoUsu"
+        android:id="@+id/btnNuevoplato"
         style="@android:style/Widget.Button"
         android:layout_width="90dp"
         android:layout_height="30dp"
@@ -193,7 +193,7 @@
         app:layout_constraintVertical_bias="0.972" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCancelarCategoria"
+        android:id="@+id/btnVolverMenu"
         style="@android:style/Widget.Button"
         android:layout_width="90dp"
         android:layout_height="30dp"

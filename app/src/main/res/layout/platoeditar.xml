@@ -90,17 +90,17 @@
     </LinearLayout>
 
     <Spinner
-        android:id="@+id/spnCargoEmpleadoE"
+        android:id="@+id/spnPlatoEditar"
         android:layout_width="230dp"
         android:layout_height="34dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/style_spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAplicarUsu" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscar" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAplicarUsu"
+        android:id="@+id/btnBuscar"
         style="@android:style/Widget.Button"
         android:layout_width="200dp"
         android:layout_height="30dp"
@@ -190,7 +190,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnCargoEmpleadoE" />
+        app:layout_constraintTop_toBottomOf="@+id/spnPlatoEditar" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNuevoUsu"

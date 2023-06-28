@@ -24,10 +24,10 @@ class Plato (
     ):java.io.Serializable{
 
         companion object {
-            fun generarCodigo(listaPlatos: List<Plato>): String {
+            fun generarCodigo(listaPlatos: List<PlatoConCategoria>): String {
                 if (listaPlatos.isEmpty()) return "P-001"
 
-                val ultimoCodigo = listaPlatos.last().id
+                val ultimoCodigo = listaPlatos.last().plato.id
                 val numero = ultimoCodigo.split('-')[1].toInt() + 1
 
                 return "P-${String.format("%03d", numero)}"
