@@ -5,9 +5,7 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.entidades.*
-import com.example.project_kotlin.entidades.firebase.CargoNoSql
-import com.example.project_kotlin.entidades.firebase.EmpleadoNoSql
-import com.example.project_kotlin.entidades.firebase.UsuarioNoSql
+import com.example.project_kotlin.entidades.firebase.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -80,21 +78,40 @@ abstract class ComandaDatabase : RoomDatabase() {
                             cargoDao.guardar(Cargo(cargo = "MESERO"))
                             cargoDao.guardar(Cargo(cargo= "CAJERO"))
                             cargoDao.guardar(Cargo(cargo="GERENTE"))
+                            bdFirebase.child("cargo").child("1").setValue(CargoNoSql("ADMINISTRADOR"))
+                            bdFirebase.child("cargo").child("2").setValue(CargoNoSql("MESERO"))
+                            bdFirebase.child("cargo").child("3").setValue(CargoNoSql("CAJERO"))
+                            bdFirebase.child("cargo").child("4").setValue(CargoNoSql("GERENTE"))
+
                             //Agregando estados
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda ="Generada"))
                             estadosComandaDao?.guardar(EstadoComanda(estadoComanda= "Pagada"))
+                            bdFirebase.child("estadocomanda").child("1").setValue(EstadoComandaNoSql("Generada"))
+                            bdFirebase.child("estadocomanda").child("2").setValue(EstadoComandaNoSql("Pagada"))
+
                             //Métodos de pago
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "En efectivo"))
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "BCP"))
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "BBVA"))
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "Scotiabank"))
                             metodosPagoDao?.registrar(MetodoPago(nombreMetodoPago =  "Interbank"))
+                            bdFirebase.child("metodopago").child("1").setValue(MetodoPagoNoSql("En efectivo"))
+                            bdFirebase.child("metodopago").child("2").setValue(MetodoPagoNoSql("BCP"))
+                            bdFirebase.child("metodopago").child("3").setValue(MetodoPagoNoSql("BBVA"))
+                            bdFirebase.child("metodopago").child("4").setValue(MetodoPagoNoSql("Scotiabank"))
+                            bdFirebase.child("metodopago").child("5").setValue(MetodoPagoNoSql("Interbank"))
+
                             //Categoría Plato
 
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-001", "Bebidas"))
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-002", "Hamburguesas"))
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-003", "Postres"))
                             categoriaPlatoDao?.guardar(CategoriaPlato("C-004", "Sopas"))
+                            bdFirebase.child("categoria").child("1").setValue(CategoriaPlatoNoSql("Bebidas"))
+                            bdFirebase.child("categoria").child("2").setValue(CategoriaPlatoNoSql("Hamburguesas"))
+                            bdFirebase.child("categoria").child("3").setValue(CategoriaPlatoNoSql("Postres"))
+                            bdFirebase.child("categoria").child("4").setValue(CategoriaPlatoNoSql("Sopas"))
+
 
                             platoDao?.guardar(Plato("P-001", "Prueba", 22.5, "", "C-001"))
                             //Establecimiento
@@ -105,6 +122,9 @@ abstract class ComandaDatabase : RoomDatabase() {
                             //Tipo comprobante
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Nota de Venta"))
                             tipoComprobanteDao?.guardar(TipoComprobante(nombreComprobante = "Boleta"))
+                            bdFirebase.child("tipocomprobante").child("1").setValue(TipoComprobanteNoSql("Nota de Venta"))
+                            bdFirebase.child("tipocomprobante").child("2").setValue(TipoComprobanteNoSql("Boleta"))
+
                             //FECHA PARA EMPLEADO
                             val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                             val fechaActual = Date()

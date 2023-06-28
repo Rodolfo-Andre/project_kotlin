@@ -14,9 +14,13 @@ import com.example.project_kotlin.dao.ComandaDao
 import com.example.project_kotlin.dao.MesaDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Mesa
+import com.example.project_kotlin.entidades.firebase.MesaNoSql
 import com.example.project_kotlin.service.ApiServiceMesa
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -34,6 +38,7 @@ class ActualizarMesas : AppCompatActivity() {
     private lateinit var comandaDao: ComandaDao
     private lateinit var mesaBean : Mesa
     private lateinit var apiMesa : ApiServiceMesa
+    private lateinit var bd: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +56,16 @@ class ActualizarMesas : AppCompatActivity() {
         btnVolver.setOnClickListener { Volver() }
         btnEliminar.setOnClickListener { Eliminar() }
         btnEditar.setOnClickListener { Editar() }
-
+        conectar()
         //Cargar dato
         mesaBean = intent.getSerializableExtra("mesa") as Mesa
         edNumMesa.setText(mesaBean.id.toString())
         edCantAsientos.setText(mesaBean.cantidadAsientos.toString())
     }
-
+    fun conectar(){
+        FirebaseApp.initializeApp(this)
+        bd= FirebaseDatabase.getInstance().reference
+    }
     fun Volver() {
         val intent = Intent(this, DatosMesas::class.java)
         startActivity(intent)
@@ -76,6 +84,7 @@ class ActualizarMesas : AppCompatActivity() {
                 if (validarComandaPorMesa.isEmpty()) {
                     mesaDao.eliminar(mesaBean)
                     eliminarMysql(mesaBean.id)
+                    bd.child("mesa").child(mesaBean.id.toString()).removeValue()
                 } else {
                     mostrarToast("No puedes eliminar mesas que tienen información de comandas")
                 }
@@ -107,6 +116,7 @@ class ActualizarMesas : AppCompatActivity() {
                     mesaBean.cantidadAsientos = cantidadAsientos
                     mesaDao.actualizar(mesaBean)
                     actualizarMesaMysql(mesaBean)
+                    bd.child("mesa").child(mesaBean.id.toString()).setValue(MesaNoSql(mesaBean.cantidadAsientos, mesaBean.estado))
                 }
             } else {
                 mostrarToast("No puedes actualizar una mesa ocupada")

@@ -14,9 +14,16 @@ import com.example.project_kotlin.dao.UsuarioDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.*
 import com.example.project_kotlin.entidades.dto.EmpleadoDTO
+import com.example.project_kotlin.entidades.firebase.CargoNoSql
+import com.example.project_kotlin.entidades.firebase.EmpleadoNoSql
+import com.example.project_kotlin.entidades.firebase.UsuarioNoSql
 import com.example.project_kotlin.service.ApiServiceEmpleado
 import com.example.project_kotlin.utils.ApiUtils
+import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -39,6 +46,8 @@ class ActualizarEmpleado : AppCompatActivity() {
     private lateinit var usuarioDao : UsuarioDao
     private lateinit var empleadoBean : EmpleadoUsuarioYCargo
     private lateinit var apiEmpleado : ApiServiceEmpleado
+    private lateinit var bd: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actualizar_usu)
@@ -59,13 +68,25 @@ class ActualizarEmpleado : AppCompatActivity() {
         empleadoBean = intent.getSerializableExtra("empleado") as EmpleadoUsuarioYCargo
         cargarCargos()
         cargarDatos()
+        conectar()
         btnActualizarUsu.setOnClickListener({actualizarUsu()})
         btnCancelarUsu.setOnClickListener({volver()})
         btnEliminarUsu.setOnClickListener({eliminar()})
 
-
+        if(VariablesGlobales.empleado?.empleado?.empleado?.id == empleadoBean.empleado.empleado.id){
+            btnEliminarUsu.isEnabled = false
+            spnCargo.isEnabled = false
+            edtCorreoUsu.isEnabled = false
+            mostrarToast("No se puede eliminar el empleado en sesión")
+        }
 
     }
+    fun conectar(){
+        //inicar mi firebase
+        FirebaseApp.initializeApp(this)
+        bd= FirebaseDatabase.getInstance().reference
+    }
+
     fun cargarDatos(){
         edtNomUsu.setText(empleadoBean.empleado.empleado.nombreEmpleado)
         edtApeUsu.setText(empleadoBean.empleado.empleado.apellidoEmpleado)
@@ -86,6 +107,7 @@ class ActualizarEmpleado : AppCompatActivity() {
                 empleadoDao.eliminar(empleadoBean.empleado.empleado)
                 usuarioDao.eliminar(empleadoBean.usuario)
                 eliminarEmpleadoMysql(empleadoBean.empleado.empleado.id)
+                bd.child("empleado").child(empleadoBean.empleado.empleado.id.toString()).removeValue()
                 mostrarToast("Empleado eliminado")
                 volver()
 
@@ -136,8 +158,11 @@ class ActualizarEmpleado : AppCompatActivity() {
                 empleadoDao.actualizar(empleadoBean.empleado.empleado)
 
                 val empleadoDTO = EmpleadoDTO(empleadoBean.empleado.empleado.id, nombre, apellido, tel, dni, empleadoBean.empleado.empleado.fechaRegistro, empleadoBean.usuario, empleadoBean.empleado.cargo)
-                Log.e("Error al actualizar: ","" +empleadoDTO)
                 actualizarEmpleadoMysql(empleadoDTO)
+                val usuarioNoSql = UsuarioNoSql(correo, empleadoBean.usuario.contrasena)
+                val empleadoNoSql = EmpleadoNoSql(nombre, apellido, tel, dni, empleadoBean.empleado.empleado.fechaRegistro,
+                    usuarioNoSql, CargoNoSql(empleadoBean.empleado.cargo.cargo))
+                bd.child("empleado").child(empleadoBean.empleado.empleado.id.toString()).setValue(empleadoNoSql)
                 mostrarToast("Empleado actualizado correctamente")
                 volver()
 
@@ -209,6 +234,7 @@ class ActualizarEmpleado : AppCompatActivity() {
             val adapter = ArrayAdapter(this@ActualizarEmpleado, android.R.layout.simple_spinner_item, nombresCargos)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spnCargo.adapter = adapter
+            spnCargo.setSelection(empleadoBean.empleado.cargo.id.toInt()-1)
 
         }
     }

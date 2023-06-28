@@ -16,6 +16,7 @@ class EmpleadoAdapter(var info:List<EmpleadoUsuarioYCargo>):RecyclerView.Adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemUsuario {
         val vista = LayoutInflater.from(parent.context).inflate(R.layout.item_usuario, parent, false)
         Log.d("Ingresar", "Empleado")
+        Log.d("TAMAÑO", " " + info.size)
         return VistaItemUsuario(vista)
     }
 
