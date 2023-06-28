@@ -192,6 +192,10 @@
             android:name=".vistas.comandas.RegistrarComanda"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".vistas.facturar.IndexFacturar"
+            android:exported="true">
+        </activity>
 
 
     </application>

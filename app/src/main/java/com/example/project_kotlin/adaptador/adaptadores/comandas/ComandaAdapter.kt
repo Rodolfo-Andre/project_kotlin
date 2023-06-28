@@ -8,12 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.vistas.comandas.VistaItemComanda
-import com.example.project_kotlin.entidades.CategoriaPlato
 
-import com.example.project_kotlin.entidades.Comanda
 import com.example.project_kotlin.entidades.ComandaMesaYEmpleadoYEstadoComanda
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
 import com.example.project_kotlin.vistas.comandas.EditarComanda
 
 class ComandaAdapter (var info :  List<ComandaMesaYEmpleadoYEstadoComanda>)

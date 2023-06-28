@@ -3,11 +3,14 @@ package com.example.project_kotlin.vistas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var empleadoDao: EmpleadoDao
     private lateinit var edtEmail: EditText
     private lateinit var edtContraseña: EditText
+    private lateinit var imgShow: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +39,21 @@ class MainActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtContraseña = findViewById(R.id.edtPassword)
         btnIngresar = findViewById(R.id.btnIngresar)
-
+        imgShow=findViewById(R.id.imgShow)
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         btnIngresar.setOnClickListener({ vincular() })
+        imgShow.setOnClickListener {
+            if (edtContraseña.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                // Mostrar contraseña
+                edtContraseña.transformationMethod = HideReturnsTransformationMethod.getInstance()
+
+            } else {
+                // Ocultar contraseña
+                edtContraseña.transformationMethod = PasswordTransformationMethod.getInstance()
+
+            }
+        }
 
     }
 

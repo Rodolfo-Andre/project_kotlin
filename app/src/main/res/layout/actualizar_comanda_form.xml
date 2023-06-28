@@ -54,13 +54,24 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spnMesasActualizarComanda"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
-                    android:layout_height="51dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNumeroMesa"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:enabled="false"
+                        android:hint="0"
+                        android:inputType="number"
+                        android:textColor="@color/disabled_text_color" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -127,7 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:editable="false"
-                        android:enabled="true"
+                        android:enabled="false"
                         android:hint="Sin pagar"
                         android:inputType="textPersonName"
                         android:textColor="@color/disabled_text_color" />
@@ -146,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:editable="false"
-                        android:enabled="true"
+                        android:enabled="false"
                         android:hint="0.00"
                         android:inputType="numberDecimal"
                         android:textColor="@color/disabled_text_color" />
@@ -181,8 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:editable="false"
-                        android:enabled="true"
-                        android:hint="Gary Sebastian Morales"
+                        android:enabled="false"
                         android:inputType="textPersonName"
                         android:textColor="@color/disabled_text_color" />
 
@@ -250,12 +260,12 @@
                     android:text="Actualizar comanda" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnActualizarEstado"
+                    android:id="@+id/btnFacturar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_weight="0.5"
-                    android:text="Actualizar estado"
+                    android:text="Facturar"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 

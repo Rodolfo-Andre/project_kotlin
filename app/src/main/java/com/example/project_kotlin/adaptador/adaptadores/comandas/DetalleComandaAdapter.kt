@@ -1,22 +1,13 @@
 package com.example.project_kotlin.adaptador.adaptadores.comandas
 
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.vistas.comandas.VistaDetalleItemComanda
-import com.example.project_kotlin.adaptador.vistas.comandas.VistaItemComanda
-import com.example.project_kotlin.entidades.CategoriaPlato
 
-import com.example.project_kotlin.entidades.DetalleComanda
 import com.example.project_kotlin.entidades.DetalleComandaConPlato
-import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
-import com.example.project_kotlin.vistas.comandas.EditarComanda
-import com.example.project_kotlin.vistas.comandas.RegistrarComanda
 
 class DetalleComandaAdapter (var info :  List<DetalleComandaConPlato>, private var listener: OnItemClickLister? = null)
     : RecyclerView.Adapter<VistaDetalleItemComanda>(){
