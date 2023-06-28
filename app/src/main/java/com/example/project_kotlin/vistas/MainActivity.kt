@@ -71,7 +71,11 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()

@@ -47,6 +47,9 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
+    override fun onBackPressed() {
+        cerrarSesion()
+    }
     fun cerrarSesion(){
         var intent = Intent(this, MainActivity::class.java)
         VariablesGlobales.empleado = null
