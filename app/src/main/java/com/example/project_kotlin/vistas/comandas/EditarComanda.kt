@@ -266,7 +266,7 @@ class EditarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickList
     }
 
     fun factuarIndex(){
-        var intentFacturar=Intent(appConfig.CONTEXT,FacturarActivity::class.java)
+        var intentFacturar=Intent(this,FacturarActivity::class.java)
         intentFacturar.putExtra("comandaFacturar", comandabean)
         startActivity(intentFacturar)
     }

@@ -100,7 +100,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         conectar()
     }
     fun generarComanda(){
-        val numMesa = spnMesas.selectedItemPosition+1
+        val numMesa = spnMesas.selectedItem.toString()
+
         val cantCli = edtComensalR.text.toString().toIntOrNull()
         val sumaPrecio = detalleComandaGlobal.sumOf { it.detalle.precioUnitario }
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
@@ -118,7 +119,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         lifecycleScope.launch(Dispatchers.IO){
             val mesa = mesaDao.obtenerPorId(numMesa.toLong())
 
-            val comandaAgregar = Comanda(cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesaId = numMesa,
+            val comandaAgregar = Comanda(cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesaId = numMesa.toInt(),
                 estadoComandaId = 1, fechaRegistro = fechaFormateada, empleadoId = 1)
             val idComanda = comandaDao.guardar(comandaAgregar)
             //MYSQL - QUE TERRIBLE CÓDIGO D':

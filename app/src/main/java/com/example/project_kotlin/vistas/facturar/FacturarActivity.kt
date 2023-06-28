@@ -2,6 +2,8 @@ package com.example.project_kotlin.vistas.facturar
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -9,7 +11,7 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.ComandaMesaYEmpleadoYEstadoComanda
-import com.example.project_kotlin.entidades.DetalleComanda
+import com.example.project_kotlin.entidades.Comprobante
 import com.example.project_kotlin.entidades.DetalleComandaConPlato
 import com.example.project_kotlin.service.ApiServiceComanda
 import com.example.project_kotlin.service.ApiServiceComprobante
@@ -17,13 +19,16 @@ import com.example.project_kotlin.service.ApiServiceMesa
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
+import com.example.project_kotlin.vistas.caja_registradora.CajaVista
+import com.example.project_kotlin.vistas.comandas.ComandasVista
 import com.example.project_kotlin.vistas.comandas.EditarComanda
-import com.example.project_kotlin.vistas.mesas.DatosMesas
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FacturarActivity: AppCompatActivity() {
     //BOTONES
@@ -62,18 +67,19 @@ class FacturarActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.facturar_activity)
         //Inicializar componentes
-        btnFacturar = findViewById(R.id.BtnFacturar)
+        btnFacturar = findViewById(R.id.BtnFacturarF)
         btnVolver = findViewById(R.id.BtnCancelar)
         spnMetodoPago = findViewById(R.id.spnMetPagoF)
         spnTipoComprobante = findViewById(R.id.spnTipoComprobante)
         spnCaja = findViewById(R.id.spnCajasP)
         edIdComanda = findViewById(R.id.edtIdComanda)
-        edEmpleado = findViewById(R.id.edtEmpleadoNombreF)
+        edEmpleado = findViewById(R.id.edtEmpleadoNombreFacturar)
         edCliente = findViewById(R.id.edtClienteF)
         edIGV = findViewById(R.id.edtIGV)
         edSubTotal = findViewById(R.id.edtSubTotal)
-        edDescuento = findViewById(R.id.edtSubTotal)
+        edDescuento = findViewById(R.id.edtDescuento)
         edTotalPagar = findViewById(R.id.edtPrecioTotal)
+        edDescuento.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         //Inicializar room
         comprobanteDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comprobanteDao()
         mesaDao =ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
@@ -94,8 +100,14 @@ class FacturarActivity: AppCompatActivity() {
         //EVENTOS
         btnVolver.setOnClickListener{volver()}
         btnFacturar.setOnClickListener{facturar()}
+    }
+    override fun onStart() {
+        super.onStart()
         cargarDatos()
-
+    }
+    override fun onResume() {
+        super.onResume()
+        cargarDatos()
     }
     private fun cargarDatos(){
         //DATOS
@@ -161,14 +173,70 @@ class FacturarActivity: AppCompatActivity() {
             spnTipoComprobante.adapter = adapter
         }
     }
+    override fun onBackPressed() {
+        volver()
+    }
     fun facturar(){
+        val cajaID = spnCaja.selectedItemPosition+1
+        var empleadoID : Int = 0
+        val comandaId = edIdComanda.text.toString()
+        val tipoComprobanteId = spnCaja.selectedItemPosition+1
+        val metodoPagoId = spnMetodoPago.selectedItemPosition+1
+        var clienteNombre = edCliente.text.toString()
+        val igv = edIGV.text.toString().toDouble()
+        val subTOTAL = edSubTotal.text.toString().toDouble()
+        var descuento = edDescuento.text.toString().toDoubleOrNull()
+        var totalPagar = edTotalPagar.text.toString().toDouble()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val fechaActual = Date()
+        val fechaFormateada = dateFormat.format(fechaActual)
+        if(VariablesGlobales.empleado?.empleado?.empleado?.id != null){
+            empleadoID = VariablesGlobales.empleado?.empleado?.empleado?.id!!.toInt()
+        }
+
+        if(clienteNombre.length == 0) clienteNombre = "Cliente"
+        lifecycleScope.launch(Dispatchers.IO){
+            if(descuento == null) descuento = 0.0
+            if(descuento!! > totalPagar){
+                mostrarToast("El descuento no puede ser mayor al precio total")
+                return@launch
+            }
+            totalPagar = totalPagar - descuento!!
+            val cajaIdFormateada = "C-00$cajaID"
+            val comprobanteRoom = Comprobante(nombreCliente = clienteNombre, fechaEmision = fechaFormateada,
+            igv = igv, subTotal = subTOTAL, descuento = descuento!!, caja_id = cajaIdFormateada, precioTotalPedido = totalPagar,
+            comanda_id = comandaId.toInt(), metodopago_id = metodoPagoId, tipocomprobante_id = tipoComprobanteId,
+            empleado_id = empleadoID)
+
+            val idCDP = comprobanteDao.guardar(comprobanteRoom)
+            comandabean.comanda.comanda.mesa.estado = "Libre"
+            comandabean.comanda.comanda.comanda.estadoComandaId = 2
+            mesaDao.actualizar(comandabean.comanda.comanda.mesa)
+            comandaDao.actualizar(comandabean.comanda.comanda.comanda)
+            mostrarToast("Comprobante generado")
+            cajaIntent()
+
+        }
+    }
+    fun cajaIntent(){
+        if(VariablesGlobales.empleado?.empleado?.cargo?.id?.toInt() == 3){
+            val intent = Intent(this, CajaVista::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+            val intent = Intent(this, ComandasVista::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
     fun volver() {
         val intent = Intent(this, EditarComanda::class.java)
         intent.putExtra("Comanda", comandabean)
         startActivity(intent)
+        finish()
     }
+
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
@@ -180,4 +248,5 @@ class FacturarActivity: AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         bdFirebase = FirebaseDatabase.getInstance().reference
     }
+
 }

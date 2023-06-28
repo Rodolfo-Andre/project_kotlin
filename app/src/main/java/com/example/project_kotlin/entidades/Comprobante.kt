@@ -48,7 +48,7 @@ data class Comprobante (
     @ColumnInfo(name= " descuento")var descuento:Double=0.00,
     @ColumnInfo(name = "precioTotalPedido") var precioTotalPedido: Double = 0.0,
     @ColumnInfo(name="comanda_id") var comanda_id : Int,
-    @ColumnInfo(name="caja_id") var caja_id : Int,
+    @ColumnInfo(name="caja_id") var caja_id : String,
     @ColumnInfo(name="tipocomprobante_id") var tipocomprobante_id : Int,
     @ColumnInfo(name="empleado_id") var empleado_id : Int,
     @ColumnInfo(name="metodopago_id") var metodopago_id : Int,
