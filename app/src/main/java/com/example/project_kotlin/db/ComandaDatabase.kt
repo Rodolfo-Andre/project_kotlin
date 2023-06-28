@@ -88,7 +88,11 @@ abstract class ComandaDatabase : RoomDatabase() {
                             metodosPagoDao?.registrar(MetodoPago( nombreMetodoPago = "BCP"))
                             //Categoría Plato
 
-                            categoriaPlatoDao?.guardar(CategoriaPlato("C-001", "Entradas"))
+                            categoriaPlatoDao?.guardar(CategoriaPlato("C-001", "Bebidas"))
+                            categoriaPlatoDao?.guardar(CategoriaPlato("C-002", "Hamburguesas"))
+                            categoriaPlatoDao?.guardar(CategoriaPlato("C-003", "Postres"))
+                            categoriaPlatoDao?.guardar(CategoriaPlato("C-004", "Sopas"))
+
                             platoDao?.guardar(Plato("P-001", "Prueba", 22.5, "", "C-001"))
                             //Establecimiento
                             establecimientoDao?.guardar(

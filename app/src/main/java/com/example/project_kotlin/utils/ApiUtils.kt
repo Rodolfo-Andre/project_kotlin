@@ -5,7 +5,7 @@ import com.example.project_kotlin.service.*
 class ApiUtils {
     companion object {
         //URL con la dirección IP de cada máquina, después se coloca el de MySql subido en la nube.
-        val BASE_URL="http://192.168.56.1:8091"
+        val BASE_URL="http://192.168.1.3:8091"
 
         fun getApiServiceComanda() : ApiServiceComanda{
             return RetrofitClient.getClient(BASE_URL).create(ApiServiceComanda::class.java)

@@ -1,10 +1,10 @@
 package com.example.project_kotlin.vistas.platos
 
-import android.app.ProgressDialog
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -12,8 +12,12 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.Cargo
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Plato
+import com.example.project_kotlin.entidades.dto.PlatoDTO
+import com.example.project_kotlin.entidades.firebase.CategoriaPlatoNoSql
+import com.example.project_kotlin.entidades.firebase.PlatoNoSql
 import com.example.project_kotlin.service.ApiServicePlato
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
@@ -23,56 +27,59 @@ import com.google.firebase.database.FirebaseDatabase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.net.URL
 
 
 @Suppress("DEPRECATION")
 class NuevoPlato : AppCompatActivity() {
 
-    private lateinit var edtNombrePlato:EditText
-    private lateinit var edtPrecioPlato:EditText
-    private lateinit var btnImagen:Button
-    private lateinit var spCategoria:Spinner
-    private lateinit var btnAgregarplato:Button
-    private lateinit var btnCancelar:Button
+    private lateinit var edtNombrePlato: EditText
+    private lateinit var edtPrecioPlato: EditText
+    private lateinit var btnImagen: Button
+    private lateinit var spcategoria: Spinner
+    private lateinit var btnAgregarplato: Button
+    private lateinit var btnCancelar: Button
+
     //BASE DE DATOS
-    private lateinit var platoDao:PlatoDao
+    private lateinit var platoDao: PlatoDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
+
     //REST
-    lateinit var apiPlato:ApiServicePlato
+    lateinit var apiPlato: ApiServicePlato
+
     //FIREBASE
-    lateinit var bdFirebase :DatabaseReference
-    //para las imagenes
-    var foto : String ="foto"
-    var storage_path : String = "platos/*"
-    private val COD_SEL_STORAGE = 200
-    var COD_SEL_IMAGE : Int = 300
-    private lateinit var image_url : Uri
-    var progressDialog: ProgressDialog? = null
+    lateinit var bdFirebase: DatabaseReference
+
+
     //ADICIONALES
-    private var estadoCatFiltro : String = "Seleccionar Categoria"
+    private var estadoCatFiltro: String = "Seleccionar Categoria"
     private val PICK_IMAGE_REQUEST = 1
 
 
-    private var imageData: String? = null
+    private var imageData: ByteArray? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.platoregistrar)
 
-        edtNombrePlato= findViewById(R.id.edtNombrePlato)
-        edtPrecioPlato= findViewById(R.id.edtPrecioPlato)
-        btnImagen= findViewById(R.id.btnSubirImagen)
-        spCategoria=findViewById(R.id.spCategoria)
-        btnAgregarplato=findViewById(R.id.btnAgregarPlato)
-        btnCancelar=findViewById(R.id.btnCancelar)
+        edtNombrePlato = findViewById(R.id.edtNombrePlato)
+        edtPrecioPlato = findViewById(R.id.edtPrecioPlato)
+        btnImagen = findViewById(R.id.btnSubirImagen)
+        spcategoria = findViewById(R.id.spCategoria)
+        btnAgregarplato = findViewById(R.id.btnAgregarPlato)
+        btnCancelar = findViewById(R.id.btnCancelar)
         //BASES DE DATOS
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
         apiPlato = ApiUtils.getAPIServicePlato()
-       
 
-        conectar()
-        cargarCategoria()
-        btnAgregarplato.setOnClickListener({Agregar()})
+
+
+
+        btnAgregarplato.setOnClickListener({ Agregar() })
 
         btnImagen.setOnClickListener {
             // Lanzar la selección de imágenes desde la galería
@@ -80,32 +87,73 @@ class NuevoPlato : AppCompatActivity() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-        btnCancelar.setOnClickListener({Cancelar()})
-
+        btnCancelar.setOnClickListener({ Cancelar() })
+        conectar()
+        cargarCategoria()
     }
-    fun conectar(){
+
+    fun conectar() {
         //Iniciar firebase en la clase actual
         FirebaseApp.initializeApp(this)
         bdFirebase = FirebaseDatabase.getInstance().reference
     }
-    fun Agregar() {
-        if (validarCampos()) {
-         if (imageData != null ) {
 
-                lifecycleScope.launch(Dispatchers.IO) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-                    val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
-                    val nombre = edtNombrePlato.text.toString()
-                    val precio = edtPrecioPlato.text.toString().toDouble()
-                    val codCatPlato = CategoriaPlato((spCategoria.selectedItemPosition+1).toString(),spCategoria.selectedItem.toString())
-                    mostrarToast("Plato agregado correctamente")
-                    Cancelar()
-                }
-            } else {
-                mostrarToast("Seleccione una imagen primero")
-            }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            // Obtener la imagen seleccionada
+            val imageUri = data.data
+            val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            // Convertir la imagen en un ByteArray
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            imageData = outputStream.toByteArray()
+
+            // Mostrar la imagen seleccionada en una ImageView (opcional)
+            val imageView = findViewById<ImageView>(R.id.imagenCrear)
+            imageView.setImageBitmap(bitmap)
         }
     }
+
+    fun Agregar() {
+        if (validarCampos()) {
+            if(imageData!=null){
+            lifecycleScope.launch(Dispatchers.IO) {
+                val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
+                val nombre = edtNombrePlato.text.toString()
+                val precio = edtPrecioPlato.text.toString().toDouble()
+                val codCatPlato = (spcategoria.selectedItemPosition).toString()
+                val cat = "C-00$codCatPlato"
+                val categoriaPlato = CategoriaPlato(cat, spcategoria.selectedItem.toString())
+                val base64String = android.util.Base64.encodeToString(imageData, android.util.Base64.DEFAULT)
+                val imageUrl = "data:image/jpeg;base64,$base64String"
+
+                // Crear objeto plato
+                val platoDTO = PlatoDTO(codigo, nombre, imageUrl, precio, categoriaPlato)
+                grabarPlatoMysql(platoDTO)
+
+                // Guardar en Room
+                val plato = Plato(codigo, nombre, precio, imageUrl,cat)
+                val platoId = platoDao.guardar(plato)
+
+                // Guardar en Firebase
+                val categoriaPlatoNoSql = CategoriaPlatoNoSql(categoriaPlato.categoria)
+                val platoNoSql = PlatoNoSql(nombre, imageUrl, precio, categoriaPlatoNoSql)
+                bdFirebase.child("plato").child(1.toString()).setValue(platoNoSql)
+
+                mostrarToast("Plato agregado correctamente")
+                Cancelar()
+            }
+        }
+
+        else{
+            mostrarToast("Agregar imagen del plato")
+        }
+        }
+    }
+
 
     private fun Cancelar() {
         val intent = Intent(this, DatosPlatos::class.java)
@@ -118,13 +166,23 @@ class NuevoPlato : AppCompatActivity() {
         }
     }
 
+    fun grabarPlatoMysql(bean: PlatoDTO){
+        apiPlato.fetchGuardarPlato(bean).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
     private fun cargarCategoria() {
         lifecycleScope.launch(Dispatchers.IO) {
 
             // Obtén la lista de categorías de platos desde la base de datos
             var data = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao().obtenerTodo()
 
-            var nombreCate =   data.map {  it.categoria }
+            var nombreCate = data.map { it.categoria }
 
             //Opcion por defecto
             val opciones = mutableListOf<String>()
@@ -134,19 +192,19 @@ class NuevoPlato : AppCompatActivity() {
             // Crea un ArrayAdapter con los nombres de las categorías de platos
             var adapter = ArrayAdapter(
                 this@NuevoPlato,
-                android.R.layout.simple_spinner_item,opciones
+                android.R.layout.simple_spinner_item, opciones
 
             )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Asigna el adaptador al Spinner
-            spCategoria.adapter = adapter
+            spcategoria.adapter = adapter
         }
     }
 
-    fun validarCampos() : Boolean{
+    fun validarCampos(): Boolean {
         val nombre = edtNombrePlato.text.toString()
         val precio = edtPrecioPlato.text.toString()
-        val spcat = spCategoria.selectedItem
+        val spcat = spcategoria.selectedItem
         val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\s]*\$"
         val REGEX_PRECIO = "^[\\d]{1,3}(?:,[\\d]{3})*(?:\\.[\\d]{1,2})?\$"
 
@@ -168,5 +226,7 @@ class NuevoPlato : AppCompatActivity() {
 
         return true
     }
-    }
+}
+
+
 

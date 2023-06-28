@@ -18,7 +18,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    packagingOptions {
+        pickFirst 'META-INF/DEPENDENCIES'
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -65,5 +67,10 @@ dependencies {
     //ACCEDER A LA BASE DE DATOS QUE VAMOS A CREAR
     implementation 'com.google.firebase:firebase-database-ktx:20.0.2'
     implementation 'com.google.firebase:firebase-core:9.6.1'
+
+
+
+
+
 
 }
