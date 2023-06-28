@@ -69,7 +69,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:9.6.1'
 
 
-
+    //CARDVIEW - DISEÑO
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 
 
