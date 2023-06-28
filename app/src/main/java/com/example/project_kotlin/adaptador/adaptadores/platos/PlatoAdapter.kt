@@ -6,19 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.vistas.platos.VistaItemPlato
-import com.example.project_kotlin.entidades.Plato
-import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.project_kotlin.entidades.PlatoConCategoria
 import com.example.project_kotlin.utils.appConfig
 
 import com.example.project_kotlin.vistas.platos.ActualizarPlato
 
-class PlatoAdapter(var info: List<Plato>) : RecyclerView.Adapter<VistaItemPlato>() {
+class PlatoAdapter(var info: List<PlatoConCategoria>) : RecyclerView.Adapter<VistaItemPlato>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaItemPlato {
         val vista = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_platos, parent, false)
-
+        Log.d("Ingresar", "Plato")
         return VistaItemPlato(vista)
     }
 
@@ -27,13 +29,15 @@ class PlatoAdapter(var info: List<Plato>) : RecyclerView.Adapter<VistaItemPlato>
 
     override fun onBindViewHolder(holder: VistaItemPlato, position: Int) {
 
-
-
-        holder.tvCodPlato.text = info.get(position).id
-        holder.tvNombrePlato.text = info.get(position).nombrePlato
-        holder.tvPrecioPlato.text = info.get(position).precioPlato.toString()
-        holder.tvCatNomPlato.text = info.get(position).catplato_id.toString()
-
+        holder.tvCodPlato.text = info.get(position).plato.id
+        holder.tvNombrePlato.text = info.get(position).plato.nombrePlato
+        holder.tvPrecioPlato.text = info.get(position).plato.precioPlato.toString()
+        holder.tvCatNomPlato.text = info.get(position).categoriaPlato.categoria
+        Glide.with(holder.itemView)
+            .load(info.get(position).plato.nombreImagen)
+            .placeholder(R.drawable.platos)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(holder.imagenPlato)
 
 
         var context = holder.itemView.context
@@ -46,7 +50,7 @@ class PlatoAdapter(var info: List<Plato>) : RecyclerView.Adapter<VistaItemPlato>
 
     }
 
-    fun actulizarPlatos(info:List<Plato>){
+    fun actualizarPlatos(info:List<PlatoConCategoria>){
         this.info = info
         notifyDataSetChanged()
     }

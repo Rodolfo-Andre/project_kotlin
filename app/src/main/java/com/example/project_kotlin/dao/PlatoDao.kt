@@ -10,7 +10,7 @@ interface PlatoDao {
     fun obtenerTodoLiveData():LiveData<List<PlatoConCategoria>>
 
     @Query("select * from Plato ")
-    fun obtenerTodo():List<Plato>
+    fun obtenerTodo():List<PlatoConCategoria>
 
 
     @Query("select * from Plato where catplato_id = :catplato_id")

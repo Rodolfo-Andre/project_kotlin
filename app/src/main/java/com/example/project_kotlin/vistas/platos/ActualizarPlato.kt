@@ -1,14 +1,33 @@
 package com.example.project_kotlin.vistas.platos
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.project_kotlin.R
+import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
+import com.example.project_kotlin.entidades.PlatoConCategoria
+import com.example.project_kotlin.entidades.dto.PlatoDTO
+import com.example.project_kotlin.service.ApiServicePlato
+import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
+import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 class ActualizarPlato:AppCompatActivity() {
     private lateinit var tvCodPlatos:TextView
@@ -20,32 +39,44 @@ class ActualizarPlato:AppCompatActivity() {
     private lateinit var btnCancelar:Button
     private lateinit var btnEliminar:Button
     private lateinit var btnImagenPlato:Button
+    //BASE DE DATOS
+    private lateinit var platoDao: PlatoDao
+    private lateinit var categoriaPlatoDao: CategoriaPlatoDao
+    private lateinit var platobean : PlatoConCategoria
+    //REST
+    lateinit var apiPlato: ApiServicePlato
+
+    //FIREBASE
+    lateinit var bdFirebase: DatabaseReference
 
     private val PICK_IMAGE_REQUEST = 1
-    private lateinit var PlatosDao: PlatoDao
     private var imageData1: ByteArray? = null
-    private lateinit var imageData2:ByteArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.platoeditar)
-        PlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
+        platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
 
         tvCodPlatos=findViewById(R.id.tvCodPlatos)
         edtNamePlato= findViewById(R.id.edtBuscarNombreUsu)
         edtPrePlato = findViewById(R.id.edtPrePlato)
         ImagenPlatos = findViewById(R.id.imagenCrear)
-        spCatplato= findViewById(R.id.spnCargoEmpleadoE)
+        spCatplato= findViewById(R.id.spnPlatoEditar)
 
-        btnEditar= findViewById(R.id.btnNuevoEmpleadoCon)
+        btnEditar= findViewById(R.id.btnNuevoUsu)
         btnCancelar= findViewById(R.id.btnCancelarCategoria)
         btnEliminar = findViewById(R.id.btnEliminar)
-        btnImagenPlato = findViewById(R.id.btnAplicarUsu)
+        btnImagenPlato = findViewById(R.id.btnBuscar)
 
-        /*cargarCategoria()*/
-/*
+        //BASES DE DATOS
+        platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
+        categoriaPlatoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()
+        apiPlato = ApiUtils.getAPIServicePlato()
+        platobean = intent.getSerializableExtra("plato") as PlatoConCategoria
+        cargarCategoria()
         btnEditar.setOnClickListener{actualizar()}
         btnEliminar.setOnClickListener{Eliminar()}
-        btnCancelar.setOnClickListener{volver()}*/
+        btnCancelar.setOnClickListener{volver()}
+
 
         btnImagenPlato.setOnClickListener {
             // Lanzar la selección de imágenes desde la galería
@@ -53,25 +84,26 @@ class ActualizarPlato:AppCompatActivity() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-/*
         //Cargar dato
-        val plato = intent.getSerializableExtra("plato") as Plato
-        tvCodPlatos.text = plato.id
-        edtNamePlato.setText(plato.nombrePlato)
-        edtPrePlato.setText(plato.precioPlato.toString())
-        val imageData = plato.nombreImagen
-        val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
-        ImagenPlatos.setImageBitmap(bitmap)
+        tvCodPlatos.text = platobean.plato.id
+        edtNamePlato.setText(platobean.plato.nombrePlato)
+        edtPrePlato.setText(platobean.plato.precioPlato.toString())
+
+        Glide.with(this@ActualizarPlato)
+            .load(platobean.plato.nombreImagen)
+            .placeholder(R.drawable.platos)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(ImagenPlatos)
+
         //para ver la secuencia del codigo
         val numberPattern = Regex("\\d+")
-        val numberMatch = numberPattern.find(plato.categoriaPlato.id)
+        val numberMatch = numberPattern.find(platobean.plato.catplato_id)
         val number = numberMatch?.value?.toIntOrNull()
         if (number != null) {
             spCatplato.setSelection(number - 1)
         }
 
-        //imagen cargada para actualizar
-        imageData2 = plato.nombreImagen
+
     }
 
     fun volver(){
@@ -81,17 +113,16 @@ class ActualizarPlato:AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     fun Eliminar() {
-        val codPlato = tvCodPlatos.text.toString()
         val mensaje: AlertDialog.Builder = AlertDialog.Builder(this)
         mensaje.setTitle("Sistema comandas")
         mensaje.setMessage("¿Seguro de eliminar?")
         mensaje.setCancelable(false)
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
-                val plato = PlatosDao.obtenerPorId(codPlato)
-                    PlatosDao.eliminar(plato)
-                    mostrarToast("Plato eliminado correctamente")
-                    volver()
+                platoDao.eliminar(platobean.plato)
+                eliminarPlatoMysql(platobean.plato.id)
+                mostrarToast("Plato eliminado correctamente")
+                volver()
 
             }
         }
@@ -101,54 +132,53 @@ class ActualizarPlato:AppCompatActivity() {
     }
 
 
+    fun actualizar() {
+        if (validarCampos()) {
+            if (imageData1 != null) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val nombre = edtNamePlato.text.toString()
+                    val precio = edtPrePlato.text.toString().toDouble()
+                    val codCatPlato = (spCatplato.selectedItemPosition).toString() + 1
+                    val cat = "C-00$codCatPlato"
+                    val base64String =
+                        android.util.Base64.encodeToString(imageData1!!, android.util.Base64.DEFAULT)
+                    val imageUrl = "data:image/jpeg;base64,$base64String"
 
-    fun actualizar(){
-    if(validarCampos()) {
-        val codPlato = tvCodPlatos.text.toString()
-        if (imageData1 != null) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val nombre = edtNamePlato.text.toString()
-                val precio = edtPrePlato.text.toString().toDouble()
-                val codCatPlato = (spCatplato.selectedItemPosition + 1).toString()
-                val cat = "C-00" + codCatPlato
-                val nombrecat = spCatplato.selectedItem.toString()
+                    platobean.plato.nombrePlato = nombre
+                    platobean.plato.precioPlato = precio
+                    platobean.plato.nombreImagen = imageUrl
+                    platobean.plato.catplato_id= cat
+                    platobean.categoriaPlato.categoria = spCatplato.selectedItem.toString()
+                    platoDao.actualizar(platobean.plato)
 
-                val plato =
-                    Plato(codPlato, nombre, precio, imageData1!!)
+                    val platoDTO = PlatoDTO(platobean.plato.id, nombre, imageUrl, precio, platobean.categoriaPlato)
+                    Log.e("Error al actualizar: ","" +platoDTO)
+                    actualizarPlatoMysql(platoDTO)
+                    mostrarToast("Plato actualizada correctamente")
+                    volver()
+                }
+            } else {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val nombre = edtNamePlato.text.toString()
+                    val precio = edtPrePlato.text.toString().toDouble()
+                    val codCatPlato = (spCatplato.selectedItemPosition).toString()
+                    val cat = "C-00$codCatPlato"
+                    platobean.plato.nombrePlato = nombre
+                    platobean.plato.precioPlato = precio
+                    platobean.categoriaPlato.id = cat
+                    platobean.categoriaPlato.categoria = spCatplato.selectedItem.toString()
+                    platoDao.actualizar(platobean.plato)
 
-                plato.categoriaPlato = CategoriaPlato(cat, nombrecat)
-
-                PlatosDao.actualizar(plato)
-                mostrarToast("Plato actualizada correctamente")
-                volver()
-            }
-        } else  {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val nombre = edtNamePlato.text.toString()
-                val precio = edtPrePlato.text.toString().toDouble()
-                val codCatPlato = (spCatplato.selectedItemPosition + 1).toString()
-                val cat = "C-00" + codCatPlato
-                val nombrecat = spCatplato.selectedItem.toString()
-
-                val plato =
-                    Plato(codPlato, nombre, precio, imageData2)
-
-                plato.categoriaPlato = CategoriaPlato(cat, nombrecat)
-
-                PlatosDao.actualizar(plato)
-                mostrarToast("Plato actualizada correctamente")
-                volver()
+                    val platoDTO = PlatoDTO(platobean.plato.id, nombre, platobean.plato.nombreImagen, precio, platobean.categoriaPlato)
+                    Log.e("Error al actualizar: ","" +platoDTO)
+                    actualizarPlatoMysql(platoDTO)
+                    mostrarToast("Plato actualizada correctamente")
+                    volver()
+                }
             }
 
         }
-
     }
-
-    }
-
-
-
-
     private fun cargarCategoria() {
         lifecycleScope.launch(Dispatchers.IO) {
 
@@ -182,7 +212,7 @@ class ActualizarPlato:AppCompatActivity() {
             imageData1 = outputStream.toByteArray()
 
             // Mostrar la imagen seleccionada en una ImageView (opcional)
-            val imageView = findViewById<ImageView>(R.id.imageplatoEditar)
+            val imageView = findViewById<ImageView>(R.id.imagenCrear)
             imageView.setImageBitmap(bitmap)
         }
     }
@@ -190,7 +220,6 @@ class ActualizarPlato:AppCompatActivity() {
     fun validarCampos() : Boolean{
         val nombre = edtNamePlato.text.toString()
         val precio = edtPrePlato.text.toString()
-
         val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\\\s]+\$"
         val REGEX_PRECIO = "^-?\\d+\\.?\\d*\$"
 
@@ -206,6 +235,7 @@ class ActualizarPlato:AppCompatActivity() {
         }
 
 
+
         return true
     }
     private fun mostrarToast(mensaje: String) {
@@ -213,6 +243,26 @@ class ActualizarPlato:AppCompatActivity() {
             Toast.makeText(appConfig.CONTEXT, mensaje, Toast.LENGTH_SHORT).show()
         }
     }
-*/
+
+    fun actualizarPlatoMysql(bean: PlatoDTO){
+        apiPlato.fectchActualizarPlato(bean).enqueue(object:Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error al actualizar: ",t.toString())
+            }
+        })
+    }
+
+    fun eliminarPlatoMysql(id:String){
+        apiPlato.fetchEliminarPlato(id).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Error : ",t.toString())
+            }
+        })
+    }
+
 }
-}
+
