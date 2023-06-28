@@ -3,6 +3,7 @@ package com.example.project_kotlin.vistas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         edtEmail = findViewById(R.id.edtEmail)
         edtContraseña = findViewById(R.id.edtPassword)
         btnIngresar = findViewById(R.id.btnIngresar)
+
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         btnIngresar.setOnClickListener({ vincular() })
