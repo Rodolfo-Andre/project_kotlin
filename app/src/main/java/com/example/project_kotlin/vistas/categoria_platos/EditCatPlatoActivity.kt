@@ -15,13 +15,11 @@ import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.CategoriaPlato
-import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.entidades.dto.CategoriaPlatoDTO
 import com.example.project_kotlin.entidades.firebase.CategoriaPlatoNoSql
 import com.example.project_kotlin.service.ApiServiceCategoriaPlato
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.mesas.DatosMesas
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -53,7 +51,7 @@ class EditCatPlatoActivity:AppCompatActivity() {
         setContentView(R.layout.categoriaplatoeditar)
 
         tvCodCategoriaPlatos = findViewById(R.id.tvCodCategoriaPlatos)
-        edtCategoriaNombres = findViewById(R.id.edtCategoriaNombres)
+        edtCategoriaNombres = findViewById(R.id.edtCategoriaNombre)
         btnEditar = findViewById(R.id.btnEditarCategoria)
         btnCancelar= findViewById(R.id.btnCancelarCat)
 

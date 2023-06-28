@@ -1,25 +1,14 @@
 package com.example.project_kotlin.vistas.platos
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.Plato
 import com.example.project_kotlin.utils.appConfig
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import androidx.appcompat.app.AlertDialog
-import com.example.project_kotlin.entidades.CategoriaPlato
-
-import java.io.ByteArrayOutputStream
 
 class ActualizarPlato:AppCompatActivity() {
     private lateinit var tvCodPlatos:TextView
@@ -42,15 +31,15 @@ class ActualizarPlato:AppCompatActivity() {
         PlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
 
         tvCodPlatos=findViewById(R.id.tvCodPlatos)
-        edtNamePlato= findViewById(R.id.edtNamePlato)
+        edtNamePlato= findViewById(R.id.edtBuscarNombreUsu)
         edtPrePlato = findViewById(R.id.edtPrePlato)
-        ImagenPlatos = findViewById(R.id.imageplatoEditar)
-        spCatplato= findViewById(R.id.spCatplato)
+        ImagenPlatos = findViewById(R.id.imagenCrear)
+        spCatplato= findViewById(R.id.spnCargoEmpleadoE)
 
-        btnEditar= findViewById(R.id.btnEditar)
-        btnCancelar= findViewById(R.id.btnCancel)
+        btnEditar= findViewById(R.id.btnNuevoEmpleadoCon)
+        btnCancelar= findViewById(R.id.btnCancelarCategoria)
         btnEliminar = findViewById(R.id.btnEliminar)
-        btnImagenPlato = findViewById(R.id.btnSubirImagens)
+        btnImagenPlato = findViewById(R.id.btnAplicarUsu)
 
         /*cargarCategoria()*/
 /*

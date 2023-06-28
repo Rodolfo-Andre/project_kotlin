@@ -14,12 +14,10 @@ import com.example.project_kotlin.dao.CajaDao
 import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Establecimiento
-import com.example.project_kotlin.entidades.Mesa
 import com.example.project_kotlin.entidades.firebase.EstablecimientoNoSql
 import com.example.project_kotlin.service.ApiServiceEstablecimiento
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.mesas.DatosMesas
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -59,15 +57,15 @@ class ActualizarEstablecimiento:AppCompatActivity() {
         establecimientoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).establecimientoDao()
         cajaDao=ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
         conectar()
-        edtCod=findViewById(R.id.edtCodigoA)
-        edtNombre = findViewById(R.id.edtNombreA)
-        edtDireccion = findViewById(R.id.edtDireccionA)
-        edtRuc = findViewById(R.id.edtRucA)
+        edtCod=findViewById(R.id.edtNomUsuE)
+        edtNombre = findViewById(R.id.edtDireccion)
+        edtDireccion = findViewById(R.id.edtDniUsuE)
+        edtRuc = findViewById(R.id.edtCorreoUsuE)
         edtTelefono = findViewById(R.id.edtTelefonoA)
 
-        btnActualizar = findViewById(R.id.btnEditarEstablecimiento)
+        btnActualizar = findViewById(R.id.btnNuevoEstablecimiento)
         btnEliminar = findViewById(R.id.btnEliminarEstablecimiento)
-        btnVolver = findViewById(R.id.btnVolverListadoEstablecimiento)
+        btnVolver = findViewById(R.id.btnEliminarUsu)
 
         btnVolver.setOnClickListener { Volver() }
         btnEliminar.setOnClickListener { Eliminar() }

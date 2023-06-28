@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="292dp"
-        android:layout_height="98dp"
-        app:cardBackgroundColor="#ACBAF6"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="5dp"
+        android:id="@+id/card_view"
+        android:layout_width="258dp"
+        android:layout_height="175dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:cardCornerRadius="20dp"
+        tools:cardElevation="8dp"
+        tools:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,11 +29,11 @@
                 android:id="@+id/imageView8"
                 android:layout_width="45dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="28dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.298"
+                app:layout_constraintVertical_bias="0.494"
                 app:srcCompat="@drawable/insertar_mesa_50" />
 
             <TextView
@@ -42,25 +46,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.737"
+                app:layout_constraintHorizontal_bias="0.644"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.145" />
-
-            <TextView
-                android:id="@+id/tvEstadoMesa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="---"
-                android:textColor="#515151"
-                android:textSize="14dp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.597"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView30"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.425" />
 
             <TextView
                 android:id="@+id/textView30"
@@ -72,10 +61,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.697"
+                app:layout_constraintHorizontal_bias="0.597"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.658" />
+                app:layout_constraintVertical_bias="0.75" />
 
             <TextView
                 android:id="@+id/tvCanAsientos"
@@ -87,9 +76,24 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.597"
+                app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView19"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvEstadoMesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textColor="#515151"
+                android:textSize="14dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -102,10 +106,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.308"
+                app:layout_constraintHorizontal_bias="0.606"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.318" />
+                app:layout_constraintVertical_bias="0.108" />
 
             <TextView
                 android:id="@+id/tvCodMesaListado"
@@ -117,13 +121,12 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.263"
+                app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView37"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

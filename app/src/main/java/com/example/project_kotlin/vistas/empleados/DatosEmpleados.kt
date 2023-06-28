@@ -21,7 +21,6 @@ import com.example.project_kotlin.adaptador.adaptadores.empleado.EmpleadoAdapter
 import com.example.project_kotlin.dao.CargoDao
 import com.example.project_kotlin.dao.EmpleadoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.Empleado
 import com.example.project_kotlin.entidades.EmpleadoUsuarioYCargo
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
@@ -51,12 +50,12 @@ class DatosEmpleados: AppCompatActivity() {
         setContentView(R.layout.man_usuarios)
         btnAgregar = findViewById(R.id.btnNuevoEmpleadoCon)
         imgBorrarFecha = findViewById(R.id.btnBorrarFecha)
-        btnVolver = findViewById(R.id.btnRegresarIndexEmpleado)
+        btnVolver = findViewById(R.id.btnCancelarCategoria)
         spCargos = findViewById(R.id.spnCargoEmpleadoE)
         btnFiltrar = findViewById(R.id.btnAplicarUsu)
-        rvEmpleados = findViewById(R.id.rvEmpleadosConfiguracion)
+        rvEmpleados = findViewById(R.id.rvPlatos)
         btnVolver.setOnClickListener({volver()})
-        tvEtiqueta = findViewById(R.id.tvDatosEmpleadosSinDatos)
+        tvEtiqueta = findViewById(R.id.tvCategoriaSinDatos)
         btnAgregar.setOnClickListener({agregar()})
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()

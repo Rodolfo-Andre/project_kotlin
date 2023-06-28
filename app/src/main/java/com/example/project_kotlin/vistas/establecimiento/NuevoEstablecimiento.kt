@@ -51,11 +51,11 @@ class NuevoEstablecimiento:AppCompatActivity() {
         setContentView(R.layout.agregar_establecimiento)
         conectar()
 
-        edtNombre = findViewById(R.id.edtNombre)
+        edtNombre = findViewById(R.id.edtNomUsuE)
         edtDireccion = findViewById(R.id.edtDireccion)
-        edtRuc = findViewById(R.id.edtRuc)
-        edtTelefono = findViewById(R.id.edtTelefono)
-        btnVolverListadoEstablecimiento = findViewById(R.id.btnCancelarEstablecimiento)
+        edtRuc = findViewById(R.id.edtDniUsuE)
+        edtTelefono = findViewById(R.id.edtCorreoUsuE)
+        btnVolverListadoEstablecimiento = findViewById(R.id.btnEliminarUsu)
         establecimientoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).establecimientoDao()
         btnaAgregarEstablecimiento = findViewById(R.id.btnNuevoEstablecimiento)
 

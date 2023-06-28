@@ -1,26 +1,16 @@
 package com.example.project_kotlin.vistas.platos
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
 import com.example.project_kotlin.adaptador.adaptadores.platos.PlatoAdapter
 import com.example.project_kotlin.dao.CategoriaPlatoDao
 import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
-import com.example.project_kotlin.entidades.CategoriaPlato
-import com.example.project_kotlin.entidades.Plato
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.inicio.ConfiguracionVista
-import com.example.project_kotlin.vistas.platos.NuevoPlato
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DatosPlatos: AppCompatActivity() {
     private lateinit var spnCategoriaPlato:Spinner
@@ -40,11 +30,11 @@ class DatosPlatos: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_platos)
 
-        spnCategoriaPlato = findViewById(R.id.spnCategoriaPlato)
-        edtBuscarPlato = findViewById(R.id.edtBuscarPlato)
-        btnBuscar= findViewById(R.id.btnConsultarPlato)
+        spnCategoriaPlato = findViewById(R.id.spnCargoEmpleadoE)
+        edtBuscarPlato = findViewById(R.id.edtBuscarNombreUsu)
+        btnBuscar= findViewById(R.id.btnAplicarUsu)
         rvPlatos = findViewById(R.id.rvPlatos)
-        btnAgregarPlatos = findViewById(R.id.btnAgregarPlatos)
+        btnAgregarPlatos = findViewById(R.id.btnNuevoUsu)
         btnVolver = findViewById(R.id.btnVolverConfi)
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
         categoriaPlatosDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).categoriaPlatoDao()

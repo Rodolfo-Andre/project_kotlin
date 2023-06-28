@@ -8,5 +8,4 @@ class PlatoDTO (var id: String  = "",
                 var precioPlato: Double,
                 var categoriaPlato : CategoriaPlato
                 ):java.io.Serializable{
-
                 }

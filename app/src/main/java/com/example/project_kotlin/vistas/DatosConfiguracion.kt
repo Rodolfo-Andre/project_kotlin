@@ -7,6 +7,4 @@ class DatosConfiguracion: AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         TODO("Not yet implemented")
     }
-
-
 }
