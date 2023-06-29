@@ -58,9 +58,7 @@ class IndexComandasActivity : AppCompatActivity() {
         }else{
             mostrarToast("No tienes los permisos de administrador")
         }
-
     }
-
     fun vincularCaja(){
         var intent = Intent(this, DatosComprobantes::class.java)
         startActivity(intent)
