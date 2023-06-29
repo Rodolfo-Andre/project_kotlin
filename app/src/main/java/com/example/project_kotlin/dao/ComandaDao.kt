@@ -17,6 +17,9 @@ interface ComandaDao {
     @Query("SELECT * FROM comanda WHERE estado_comanda_id != 2")
     fun ComandasSinPagar() : List<ComandaMesaYEmpleadoYEstadoComanda>
 
+    @Query("SELECT * FROM comanda WHERE empleado_id = :id")
+    fun ComandasDeEmpleado(id: Int) : List<Comanda>
+
      @Query("SELECT * FROM comanda WHERE mesa_id = :mesa_id")
      fun obtenerComandasPorMesa(mesa_id: Int) : List<ComandaMesaYEmpleadoYEstadoComanda>
 

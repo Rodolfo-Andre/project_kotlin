@@ -58,8 +58,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun vincular() {
-        /*val intent = Intent(this@MainActivity, IndexComandasActivity::class.java)
-        startActivity(intent)*/
 
         val email = edtEmail.text.toString()
         val password = edtContraseña.text.toString()

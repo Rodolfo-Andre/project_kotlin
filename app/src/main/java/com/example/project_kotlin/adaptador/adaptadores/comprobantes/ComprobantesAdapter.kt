@@ -13,6 +13,7 @@ import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.categoria_platos.EditCatPlatoActivity
+import com.example.project_kotlin.vistas.facturar.DetallesComprobante
 
 class ComprobantesAdapter (var info :  List<ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago>)
     : RecyclerView.Adapter<VistaItemComprobante>() {
@@ -33,7 +34,7 @@ class ComprobantesAdapter (var info :  List<ComprobanteComandaYEmpleadoYCajaYTip
         var context = holder.itemView.context
 
         holder.itemView.setOnClickListener{
-            var intent = Intent(appConfig.CONTEXT, EditCatPlatoActivity::class.java)
+            var intent = Intent(appConfig.CONTEXT, DetallesComprobante::class.java)
             intent.putExtra("comprobante",info[position])
             ContextCompat.startActivity(context, intent, null)
         }

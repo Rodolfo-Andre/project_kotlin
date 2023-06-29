@@ -2,10 +2,8 @@ package com.example.project_kotlin.adaptador.vistas.establecimiento
 
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project_kotlin.R
-import org.w3c.dom.Text
 
 class VistaItemAgregarEstablecimiento(itemView: View):RecyclerView.ViewHolder(itemView) {
 

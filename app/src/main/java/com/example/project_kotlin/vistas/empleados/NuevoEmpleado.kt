@@ -103,6 +103,7 @@ class NuevoEmpleado:AppCompatActivity() {
                 val fechaFormateada = dateFormat.format(fechaActual)
 
                 val empleados = empleadoDao.obtenerTodo()
+                val telefonoRepetido = empleados.any{it.empleado.empleado.telefonoEmpleado == tel }
                 val dniRepetido = empleados.any{it.empleado.empleado.dniEmpleado == dni}
                 val correoRepetido = empleados.any{it.usuario.correo == correo }
                 if(dniRepetido){
@@ -113,7 +114,10 @@ class NuevoEmpleado:AppCompatActivity() {
                     mostrarToast("El correo ya existe en otro empleado")
                     return@launch
                 }
-
+                if(telefonoRepetido){
+                    mostrarToast("El telefono ya existe en otro empleado")
+                    return@launch
+                }
                 //Crear objeto usuario
                 val usuario = Usuario(correo = correo)
                 usuario.contrasena = usuario.generarContrasenia(apellido)

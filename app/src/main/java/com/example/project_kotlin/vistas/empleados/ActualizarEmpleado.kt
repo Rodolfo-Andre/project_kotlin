@@ -8,9 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
-import com.example.project_kotlin.dao.CargoDao
-import com.example.project_kotlin.dao.EmpleadoDao
-import com.example.project_kotlin.dao.UsuarioDao
+import com.example.project_kotlin.dao.*
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.*
 import com.example.project_kotlin.entidades.dto.EmpleadoDTO
@@ -47,6 +45,8 @@ class ActualizarEmpleado : AppCompatActivity() {
     private lateinit var empleadoBean : EmpleadoUsuarioYCargo
     private lateinit var apiEmpleado : ApiServiceEmpleado
     private lateinit var bd: DatabaseReference
+    private lateinit var comandaDao : ComandaDao
+    private lateinit var comprobanteDao : ComprobanteDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +65,8 @@ class ActualizarEmpleado : AppCompatActivity() {
         cargoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cargoDao()
         empleadoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).empleadoDao()
         usuarioDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).usuarioDao()
+        comandaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comandaDao()
+        comprobanteDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comprobanteDao()
         empleadoBean = intent.getSerializableExtra("empleado") as EmpleadoUsuarioYCargo
         cargarCargos()
         cargarDatos()
@@ -97,13 +99,19 @@ class ActualizarEmpleado : AppCompatActivity() {
 
     }
     fun eliminar(){
-        //VALIDACIÓ NDE NO PODER ELIMINAR EL USUARIO EN SESIÓN FALTA
         val mensaje: AlertDialog.Builder = AlertDialog.Builder(this)
         mensaje.setTitle("Sistema comandas")
         mensaje.setMessage("¿Seguro de eliminar?")
         mensaje.setCancelable(false)
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
+                val listaPedidos = comprobanteDao.ComprobantesEmpleado(empleadoBean.empleado.empleado.id.toInt())
+                val listaComprobante = comandaDao.ComandasDeEmpleado(empleadoBean.empleado.empleado.id.toInt())
+
+                if(listaPedidos.size != 0 || listaComprobante.size != 0){
+                    mostrarToast("No puedes eliminar un empleado que tiene comprobantes o pedidos")
+                    return@launch
+                }
                 empleadoDao.eliminar(empleadoBean.empleado.empleado)
                 usuarioDao.eliminar(empleadoBean.usuario)
                 eliminarEmpleadoMysql(empleadoBean.empleado.empleado.id)
@@ -117,6 +125,8 @@ class ActualizarEmpleado : AppCompatActivity() {
         mensaje.setIcon(android.R.drawable.ic_delete)
         mensaje.show()
     }
+   
+
     fun eliminarEmpleadoMysql(id:Long){
         apiEmpleado.fetcEliminarEmpleado(id.toInt()).enqueue(object: Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -137,6 +147,7 @@ class ActualizarEmpleado : AppCompatActivity() {
                 val cargo = spnCargo.selectedItemPosition +1
                 //AQUÍ TENDRÍA QUE VALIDAR QUE EL USUARIO NO PUEDA MODIFICAR SU CARGO
                 val empleados = empleadoDao.obtenerTodo()
+                val telefonoRepetido = empleados.any{it.empleado.empleado.telefonoEmpleado == tel && it.empleado.empleado.id != empleadoBean.empleado.empleado.id}
                 val dniRepetido = empleados.any{it.empleado.empleado.dniEmpleado == dni && it.empleado.empleado.id != empleadoBean.empleado.empleado.id}
                 val correoRepetido = empleados.any{it.usuario.correo == correo && it.empleado.empleado.id != empleadoBean.empleado.empleado.id}
                 if(dniRepetido){
@@ -145,6 +156,10 @@ class ActualizarEmpleado : AppCompatActivity() {
                 }
                 if(correoRepetido){
                     mostrarToast("El correo ya existe en otro empleado")
+                    return@launch
+                }
+                if(telefonoRepetido){
+                    mostrarToast("El telefono ya existe en otro empleado")
                     return@launch
                 }
                 empleadoBean.empleado.empleado.nombreEmpleado = nombre
