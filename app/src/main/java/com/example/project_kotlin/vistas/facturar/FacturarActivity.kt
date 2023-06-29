@@ -297,7 +297,6 @@ class FacturarActivity: AppCompatActivity() {
             mostrarToast("Comprobante generado")
             cajaIntent()
 
-
         }
     }
     fun grabarComprobanteMySQL(bean: ComprobanteDTO){
