@@ -304,15 +304,18 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
                 val adapter = ArrayAdapter(this@RegistrarComanda, android.R.layout.simple_spinner_item, platos)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 runOnUiThread {
-                spnPlatoC.adapter = adapter
+                    btnAgregarPDetalle.isEnabled = true
+                    spnPlatoC.adapter = adapter
+
                 }
 
             } else {
                 val opcion = "No hay platos"
                 val adapter = ArrayAdapter(this@RegistrarComanda, android.R.layout.simple_spinner_item, arrayOf(opcion)) // Crea un adaptador con la opción única
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) // Establece el layout para las opciones desplegables
-                spnPlatoC.adapter = adapter
+
                 runOnUiThread {
+                    spnPlatoC.adapter = adapter
                     btnAgregarPDetalle.isEnabled = false
                 }
 

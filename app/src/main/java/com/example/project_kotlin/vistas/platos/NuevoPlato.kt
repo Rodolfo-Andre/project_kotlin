@@ -14,6 +14,7 @@ import com.example.project_kotlin.dao.PlatoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.CategoriaPlato
 import com.example.project_kotlin.entidades.Plato
+import com.example.project_kotlin.entidades.PlatoConCategoria
 import com.example.project_kotlin.entidades.dto.PlatoDTO
 import com.example.project_kotlin.entidades.firebase.CategoriaPlatoNoSql
 import com.example.project_kotlin.entidades.firebase.PlatoNoSql
@@ -23,9 +24,11 @@ import com.example.project_kotlin.utils.appConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +48,6 @@ class NuevoPlato : AppCompatActivity() {
     //BASE DE DATOS
     private lateinit var platoDao: PlatoDao
     private lateinit var categoriaPlatoDao: CategoriaPlatoDao
-
     //REST
     lateinit var apiPlato: ApiServicePlato
 
@@ -85,6 +87,7 @@ class NuevoPlato : AppCompatActivity() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+
         btnCancelar.setOnClickListener({ Cancelar() })
         conectar()
         cargarCategoria()
@@ -116,11 +119,20 @@ class NuevoPlato : AppCompatActivity() {
     }
 
     fun Agregar() {
-        if (validarCampos()) {
-            if(imageData!=null){
-                lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (validarCampos()) {
+                if (imageData != null) {
+                    val nombrep = edtNombrePlato.text.toString().trim().lowercase()
+                    val listaPlatos = platoDao.obtenerTodo()
+                    for (plato in listaPlatos) {
+                        val validaplato= plato.plato.nombrePlato.trim().lowercase()
+                        if (nombrep == validaplato) {
+                            mostrarToast("No se puede registrar el mismo plato")
+                            return@launch
+                        }
+                    }
+
                     val codigo = Plato.generarCodigo(platoDao.obtenerTodo())
-                    val nombre = edtNombrePlato.text.toString()
                     val precio = edtPrecioPlato.text.toString().toDouble()
                     val codCatPlato = (spcategoria.selectedItemPosition).toString()
                     val cat = "C-00$codCatPlato"
@@ -129,31 +141,28 @@ class NuevoPlato : AppCompatActivity() {
                     val imageUrl = "data:image/jpeg;base64,$base64String"
 
                     // Crear objeto plato
-                    val platoDTO = PlatoDTO(codigo, nombre, imageUrl, precio, categoriaPlato)
+                    val platoDTO = PlatoDTO(codigo, nombrep, imageUrl, precio, categoriaPlato)
                     grabarPlatoMysql(platoDTO)
 
                     // Guardar en Room
-                    val plato = Plato(codigo, nombre, precio, imageUrl,cat)
+                    val plato = Plato(codigo, nombrep, precio, imageUrl, cat)
                     platoDao.guardar(plato)
 
                     // Guardar en Firebase
                     val numero = codigo.substringAfter('-').toInt()
                     val idCatPlato = numero.toString()
                     val categoriaPlatoNoSql = CategoriaPlatoNoSql(categoriaPlato.categoria)
-                    val platoNoSql = PlatoNoSql(nombre, imageUrl, precio, categoriaPlatoNoSql)
+                    val platoNoSql = PlatoNoSql(nombrep, imageUrl, precio, categoriaPlatoNoSql)
                     bdFirebase.child("plato").child(idCatPlato).setValue(platoNoSql)
 
                     mostrarToast("Plato agregado correctamente")
                     Cancelar()
+                } else {
+                    mostrarToast("Agregar imagen del plato")
                 }
-            }
-
-            else{
-                mostrarToast("Agregar imagen del plato")
             }
         }
     }
-
 
     private fun Cancelar() {
         val intent = Intent(this, DatosPlatos::class.java)
@@ -207,7 +216,6 @@ class NuevoPlato : AppCompatActivity() {
         val spcat = spcategoria.selectedItem
         val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\s]*\$"
         val REGEX_PRECIO = "^[\\d]{1,3}(?:,[\\d]{3})*(?:\\.[\\d]{1,2})?\$"
-
         if (!REGEX_NOMBRE.toRegex().matches(nombre)) {
             // El campo nombre no cumple con el formato esperado
             mostrarToast("Ingrese un nombre iniciado por Mayuscula la primera letra")
@@ -222,6 +230,7 @@ class NuevoPlato : AppCompatActivity() {
             mostrarToast("Seleccione una categoría")
             return false
         }
+
      return true
     }
 }

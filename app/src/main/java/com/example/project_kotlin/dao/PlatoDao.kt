@@ -19,6 +19,9 @@ interface PlatoDao {
     @Query("SELECT * FROM Plato WHERE id = :id")
     fun obtenerPorId(id: String) : Plato
 
+    @Transaction
+    @Query("SELECT * FROM Plato WHERE id = :platoId")
+    fun getPlatoConComandasById(platoId: String): PlatosConComandas
     @Insert
     fun guardar(plato: Plato)
 

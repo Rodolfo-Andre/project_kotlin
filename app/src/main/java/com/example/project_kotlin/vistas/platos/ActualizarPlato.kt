@@ -125,7 +125,12 @@ class ActualizarPlato:AppCompatActivity() {
         mensaje.setCancelable(false)
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
-                platoDao.eliminar(platobean.plato)
+                val platoComanda = platoDao.getPlatoConComandasById(platobean.plato.id)
+                if(platoComanda.comandas.size != 0){
+                    mostrarToast("No se puede eliminar comandados")
+                    return@launch
+                }
+               platoDao.eliminar(platobean.plato)
                 eliminarPlatoMysql(platobean.plato.id)
 
                 val numero = platobean.plato.id.substringAfter('-').toInt()

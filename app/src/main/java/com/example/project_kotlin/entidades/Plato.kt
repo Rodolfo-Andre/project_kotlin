@@ -44,4 +44,11 @@ data class PlatoConCategoria(
     val categoriaPlato: CategoriaPlato
 ):java.io.Serializable
 
-
+data class PlatosConComandas (
+    @Embedded val plato : Plato,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id_plato"
+    )
+    val comandas: List<DetalleComanda>
+)
