@@ -61,6 +61,8 @@ class ActualizarMetodoPago : AppCompatActivity() {
 
         apiMetodoPago = ApiUtils.getAPIServiceMetodoPago()
 
+        comprobanteDao=ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comprobanteDao()
+
         //cargar datos
         metodoPagoBean = intent.getSerializableExtra("metodo_pago") as MetodoPago
         edtNomMetodoPago.setText(metodoPagoBean.nombreMetodoPago)
@@ -73,7 +75,6 @@ class ActualizarMetodoPago : AppCompatActivity() {
     }
 
     fun eliminar() {
-        val numMetodoPago = edtNomMetodoPago.text.toString().toInt()
 
         val mensaje: AlertDialog.Builder = AlertDialog.Builder(this)
         mensaje.setTitle("Sistema de Pagos")
@@ -83,7 +84,7 @@ class ActualizarMetodoPago : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
 
                 //Validar por eliminacion de Comprobante
-                val validarMetodo=comprobanteDao.obtenerComprobantePorMetodoPago(numMetodoPago)
+                val validarMetodo=comprobanteDao.obtenerComprobantePorMetodoPago(metodoPagoBean.id.toInt())
                 if(validarMetodo.isEmpty()) {
 
                     metodoPagoDao.eliminar(metodoPagoBean)
