@@ -23,6 +23,7 @@ import com.example.project_kotlin.vistas.inicio.IndexComandasActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +47,7 @@ class DatosComprobantes : AppCompatActivity(){
     private lateinit var cajaDao : CajaDao
     private lateinit var metodoPagoDao : MetodoPagoDao
     private lateinit var adaptador : ComprobantesAdapter
+    private var decimalFormat = DecimalFormat("0.00")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +125,7 @@ class DatosComprobantes : AppCompatActivity(){
             val sumaPrecio = datosFiltrados.sumOf { it.comprobante.comprobante.comprobante.comprobante.comprobante.precioTotalPedido}
             withContext(Dispatchers.Main){
                 adaptador.actualizarComprobante(datosFiltrados)
-                edtVentaTotal.setText(sumaPrecio.toString())
+                edtVentaTotal.setText(decimalFormat.format(sumaPrecio))
 
             }
         }
@@ -138,7 +140,7 @@ class DatosComprobantes : AppCompatActivity(){
                 listPagos.layoutManager= LinearLayoutManager(this@DatosComprobantes)
                 listPagos.adapter = adaptador
                 val sumaPrecio = datos.sumOf { it.comprobante.comprobante.comprobante.comprobante.comprobante.precioTotalPedido}
-                edtVentaTotal.setText(sumaPrecio.toString())
+                edtVentaTotal.setText(decimalFormat.format(sumaPrecio))
             }
 
 

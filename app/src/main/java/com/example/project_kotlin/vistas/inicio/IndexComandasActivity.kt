@@ -14,7 +14,7 @@ import com.example.project_kotlin.vistas.MainActivity
 import com.example.project_kotlin.vistas.facturar.DatosComprobantes
 import com.example.project_kotlin.vistas.comandas.ComandasVista
 
-class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
+class IndexComandasActivity : AppCompatActivity() {
 
     lateinit var cvConfig : CardView
     lateinit var cvCajaRegis : CardView
@@ -29,10 +29,7 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
         cvCajaRegis = findViewById(R.id.cvCajaRegistradora)
         cvPedidos = findViewById(R.id.cvPedidos)
         btnCerrarSession = findViewById(R.id.btnCerrarSesion)
-        if(VariablesGlobales.empleado?.empleado?.cargo?.id != 1.toLong()){
-            cvConfig.isEnabled = false
 
-        }
         btnCerrarSession.setOnClickListener({cerrarSesion()})
         cvConfig.setOnClickListener({vincularConfig()})
         cvCajaRegis.setOnClickListener({vincularCaja()})
@@ -55,8 +52,13 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun vincularConfig(){
-        var intent = Intent(this, ConfiguracionVista::class.java)
-        startActivity(intent)
+        if(VariablesGlobales.empleado?.empleado?.cargo?.id == 1.toLong()){
+            var intent = Intent(this, ConfiguracionVista::class.java)
+            startActivity(intent)
+        }else{
+            mostrarToast("No tienes los permisos de administrador")
+        }
+
     }
 
     fun vincularCaja(){
@@ -72,7 +74,5 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
-    }
+
 }
