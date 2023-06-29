@@ -198,10 +198,10 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="89dp"
-                android:layout_marginEnd="337dp"
-                android:layout_marginBottom="76dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="83dp"
+                android:layout_marginEnd="333dp"
+                android:layout_marginBottom="82dp"
                 app:srcCompat="@drawable/esta_item40" />
 
         </RelativeLayout>
