@@ -1,88 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="46dp"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Pago por :" />
+
+        <TextView
+            android:id="@+id/tvMetPago"
+            android:layout_width="55dp"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="---" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="69dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_pay" />
+
+        <TextView
+            android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
 
-
-            <View
-                android:id="@+id/divider13"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="46dp"
-                    android:layout_height="37dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Pago por :" />
-
-                <TextView
-                    android:id="@+id/tvMetPago"
-                    android:layout_width="55dp"
-                    android:gravity="center"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="---" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="69dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/icon_pay" />
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView36"
-                android:layout_width="match_parent"
-                android:layout_height="13dp" />
-
-            <View
-                android:id="@+id/divider14"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
