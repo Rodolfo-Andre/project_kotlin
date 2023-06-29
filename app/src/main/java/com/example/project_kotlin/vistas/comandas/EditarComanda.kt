@@ -484,7 +484,6 @@ class EditarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickList
     }
 
     override fun onItemDeleteClick(detalle: DetalleComandaConPlato) {
-        mostrarToast("HOLA")
         val dialog = AlertDialog.Builder(this)
             .setTitle("Eliminar")
             .setMessage("Eliminar detalle")

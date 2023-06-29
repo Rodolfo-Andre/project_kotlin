@@ -137,10 +137,19 @@ class ActualizarMetodoPago : AppCompatActivity() {
 
     @SuppressLint("SuspiciousIndentation")
     fun editar() {
-        val nuevoNombre = edtNomMetodoPago.text.toString()
+        val nuevoNombre = edtNomMetodoPago.text.toString().trim()
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (validarCampos()) {
+                val listarMetodoPago = metodoPagoDao.obtenerTodo()
+                for (pago in listarMetodoPago) {
+                    val validamet = pago.nombreMetodoPago.trim().lowercase()
+                    if (nuevoNombre.lowercase() == validamet && pago.id != metodoPagoBean.id)  {
+                        mostrarToast("El método de pago ya existe")
+                        return@launch
+                    }
+                }
+
                 metodoPagoBean.nombreMetodoPago = nuevoNombre
                     EditarMySql(metodoPagoBean)
                     metodoPagoDao.actualizar(metodoPagoBean)

@@ -39,7 +39,7 @@ class NuevaMesa : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregar_mesa)
-        conectar()
+
         apiMesa = ApiUtils.getAPIServiceMesa()
         btnVolverListadoMesa = findViewById(R.id.btnCancelarAgregarMesa)
         mesaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).mesaDao()
@@ -47,6 +47,7 @@ class NuevaMesa : AppCompatActivity() {
         edCantidadAsientos = findViewById(R.id.edtCanAsientosMesaA)
         btnVolverListadoMesa.setOnClickListener { volver() }
         btnAgregar.setOnClickListener { agregarMesa() }
+        conectar()
     }
 
     fun agregarMesa() {
@@ -61,7 +62,7 @@ class NuevaMesa : AppCompatActivity() {
                 //CREAR NODO RAIZ y nodo de tipo mesa
                 //Los doble signo de exclamación significa que estamos seguros que no será nulo
                 val beanNoSql = MesaNoSql(bean.cantidadAsientos, bean.estado)
-                bdFirebase.child("mesa").child(mesaId.toString()).setValue(beanNoSql)
+                bdFirebase.child("Mesa").child(mesaId.toString()).setValue(beanNoSql)
                 mostrarToast("Mesa agregada correctamente")
                 volver()
             }

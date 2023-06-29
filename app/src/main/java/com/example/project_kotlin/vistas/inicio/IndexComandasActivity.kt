@@ -66,8 +66,12 @@ class IndexComandasActivity : AppCompatActivity() {
 
     //PEDIDOS FALTA
     fun vincularComandas(){
-        var intent = Intent(this, ComandasVista::class.java)
-        startActivity(intent)
+        if(VariablesGlobales.empleado?.empleado?.cargo?.id == 3.toLong()){
+            var intent = Intent(this, ComandasVista::class.java)
+            startActivity(intent)
+        }else{
+            mostrarToast("No tienes los permisos para acceder")
+        }
     }
 
 
