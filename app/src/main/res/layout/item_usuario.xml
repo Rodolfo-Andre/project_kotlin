@@ -113,41 +113,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="145dp"
+                android:layout_marginStart="134dp"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="194dp"
+                android:layout_marginEnd="205dp"
                 android:layout_marginBottom="168dp"
                 android:text="DNI:"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView58"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="145dp"
-                android:layout_marginTop="66dp"
-                android:layout_marginEnd="194dp"
-                android:layout_marginBottom="115dp"
-                android:text="Correo:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvCorreoUsu"
-                android:layout_width="115dp"
-                android:layout_height="19dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="145dp"
-                android:layout_marginTop="85dp"
-                android:layout_marginEnd="133dp"
-                android:layout_marginBottom="96dp"
-                android:text="TextView" />
 
             <TextView
                 android:id="@+id/tvDniUsu"
@@ -157,11 +128,40 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="145dp"
+                android:layout_marginStart="134dp"
                 android:layout_marginTop="33dp"
-                android:layout_marginEnd="138dp"
+                android:layout_marginEnd="149dp"
                 android:layout_marginBottom="146dp"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvCorreoUsu"
+                android:layout_width="115dp"
+                android:layout_height="19dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="134dp"
+                android:layout_marginTop="85dp"
+                android:layout_marginEnd="144dp"
+                android:layout_marginBottom="96dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="134dp"
+                android:layout_marginTop="66dp"
+                android:layout_marginEnd="205dp"
+                android:layout_marginBottom="115dp"
+                android:text="Correo:"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTelfUsu"
