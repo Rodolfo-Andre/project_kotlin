@@ -60,12 +60,12 @@ class NuevoMetodoPago:AppCompatActivity() {
     fun agregarPago() {
         lifecycleScope.launch(Dispatchers.IO){
             if (validarCampos()){
-                val nombre = edtNomPago.text.toString().trim().lowercase()
+                val nombre = edtNomPago.text.toString().trim()
                 val listarMetodoPago = metodoPagoDao.obtenerTodo()
 
                 for (pago in listarMetodoPago) {
                     val validamet = pago.nombreMetodoPago.trim().lowercase()
-                    if (nombre == validamet) {
+                    if (nombre.lowercase() == validamet) {
                         mostrarToast("El método de pago ya existe")
                         return@launch
                     }
