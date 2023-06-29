@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
+import com.example.project_kotlin.dao.ComprobanteDao
 import com.example.project_kotlin.dao.MetodoPagoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.MetodoPago
@@ -34,6 +35,7 @@ class ActualizarMetodoPago : AppCompatActivity() {
     private lateinit var btnEliminarPago: Button
     private lateinit var btnVolverListadoPago: Button
     private lateinit var metodoPagoDao: MetodoPagoDao
+    private lateinit var comprobanteDao: ComprobanteDao
 
     lateinit var  bd: DatabaseReference
 
@@ -71,12 +73,19 @@ class ActualizarMetodoPago : AppCompatActivity() {
     }
 
     fun eliminar() {
+        val numMetodoPago = edtNomMetodoPago.text.toString().toInt()
+
         val mensaje: AlertDialog.Builder = AlertDialog.Builder(this)
         mensaje.setTitle("Sistema de Pagos")
         mensaje.setMessage("¿Seguro de eliminar?")
         mensaje.setCancelable(false)
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
+
+                //Validar por eliminacion de Comprobante
+                val validarMetodo=comprobanteDao.obtenerComprobantePorMetodoPago(numMetodoPago)
+                if(validarMetodo.isEmpty()) {
+
                     metodoPagoDao.eliminar(metodoPagoBean)
                     EliminarMySql(metodoPagoBean)
 
@@ -84,6 +93,9 @@ class ActualizarMetodoPago : AppCompatActivity() {
 
                     mostrarToast("Método de pago eliminado correctamente")
                     volver()
+                }else{
+                    mostrarToast("No puedes eliminar un Metodo de pago que tienen información en Comprobante")
+                }
             }
         }
         mensaje.setNegativeButton("Cancelar") { _, _ -> }

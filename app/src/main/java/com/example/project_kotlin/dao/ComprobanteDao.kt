@@ -13,6 +13,9 @@ interface ComprobanteDao {
     @Query("SELECT * FROM comprobante")
     fun obtenerTodo(): List<ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago>
 
+    @Query("SELECT * FROM comprobante WHERE metodopago_id = :metodopago_id")
+    fun obtenerComprobantePorMetodoPago(metodopago_id: Int) : List<Comprobante>
+
     @Query("SELECT * FROM comprobante WHERE id = :id")
      fun obtenerPorId(id: Long) : Comprobante
     @Query("SELECT * FROM comprobante WHERE empleado_id = :id")
