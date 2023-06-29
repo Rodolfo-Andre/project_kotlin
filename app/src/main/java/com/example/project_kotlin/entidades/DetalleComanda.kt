@@ -8,7 +8,8 @@ import org.jetbrains.annotations.NotNull
         ForeignKey(
             entity = Comanda::class,
             parentColumns = ["id"],
-            childColumns = ["comanda_id"]
+            childColumns = ["comanda_id"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = Plato::class,

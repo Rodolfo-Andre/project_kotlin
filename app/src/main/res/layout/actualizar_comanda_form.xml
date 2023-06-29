@@ -268,6 +268,18 @@
                     android:text="Facturar"
                     android:textColor="@android:color/white" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="179dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEliminarComanda"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Eliminar" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

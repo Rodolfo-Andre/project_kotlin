@@ -113,7 +113,6 @@ abstract class ComandaDatabase : RoomDatabase() {
                             bdFirebase.child("categoria").child("4").setValue(CategoriaPlatoNoSql("Sopas"))
 
 
-                            platoDao?.guardar(Plato("P-001", "Prueba", 22.5, "", "C-001"))
                             //Establecimiento
                             establecimientoDao?.guardar(
                                 Establecimiento(1, "Establecimiento1",
