@@ -46,14 +46,14 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/spnCaja"
+                android:id="@+id/spnCajaComprobantes"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.1"
                 android:entries="@array/cajas" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBuscar"
+                android:id="@+id/btnBuscarComprobantes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +86,7 @@
                     android:textColorHint="@color/placeholder_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtFechaEmision"
+                        android:id="@+id/edtFechaEmisionComprobantes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number" />
@@ -106,7 +106,7 @@
                     android:textColorHint="@color/placeholder_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPrecioInicial"
+                        android:id="@+id/edtPrecioInicialComprobantes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal" />
@@ -122,7 +122,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/spnMetPago"
+                    android:id="@+id/spnMetPagoComprobantes"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="3dp"
@@ -142,7 +142,7 @@
                     android:textColorHint="@color/placeholder_text">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPrecioFin"
+                        android:id="@+id/edtPrecioFinComprobantes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal" />
@@ -172,8 +172,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tvDatosComprobantes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listPagos"
+                    android:id="@+id/rvComprobantes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -210,7 +218,7 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtVentaTotal"
+                    android:id="@+id/edtVentaTotalComprobantes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
@@ -231,7 +239,7 @@
             android:background="?attr/dividerColor" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVolver"
+            android:id="@+id/btnVolverListadoComprobantes"
             android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

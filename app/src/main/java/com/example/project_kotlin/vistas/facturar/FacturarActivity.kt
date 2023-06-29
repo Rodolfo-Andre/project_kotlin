@@ -19,7 +19,6 @@ import com.example.project_kotlin.service.ApiServiceMesa
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.caja_registradora.CajaVista
 import com.example.project_kotlin.vistas.comandas.ComandasVista
 import com.example.project_kotlin.vistas.comandas.EditarComanda
 import com.google.firebase.FirebaseApp
@@ -332,7 +331,7 @@ class FacturarActivity: AppCompatActivity() {
     }
     fun cajaIntent(){
         if(VariablesGlobales.empleado?.empleado?.cargo?.id?.toInt() == 3){
-            val intent = Intent(this, CajaVista::class.java)
+            val intent = Intent(this, DatosComprobantes::class.java)
             startActivity(intent)
             finish()
         }else{

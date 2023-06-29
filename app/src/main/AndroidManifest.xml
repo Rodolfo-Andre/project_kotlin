@@ -140,7 +140,7 @@
         <!--CAJA ACTIVITY-->
 
         <activity
-            android:name=".vistas.caja_registradora.CajaVista"
+            android:name=".vistas.facturar.DatosComprobantes"
             android:exported="true">
         </activity>
 

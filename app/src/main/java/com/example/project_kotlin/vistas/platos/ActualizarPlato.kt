@@ -65,7 +65,7 @@ class ActualizarPlato:AppCompatActivity() {
         btnEditar= findViewById(R.id.btnNuevoUsu)
         btnCancelar= findViewById(R.id.btnCancelarCategoria)
         btnEliminar = findViewById(R.id.btnEliminar)
-        btnImagenPlato = findViewById(R.id.btnBuscar)
+        btnImagenPlato = findViewById(R.id.btnBuscarComprobantes)
 
         //BASES DE DATOS
         platoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).platoDao()
