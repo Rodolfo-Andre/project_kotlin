@@ -308,7 +308,7 @@
             android:background="?attr/dividerColor" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVolver"
+            android:id="@+id/btnVolverListadoComprobantes"
             android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

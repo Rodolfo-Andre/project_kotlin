@@ -97,10 +97,10 @@
         android:layout_marginEnd="45dp"
         android:background="@drawable/style_spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBuscar" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBuscarComprobantes" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnBuscar"
+        android:id="@+id/btnBuscarComprobantes"
         style="@android:style/Widget.Button"
         android:layout_width="200dp"
         android:layout_height="30dp"

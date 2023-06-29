@@ -19,7 +19,6 @@ import com.example.project_kotlin.service.ApiServiceMesa
 import com.example.project_kotlin.utils.ApiUtils
 import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
-import com.example.project_kotlin.vistas.caja_registradora.CajaVista
 import com.example.project_kotlin.vistas.comandas.ComandasVista
 import com.example.project_kotlin.vistas.comandas.EditarComanda
 import com.google.firebase.FirebaseApp
@@ -272,10 +271,11 @@ class FacturarActivity: AppCompatActivity() {
             comandaNoSql.listaDetalleComanda = detalleComandaNoSql
             bdFirebase.child("comanda").child(comandaRecibida.id.toString()).setValue(comandaNoSql)
             //GENERAR CDP MYSQL
-            val comandaMySQL = ComprobanteDTO(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
+            val comprobanteMySql = ComprobanteDTO(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
             descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaDTO, empleado = empleadoDTO,
-            caja = caja, metodoPago = metodoPago, tipoComprobante = tipoComprobante)
-            grabarComprobanteMySQL(comandaMySQL)
+            caja = caja, metodopago = metodoPago, tipoComprobante = tipoComprobante)
+            Log.d("COMPROBANTE", "" + comprobanteMySql)
+            grabarComprobanteMySQL(comprobanteMySql)
             //GENERAR CDP FIREBASE
             val empleadoSESION = EmpleadoGlobal.empleado.empleado
             val empleadoNoSqlFactura : EmpleadoNoSql = EmpleadoNoSql(empleadoSESION.nombreEmpleado,empleadoSESION.apellidoEmpleado, empleadoSESION.telefonoEmpleado, empleadoSESION.dniEmpleado, empleadoSESION.fechaRegistro,
@@ -293,6 +293,8 @@ class FacturarActivity: AppCompatActivity() {
             val comprobanteNoSql = ComprobanteNoSql(fechaEmision = fechaFormateada, precioTotalPedido = totalPagar, igv = igv, subTotal = subTOTAL,
                 descuento = descuento!!, nombreCliente = clienteNombre, comanda = comandaNoSql, empleado = empleadoNoSqlFactura,
                 caja = CajaNoSql(establecimientoNoSql!!), metodoPago = MetodoPagoNoSql(metodoPago.nombreMetodoPago), tipoComprobante = TipoComprobanteNoSql(tipoComprobante.tipo))
+            bdFirebase.child("comprobante").child(idCDP.toString()).setValue(comprobanteNoSql)
+
             mostrarToast("Comprobante generado")
             cajaIntent()
 
@@ -329,7 +331,7 @@ class FacturarActivity: AppCompatActivity() {
     }
     fun cajaIntent(){
         if(VariablesGlobales.empleado?.empleado?.cargo?.id?.toInt() == 3){
-            val intent = Intent(this, CajaVista::class.java)
+            val intent = Intent(this, DatosComprobantes::class.java)
             startActivity(intent)
             finish()
         }else{

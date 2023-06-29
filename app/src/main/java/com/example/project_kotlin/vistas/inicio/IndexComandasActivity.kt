@@ -2,8 +2,6 @@ package com.example.project_kotlin.vistas.inicio
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -13,9 +11,8 @@ import com.example.project_kotlin.R
 import com.example.project_kotlin.utils.VariablesGlobales
 import com.example.project_kotlin.utils.appConfig
 import com.example.project_kotlin.vistas.MainActivity
-import com.example.project_kotlin.vistas.caja_registradora.CajaVista
+import com.example.project_kotlin.vistas.facturar.DatosComprobantes
 import com.example.project_kotlin.vistas.comandas.ComandasVista
-import com.example.project_kotlin.vistas.ReporteVista
 
 class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -63,7 +60,7 @@ class IndexComandasActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun vincularCaja(){
-        var intent = Intent(this, CajaVista::class.java)
+        var intent = Intent(this, DatosComprobantes::class.java)
         startActivity(intent)
     }
 

@@ -13,8 +13,6 @@ class VistaItemComanda (itemView: View): RecyclerView.ViewHolder(itemView) {
     var tvFechaCList: TextView
     var tvEstadoList: TextView
 
-
-
     //Vincular
     init {
         tvComandaIdList = itemView.findViewById(R.id.tvComandaIdList)
