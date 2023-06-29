@@ -1,5 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string name="app_name">project_kotlin</string>
+    <string name="app_name">Sistema Comanda</string>
     <string name="extended_fab_content_desc">Descripción del botón de acción flotante extendido</string>
     <string name="extended_fab_label">Botón de acción flotante extendido</string>
     <string name="textview_title">Título del TextView</string>

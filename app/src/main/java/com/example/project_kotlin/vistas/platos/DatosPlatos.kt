@@ -34,8 +34,6 @@ class DatosPlatos: AppCompatActivity() {
     private lateinit var categoriaPlatosDao: CategoriaPlatoDao
     private lateinit var adaptador : PlatoAdapter
 
-
-    private var estadoCatFiltro : String = "Seleccionar Categoria"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_platos)
@@ -80,31 +78,33 @@ class DatosPlatos: AppCompatActivity() {
             }
         }
     }
-
     fun filtrar(nombreplato: EditText) {
-        if (validarCampos()) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val datos = platoDao.obtenerTodo()
-                var datosFiltrados: List<PlatoConCategoria> = datos
-                val nombrecat = spnCategoriaPlato.selectedItem.toString()
 
-                if (nombrecat.isNullOrEmpty() ) {
-                    datosFiltrados = datosFiltrados.filter { plato -> plato.categoriaPlato.categoria == nombrecat }
+        val idcategoria = spnCategoriaPlato.selectedItemId
+        val nombre = edtBuscarPlato.text
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                var datos = platoDao.obtenerTodo()
+                var datosFiltrados: List<PlatoConCategoria> = datos
+                if (idcategoria.toInt() != 0 ) {
+                    val idCategoria = "C-00$idcategoria"
+                    datosFiltrados =
+                        datosFiltrados.filter { plato -> plato.categoriaPlato.id == idCategoria.toString() }
                 }
-                if (!nombreplato.text.toString().isNullOrBlank()) {
-                    datosFiltrados = datosFiltrados.filter { plato -> plato.plato.nombrePlato == nombreplato.text.toString() }
+                if (!nombre.isNullOrEmpty() && nombre.matches(Regex("^[a-zA-Z ]+\$"))) {
+                    datosFiltrados = datosFiltrados.filter { plato -> plato.plato.nombrePlato.contains(nombre, ignoreCase = true)  }
+                }else if(!nombre.isNullOrEmpty()){
+                    // El campo de nombre contiene caracteres no permitidos
+                    mostrarToast("Ingrese solo texto en el nombre")
                 }
                 withContext(Dispatchers.Main) {
                     if (datosFiltrados.isNotEmpty()) {
                         adaptador.actualizarPlatos(datosFiltrados)
                     } else {
-
                         mostrarToast("No se encontraron registros")
                     }
                 }
             }
-
-        }
 
     }
 
@@ -141,15 +141,7 @@ class DatosPlatos: AppCompatActivity() {
             spnCategoriaPlato.adapter = adapter
         }
     }
-    fun validarCampos() : Boolean{
-        val spcat = spnCategoriaPlato.selectedItem
 
-        if (spcat == estadoCatFiltro) {
-            mostrarToast("Seleccione una categoría")
-            return false
-        }
-        return true
-    }
 
     private fun mostrarToast(mensaje: String) {
         runOnUiThread {

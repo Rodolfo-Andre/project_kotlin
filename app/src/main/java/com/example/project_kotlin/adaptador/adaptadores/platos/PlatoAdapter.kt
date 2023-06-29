@@ -29,8 +29,11 @@ class PlatoAdapter(var info: List<PlatoConCategoria>) : RecyclerView.Adapter<Vis
 
     override fun onBindViewHolder(holder: VistaItemPlato, position: Int) {
 
+
         holder.tvCodPlato.text = info.get(position).plato.id
-        holder.tvNombrePlato.text = info.get(position).plato.nombrePlato
+
+        holder.tvNombrePlato.text = validarLongitudNombrePlato(info.get(position).plato.nombrePlato)
+
         holder.tvPrecioPlato.text = info.get(position).plato.precioPlato.toString()
         holder.tvCatNomPlato.text = info.get(position).categoriaPlato.categoria
         Glide.with(holder.itemView)
@@ -53,5 +56,15 @@ class PlatoAdapter(var info: List<PlatoConCategoria>) : RecyclerView.Adapter<Vis
     fun actualizarPlatos(info:List<PlatoConCategoria>){
         this.info = info
         notifyDataSetChanged()
+    }
+    fun validarLongitudNombrePlato(nombrePlato: String): String {
+        val MAX_LONGITUD = 10
+        val ACORTAR = 7
+
+        return if (nombrePlato.length > MAX_LONGITUD) {
+            nombrePlato.substring(0, ACORTAR) + "..."
+        } else {
+            nombrePlato
+        }
     }
 }

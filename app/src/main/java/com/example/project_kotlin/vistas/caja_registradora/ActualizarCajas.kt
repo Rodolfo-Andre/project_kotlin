@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.project_kotlin.R
 import com.example.project_kotlin.dao.CajaDao
+import com.example.project_kotlin.dao.ComprobanteDao
 import com.example.project_kotlin.dao.EstablecimientoDao
 import com.example.project_kotlin.db.ComandaDatabase
 import com.example.project_kotlin.entidades.Caja
@@ -42,6 +43,7 @@ class ActualizarCajas  : AppCompatActivity(){
     private lateinit var edtCodigoCajaEdit: EditText
     private lateinit var spnEstablecimientoEdit: Spinner
     private lateinit var CajaDao: CajaDao
+    private lateinit var ComprobanteDao: ComprobanteDao
     private lateinit var establecimientoDao: EstablecimientoDao
     private lateinit var cajabean: Caja
 
@@ -56,6 +58,7 @@ class ActualizarCajas  : AppCompatActivity(){
         btnVolverListadoCaja = findViewById(R.id.btnVolverListadoCaja)
         edtCodigoCajaEdit = findViewById(R.id.edtCodigoCajaEdit)
         CajaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
+        ComprobanteDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).comprobanteDao()
         btnEditarCaja = findViewById(R.id.btnEditarCaja)
         btnEliminarCaja = findViewById(R.id.btnEliminarCaja)
         spnEstablecimientoEdit = findViewById(R.id.spnEstablecimientoEdit)
@@ -165,15 +168,19 @@ class ActualizarCajas  : AppCompatActivity(){
         mensaje.setCancelable(false)
         mensaje.setPositiveButton("Aceptar") { _, _ ->
             lifecycleScope.launch(Dispatchers.IO) {
-                //val validarComanda = CajaDao.obtenerCajaConComprobantes()
+                val validarComprobante = ComprobanteDao.ComprobanteCaja(CodCaja)
+                if(validarComprobante.isEmpty()){
+                    // Eliminar en la base de datos local
+                    CajaDao.eliminar(cajabean)
+                    // Eliminar en el servidor MySQL
+                    EliminarMySql(CodCaja)
+                    bd.child("caja").child(cajabean.id).removeValue()
+                    mostrarToast("Caja eliminada")
+                    volver()
+                }else{
+                    mostrarToast("No puedes eliminar una Caja que tiene informacion en comprobante")
+                }
 
-                // Eliminar en la base de datos local
-                CajaDao.eliminar(cajabean)
-                // Eliminar en el servidor MySQL
-                EliminarMySql(CodCaja)
-                bd.child("caja").child(cajabean.id).removeValue()
-                mostrarToast("Caja eliminada")
-                volver()
             }
         }
         mensaje.setNegativeButton("Cancelar") { _, _ -> }

@@ -35,6 +35,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,6 +55,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
     private lateinit var btnRegresarCR : Button
     private lateinit var bdFirebase : DatabaseReference
     private lateinit var apiComanda : ApiServiceComanda
+
     //BASE DE DATOS
     private lateinit var mesaDao : MesaDao
     private lateinit var comandaDao : ComandaDao

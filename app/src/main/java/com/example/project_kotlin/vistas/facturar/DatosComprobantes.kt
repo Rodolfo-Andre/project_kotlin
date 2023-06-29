@@ -3,6 +3,7 @@ package com.example.project_kotlin.vistas.facturar
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -67,10 +68,13 @@ class DatosComprobantes : AppCompatActivity(){
         cajaDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).cajaDao()
         metodoPagoDao = ComandaDatabase.obtenerBaseDatos(appConfig.CONTEXT).metodoPagoDao()
         btnBuscar.setOnClickListener{filtrar()}
+        imgBorrarFecha = findViewById(R.id.btnBorrarF)
         //AGREGAR LA IMAGEN
-        /*imgBorrarFecha.setOnClickListener{
+        imgBorrarFecha.setOnClickListener{
             edtFechaEmision.setText("")
-        }*/
+        }
+        edtFechaEmision.inputType = InputType.TYPE_NULL
+
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             this@DatosComprobantes,

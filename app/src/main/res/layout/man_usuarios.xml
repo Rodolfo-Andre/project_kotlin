@@ -96,6 +96,7 @@
         android:layout_marginTop="14dp"
         android:background="@drawable/edittext_background"
         android:ems="10"
+
         android:hint=" dd / mm / yyyy"
         android:inputType="textPersonName"
         android:textColor="#BDBDBD"
