@@ -17,6 +17,6 @@ class DetallesComprobante : AppCompatActivity() {
         setContentView(R.layout.actualizar_comanda_form)
         comprobantelobal = intent.getSerializableExtra("comprobante") as ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago
 
-        comprobante
+
     }
 }

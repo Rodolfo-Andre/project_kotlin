@@ -101,10 +101,12 @@ class DatosComprobantes : AppCompatActivity(){
         lifecycleScope.launch(Dispatchers.IO){
             var datos = comprobanteDao.obtenerTodo()
             var datosFiltrados : List<ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago> = datos
-            if (precioInicio != null && precioFinal != null) {
+            if (precioInicio != null || precioFinal != null) {
                 datosFiltrados = datosFiltrados.filter { comprobante ->
                     val precioTotal = comprobante.comprobante.comprobante.comprobante.comprobante.comprobante.precioTotalPedido
-                    precioTotal in precioInicio..precioFinal
+                    val cumpleRangoInicio = precioInicio == null || precioTotal >= precioInicio
+                    val cumpleRangoFinal = precioFinal == null || precioTotal <= precioFinal
+                    cumpleRangoInicio && cumpleRangoFinal
                 }
             }
             if(metodoPagoId != 0){
