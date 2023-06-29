@@ -222,9 +222,7 @@ class NuevoPlato : AppCompatActivity() {
             mostrarToast("Seleccione una categoría")
             return false
         }
-
-
-        return true
+     return true
     }
 }
 
