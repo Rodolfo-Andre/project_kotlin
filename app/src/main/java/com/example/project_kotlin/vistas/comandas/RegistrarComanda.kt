@@ -225,9 +225,10 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             lifecycleScope.launch(Dispatchers.IO){
                 //Obtener el plato
                 val cantidadInicialPlatos = detalleComandaGlobal.size
-                val numero = (spnPlatoC.selectedItemPosition+1)
-                val idPlato = "P-${String.format("%03d", numero)}"
-                val platoDato = platoDao.obtenerPorId(idPlato)
+
+                val nombre = spnPlatoC.selectedItem.toString()
+                Log.d("Plato", "" + nombre)
+                val platoDato = platoDao.obtenerPorNombre(nombre)
 
                 val cantidadValidar = edtCantidadPlatoC.text.toString().toIntOrNull()
                 if(cantidadValidar == null || cantidadValidar !in 1..50) {
@@ -245,7 +246,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
                     detalleExistente.detalle.observacion += observacion
                     detalleExistente.detalle.cantidadPedido+= cantidadPedido
                 }else {
-                    val detalle = DetalleComanda(comandaId = 0, cantidadPedido = cantidadPedido, precioUnitario = precioUnitario, idPlato = idPlato, observacion = observacion)
+                    val detalle = DetalleComanda(comandaId = 0, cantidadPedido = cantidadPedido, precioUnitario = precioUnitario, idPlato = platoDato.id, observacion = observacion)
                     val detalleAgregar = DetalleComandaConPlato(detalle, platoDato)
                     detalleComandaGlobal.add(detalleAgregar)
                 }
