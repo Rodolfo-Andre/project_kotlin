@@ -260,7 +260,6 @@ class FacturarActivity: AppCompatActivity() {
             val comandaDTO = ComandaDTO(comandaId.toLong(), comandaRecibida.cantidadAsientos, subTOTAL, comandaRecibida.fechaRegistro,
             comandabean.comanda.comanda.mesa, comandabean.estadoComanda, empleadoDTO)
             comandaDTO.listaDetalleComanda = detalleComandaDTOS
-            actualizarComanda(comandaDTO)
             //FIREBASE COMANDA
             val empleadoNoSql : EmpleadoNoSql = EmpleadoNoSql(empleado.empleado.empleado.nombreEmpleado,empleado.empleado.empleado.apellidoEmpleado,
                 empleado.empleado.empleado.telefonoEmpleado, empleado.empleado.empleado.dniEmpleado, empleado.empleado.empleado.fechaRegistro,
@@ -320,15 +319,7 @@ class FacturarActivity: AppCompatActivity() {
             }
         })
     }
-    fun actualizarComanda(bean: ComandaDTO){
-        apiComanda.fetchActualizarComanda(bean).enqueue(object: Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-            }
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("Error : ",t.toString())
-            }
-        })
-    }
+
     fun cajaIntent(){
         if(VariablesGlobales.empleado?.empleado?.cargo?.id?.toInt() == 3){
             val intent = Intent(this, DatosComprobantes::class.java)

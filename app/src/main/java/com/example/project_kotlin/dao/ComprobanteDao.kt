@@ -2,6 +2,7 @@ package com.example.project_kotlin.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.project_kotlin.entidades.Comanda
 import com.example.project_kotlin.entidades.Comprobante
 import com.example.project_kotlin.entidades.ComprobanteComandaYEmpleadoYCajaYTipoComprobanteYMetodoPago
 
@@ -14,6 +15,8 @@ interface ComprobanteDao {
 
     @Query("SELECT * FROM comprobante WHERE id = :id")
      fun obtenerPorId(id: Long) : Comprobante
+    @Query("SELECT * FROM comprobante WHERE empleado_id = :id")
+    fun ComprobantesEmpleado(id: Int) : List<Comprobante>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun guardar(comprobante: Comprobante) : Long
