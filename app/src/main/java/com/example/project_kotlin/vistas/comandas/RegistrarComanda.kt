@@ -107,7 +107,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
 
-        if(cantCli == null || cantCli > 15){
+
+        if(cantCli == null ||  cantCli !in 1..15){
             mostrarToast("Debes ingresar la cantidad de clientes y debe ser menor a 15")
             return
         }
@@ -119,7 +120,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             val mesa = mesaDao.obtenerPorId(numMesa.toLong())
 
             val comandaAgregar = Comanda(cantidadAsientos = cantCli, precioTotal = sumaPrecio, mesaId = numMesa.toInt(),
-                estadoComandaId = 1, fechaRegistro = fechaFormateada, empleadoId = 1)
+                estadoComandaId = 1, fechaRegistro = fechaFormateada, empleadoId = VariablesGlobales.empleado?.empleado?.empleado?.id?.toInt()!!)
             val idComanda = comandaDao.guardar(comandaAgregar)
             //MYSQL - QUE TERRIBLE CÓDIGO D':
             //ACTUALIZAR MESA
@@ -224,13 +225,14 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
             lifecycleScope.launch(Dispatchers.IO){
                 //Obtener el plato
                 val cantidadInicialPlatos = detalleComandaGlobal.size
-                val numero = (spnPlatoC.selectedItemPosition+1)
-                val idPlato = "P-${String.format("%03d", numero)}"
-                val platoDato = platoDao.obtenerPorId(idPlato)
+
+                val nombre = spnPlatoC.selectedItem.toString()
+                Log.d("Plato", "" + nombre)
+                val platoDato = platoDao.obtenerPorNombre(nombre)
 
                 val cantidadValidar = edtCantidadPlatoC.text.toString().toIntOrNull()
-                if(cantidadValidar == null) {
-                    mostrarToast("Ingrese una cantidad")
+                if(cantidadValidar == null || cantidadValidar !in 1..50) {
+                    mostrarToast("Ingrese una cantidad valida entre 1 a 50")
                     return@launch
                 }
                 //Obtener valores de los inputs
@@ -244,7 +246,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
                     detalleExistente.detalle.observacion += observacion
                     detalleExistente.detalle.cantidadPedido+= cantidadPedido
                 }else {
-                    val detalle = DetalleComanda(comandaId = 0, cantidadPedido = cantidadPedido, precioUnitario = precioUnitario, idPlato = idPlato, observacion = observacion)
+                    val detalle = DetalleComanda(comandaId = 0, cantidadPedido = cantidadPedido, precioUnitario = precioUnitario, idPlato = platoDato.id, observacion = observacion)
                     val detalleAgregar = DetalleComandaConPlato(detalle, platoDato)
                     detalleComandaGlobal.add(detalleAgregar)
                 }
@@ -304,16 +306,14 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
                 val adapter = ArrayAdapter(this@RegistrarComanda, android.R.layout.simple_spinner_item, platos)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 runOnUiThread {
-                    btnAgregarPDetalle.isEnabled = true
-                    spnPlatoC.adapter = adapter
-
+                btnAgregarPDetalle.isEnabled = true
+                spnPlatoC.adapter = adapter
                 }
 
             } else {
                 val opcion = "No hay platos"
                 val adapter = ArrayAdapter(this@RegistrarComanda, android.R.layout.simple_spinner_item, arrayOf(opcion)) // Crea un adaptador con la opción única
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) // Establece el layout para las opciones desplegables
-
                 runOnUiThread {
                     spnPlatoC.adapter = adapter
                     btnAgregarPDetalle.isEnabled = false
@@ -389,6 +389,7 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         spnPlatoC.visibility = View.GONE
         spnCategoriaPlatoC.visibility = View.GONE
         val edtCantidadPlatoC : EditText = dialog.findViewById(R.id.edtCantidadPlatoC)
+
         val edtObservacionPlatoD : EditText = dialog.findViewById(R.id.edtObservacionPlatoD)
         btnAgregarPDetalle  = dialog.findViewById(R.id.btnRegistrarPlatoD)
         btnAgregarPDetalle.setText("Modificar plato")
@@ -402,8 +403,8 @@ class RegistrarComanda : AppCompatActivity(), DetalleComandaAdapter.OnItemClickL
         btnAgregarPDetalle.setOnClickListener{
             val cantidad = edtCantidadPlatoC.text.toString().toIntOrNull()
             val observacion = edtObservacionPlatoD.text.toString()
-            if(cantidad == null){
-                mostrarToast("Debes ingresar una cantidad")
+            if(cantidad == null || cantidad !in 1..50) {
+                mostrarToast("Ingrese una cantidad valida entre 1 a 50")
                 return@setOnClickListener
             }
             val detalleExistente = detalleComandaGlobal.find{ it.plato.id == detalle.plato.id}
