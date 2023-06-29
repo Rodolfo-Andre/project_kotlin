@@ -116,7 +116,7 @@
 
         android:layout_marginEnd="76dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/total_fact28"
         android:editable="false"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -134,7 +134,7 @@
 
         android:layout_marginEnd="79dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/impuestos28"
         android:editable="false"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -152,7 +152,7 @@
 
         android:layout_marginEnd="68dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/cliente_fac28"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="#BDBDBD"
@@ -182,7 +182,7 @@
 
         android:layout_marginEnd="54dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/descuento28"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColor="#BDBDBD"
@@ -199,7 +199,7 @@
 
         android:layout_marginEnd="60dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/total_fact28"
         android:editable="false"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -230,7 +230,7 @@
 
         android:layout_marginEnd="58dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/telfo28"
+        android:drawableEnd="@drawable/empleado_iscon28"
         android:editable="false"
         android:ems="10"
         android:inputType="textPersonName"
@@ -333,7 +333,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="58dp"
         android:background="@drawable/edittext_background"
-        android:drawableEnd="@drawable/ubi_m28"
+        android:drawableEnd="@drawable/comanda_icon28"
         android:editable="false"
         android:ems="10"
         android:inputType="number"
