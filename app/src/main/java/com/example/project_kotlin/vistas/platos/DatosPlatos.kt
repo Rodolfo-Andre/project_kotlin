@@ -1,5 +1,6 @@
 package com.example.project_kotlin.vistas.platos
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
@@ -78,6 +79,7 @@ class DatosPlatos: AppCompatActivity() {
             }
         }
     }
+    @SuppressLint("SuspiciousIndentation")
     fun filtrar(nombreplato: EditText) {
 
         val idcategoria = spnCategoriaPlato.selectedItemId

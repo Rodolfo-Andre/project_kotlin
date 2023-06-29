@@ -74,17 +74,32 @@ class NuevoEstablecimiento:AppCompatActivity() {
                 val ruc=edtRuc.text.toString()
                 val telefono=edtTelefono.text.toString()
 
+
+                val establecimineto=establecimientoDao.obtener()
+                val rucRepetido=establecimineto.any { it.rucestablecimiento==ruc}
+                val direccionRepetida=establecimineto.any { it.direccionestablecimiento==direccion}
+
+                if(rucRepetido){
+                    mostrarToast("El ruc se repite")
+                    return@launch
+                }
+                if(direccionRepetida){
+                    mostrarToast("La direccion se repite")
+                    return@launch
+                }
+
+
                 val bean= Establecimiento(nomEstablecimiento = nombre,
                     direccionestablecimiento = direccion,
-                                          rucestablecimiento = ruc,
-                                          telefonoestablecimiento = telefono)
+                    rucestablecimiento = ruc,
+                    telefonoestablecimiento = telefono)
                 val establecimientoid=establecimientoDao.guardar(bean)
 
                 agregarEstablecimientoMySql(bean)
 
                 //CRto
                 val beanNoSql = EstablecimientoNoSql(bean.nomEstablecimiento,bean.telefonoestablecimiento,
-                                                    bean.direccionestablecimiento,bean.rucestablecimiento)
+                    bean.direccionestablecimiento,bean.rucestablecimiento)
                 bd.child("establecimiento").child(establecimientoid.toString()).setValue(beanNoSql).addOnCompleteListener{
                     mostrarToast("Establecimiento agregado correctamente")
                 }
@@ -96,7 +111,6 @@ class NuevoEstablecimiento:AppCompatActivity() {
         }
 
     }
-
     fun agregarEstablecimientoMySql(bean:Establecimiento) {
         apiEstablecimiento.fetchGuardarEstablecimiento(bean).enqueue(object:Callback<Void>{
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {

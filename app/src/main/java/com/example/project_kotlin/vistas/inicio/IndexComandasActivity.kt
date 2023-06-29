@@ -66,7 +66,7 @@ class IndexComandasActivity : AppCompatActivity() {
 
     //PEDIDOS FALTA
     fun vincularComandas(){
-        if(VariablesGlobales.empleado?.empleado?.cargo?.id == 3.toLong()){
+        if(VariablesGlobales.empleado?.empleado?.cargo?.id != 3.toLong()){
             var intent = Intent(this, ComandasVista::class.java)
             startActivity(intent)
         }else{
