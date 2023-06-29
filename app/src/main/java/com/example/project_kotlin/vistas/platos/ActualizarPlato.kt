@@ -151,7 +151,8 @@ class ActualizarPlato:AppCompatActivity() {
         if (validarCampos()) {
             if (imageData1 != null) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val nombre = edtNamePlato.text.toString()
+
+                    val nombre = edtNamePlato.text.toString().trim()
                     val precio = edtPrePlato.text.toString().toDouble()
                     val codCatPlato = spCatplato.selectedItemPosition +1
                     val cat = "C-00$codCatPlato"
@@ -159,6 +160,13 @@ class ActualizarPlato:AppCompatActivity() {
                         android.util.Base64.encodeToString(imageData1!!, android.util.Base64.DEFAULT)
                     val imageUrl = "data:image/jpeg;base64,$base64String"
 
+                    //validando
+                    val platsvali = platoDao.obtenerTodo()
+                    val nombreplatoRepetido = platsvali.any{it.plato.nombrePlato ==nombre && it.plato.id != platobean.plato.id }
+                            if(nombreplatoRepetido){
+                                mostrarToast("El Plato ya existe en otro plato")
+                                return@launch
+                            }
                     platobean.plato.nombrePlato = nombre
                     platobean.plato.nombreImagen = imageUrl
                     platobean.plato.precioPlato = precio
@@ -180,11 +188,18 @@ class ActualizarPlato:AppCompatActivity() {
                 }
             } else {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val nombre = edtNamePlato.text.toString()
+                    val nombre = edtNamePlato.text.toString().trim()
+
                     val precio = edtPrePlato.text.toString().toDouble()
                     val codCatPlato = spCatplato.selectedItemPosition + 1
                     val cat = "C-00$codCatPlato"
-
+                    //validando
+                    val platsvali = platoDao.obtenerTodo()
+                    val nombreplatoRepetido = platsvali.any{it.plato.nombrePlato ==nombre && it.plato.id != platobean.plato.id }
+                    if(nombreplatoRepetido){
+                        mostrarToast("El Plato ya existe en otro plato")
+                        return@launch
+                    }
                     platobean.plato.nombrePlato = nombre
                     platobean.plato.precioPlato = precio
                     platobean.plato.catplato_id = cat
@@ -248,8 +263,8 @@ class ActualizarPlato:AppCompatActivity() {
     fun validarCampos() : Boolean{
         val nombre = edtNamePlato.text.toString()
         val precio = edtPrePlato.text.toString()
-        val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\\\s]+\$"
-        val REGEX_PRECIO = "^-?\\d+\\.?\\d*\$"
+        val REGEX_NOMBRE = "^[A-Z][a-zA-Z\\s]*\$"
+        val REGEX_PRECIO = "^[\\d]{1,3}(?:,[\\d]{3})*(?:\\.[\\d]{1,2})?\$"
 
         if (!REGEX_NOMBRE.toRegex().matches(nombre)) {
             // El campo nombre no cumple con el formato esperado

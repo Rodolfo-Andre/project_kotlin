@@ -83,15 +83,13 @@
 
             <TextView
                 android:id="@+id/tvCatNomPlatos"
-                android:layout_width="91dp"
+                android:layout_width="110dp"
                 android:layout_height="18dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="270dp"
                 android:layout_marginTop="31dp"
-                android:layout_marginEnd="31dp"
                 android:layout_marginBottom="59dp"
                 android:text="TextView" />
 

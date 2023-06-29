@@ -122,11 +122,11 @@ class NuevoPlato : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (validarCampos()) {
                 if (imageData != null) {
-                    val nombrep = edtNombrePlato.text.toString().trim().lowercase()
+                    val nombrep = edtNombrePlato.text.toString().trim()
                     val listaPlatos = platoDao.obtenerTodo()
                     for (plato in listaPlatos) {
                         val validaplato= plato.plato.nombrePlato.trim().lowercase()
-                        if (nombrep == validaplato) {
+                        if (nombrep.lowercase() == validaplato) {
                             mostrarToast("No se puede registrar el mismo plato")
                             return@launch
                         }
