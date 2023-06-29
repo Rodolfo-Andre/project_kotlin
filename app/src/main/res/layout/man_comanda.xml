@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="410dp"
-        android:layout_height="230dp"
+        android:layout_width="411dp"
+        android:layout_height="229dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -68,22 +68,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.14" />
 
-    <TextView
-        android:id="@+id/tvSinComandas"
-        android:layout_width="168dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/baloo_thambi"
-        android:gravity="center_horizontal"
-        android:text="No hay comandas"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
-
     <Button
         android:id="@+id/btnNuevaComanda"
         android:layout_width="158dp"
@@ -109,33 +93,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.973" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="413dp"
-        android:layout_height="291dp"
-        android:orientation="vertical"
-        android:padding="16dp"
+    <ScrollView
+        android:layout_width="410dp"
+        android:layout_height="342dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73">
+        app:layout_constraintVertical_bias="0.75">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-        <ScrollView
-            android:layout_width="310dp"
-            android:layout_height="368dp">
+            <TextView
+                android:id="@+id/tvSinComandas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_thambi"
+                android:gravity="center_horizontal"
+                android:text="No hay comandas"
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvComanda"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="318dp"
                 android:layout_marginBottom="10dp" />
-        </ScrollView>
-
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
