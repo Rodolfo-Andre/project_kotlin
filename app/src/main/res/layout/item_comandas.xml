@@ -28,11 +28,11 @@
 
             <TextView
                 android:id="@+id/textView42"
-                android:layout_width="106dp"
+                android:layout_width="136dp"
                 android:layout_height="26dp"
                 android:gravity="center_vertical"
                 android:text="FECHA DE CREACIÓN:"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintHorizontal_bias="0.055"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_height="26dp"
                 android:gravity="center_vertical"
                 android:text="ID COMANDA:"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.055"
@@ -57,7 +57,7 @@
             <TextView
                 android:id="@+id/tvComandaIdList"
                 android:layout_width="106dp"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 android:layout_height="26dp"
                 android:text="-"
                 android:gravity="center"
@@ -74,7 +74,7 @@
                 android:layout_height="26dp"
                 android:gravity="center_vertical"
                 android:text="ID MESA:"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.055"
@@ -88,7 +88,7 @@
                 android:layout_height="26dp"
                 android:gravity="center"
                 android:text="-"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.46"
@@ -102,7 +102,7 @@
                 android:layout_height="26dp"
                 android:gravity="center"
                 android:text="-"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,11 +111,11 @@
 
             <TextView
                 android:id="@+id/textView44"
-                android:layout_width="128dp"
+                android:layout_width="138dp"
                 android:layout_height="26dp"
                 android:gravity="center_vertical"
                 android:text="ESTADO DE COMANDA:"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.06"
@@ -128,7 +128,7 @@
                 android:layout_width="106dp"
                 android:layout_height="26dp"
                 android:text="-"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -160,6 +160,6 @@
                 app:srcCompat="@drawable/comandas" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

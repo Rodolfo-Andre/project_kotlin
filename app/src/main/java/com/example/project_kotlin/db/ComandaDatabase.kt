@@ -115,8 +115,8 @@ abstract class ComandaDatabase : RoomDatabase() {
 
                             //Establecimiento
                             establecimientoDao?.guardar(
-                                Establecimiento(1, "Establecimiento1",
-                                    "966250432", "Dirección pruebas", "12345678910")
+                                Establecimiento(1, "Makako Burger",
+                                    "942850902", "Av.Izaguirre", "20217382809")
                             )
                             //Tipo comprobante
                             tipoComprobanteDao?.guardar(TipoComprobante(tipo = "Nota de Venta"))
